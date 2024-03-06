@@ -8,7 +8,6 @@
 	$id = $_SESSION['admin']['id_member'];
 	$hasil = $lihat -> member_edit($id);
 ?>
-	<h4>Keranjang Penjualan</h4>
 	<br>
 	<?php if(isset($_GET['success'])){?>
 	<div class="alert alert-success">
@@ -24,17 +23,20 @@
 		<div class="col-sm-4">
 			<div class="card card-primary mb-3">
 				<div class="card-header bg-primary text-white">
-					<h5><i class="fa fa-search"></i> Cari Barang</h5>
+					<h5>Data Admin</h5>
 				</div>
 				<div class="card-body">
-					<input type="text" id="cari" class="form-control" name="cari" placeholder="Masukan : Kode / Nama Barang  [ENTER]">
+					<div class="table-responsive">
+						<div id="hasil_cari"></div>
+						<div id="tunggu"></div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-8">
 			<div class="card card-primary mb-3">
 				<div class="card-header bg-primary text-white">
-					<h5><i class="fa fa-list"></i> Hasil Pencarian</h5>
+					<h5>Data Costumer</h5>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -49,29 +51,47 @@
 		<div class="col-sm-12">
 			<div class="card card-primary">
 				<div class="card-header bg-primary text-white">
-					<h5><i class="fa fa-shopping-cart"></i> KASIR
+					<h5> Transaction
 					<a class="btn btn-danger float-right" 
-						onclick="javascript:return confirm('Apakah anda ingin reset keranjang ?');" href="fungsi/hapus/hapus.php?penjualan=jual">
-						<b>RESET KERANJANG</b></a>
+					href="fungsi/hapus/hapus.php?penjualan=jual">
+						<b> Reset All </b></a>
 					</h5>
 				</div>
 				<div class="card-body">
 					<div id="keranjang" class="table-responsive">
 						<table class="table table-bordered">
 							<tr>
-								<td><b>Tanggal</b></td>
+								<td><b>Date </b></td>
 								<td><input type="text" readonly="readonly" class="form-control" value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
 							</tr>
 						</table>
-						<table class="table table-bordered w-100" id="example1">
+						<table class="table table-bordered">
+							<tr>
+								<td><b>Due Date</b></td>
+								<td><input type="text" readonly="readonly" class="form-control" value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
+							</tr>
+						</table>
+						<table class="table table-bordered w-100">
+							<div class="col-sm-12">
+								<div class="card card-primary">
+									<div class="card card-primary mb-3">
+										<div class="card-header bg-primary text-white">
+											<a class="btn btn-danger float-right" 
+											href="fungsi/hapus/hapus.php?penjualan=jual">
+											<b> Add </b></a>
+										</div>
+									</div>
+								</div>
+							</div>
 							<thead>
 								<tr>
-									<td> No</td>
-									<td> Nama Barang</td>
-									<td style="width:10%;"> Jumlah</td>
-									<td style="width:20%;"> Total</td>
-									<td> Kasir</td>
-									<td> Aksi</td>
+									<td> Date <input type="text" class="form-control" value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
+									<td> Unit <p>1</p></td>
+									<td style="width:20%;"> Item & Description
+										<p>Lambo | Car</p></td>
+									<td style="width:10%;"> Rate</td>
+									<td> Quantity</td>
+									<td> Amount</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -165,28 +185,9 @@
 								<tr>
 									<td>Total Semua  </td>
 									<td><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>"></td>
-								
-									<td>Bayar  </td>
-									<td><input type="text" class="form-control" name="bayar" value="<?php echo $bayar;?>"></td>
-									<td><button class="btn btn-success"><i class="fa fa-shopping-cart"></i> Bayar</button>
-									<?php  if(!empty($_GET['nota'] == 'yes')) {?>
-										<a class="btn btn-danger" href="fungsi/hapus/hapus.php?penjualan=jual">
-										<b>RESET</b></a></td><?php }?></td>
 								</tr>
 							</form>
-							<!-- aksi ke table nota -->
-							<tr>
-								<td>Kembali</td>
-								<td><input type="text" class="form-control" value="<?php echo $hitung;?>"></td>
-								<td></td>
-								<td>
-									<a href="print.php?nm_member=<?php echo $_SESSION['admin']['nm_member'];?>
-									&bayar=<?php echo $bayar;?>&kembali=<?php echo $hitung;?>" target="_blank">
-									<button class="btn btn-secondary">
-										<i class="fa fa-print"></i> Print Untuk Bukti Pembayaran
-									</button></a>
-								</td>
-							</tr>
+							
 						</table>
 						<br/>
 						<br/>
