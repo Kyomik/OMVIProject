@@ -34,7 +34,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Managed Accountssss</span></a>
+            <span>Managed Accounts</span></a>
     </li>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
