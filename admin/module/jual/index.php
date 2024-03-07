@@ -5,8 +5,8 @@
       *********************************************************************************************************************************************************** -->
       <!--main content start-->
 <?php 
-	$id = $_SESSION['admin']['id_member'];
-	$hasil = $lihat -> member_edit($id);
+	// $id = $_SESSION['admin']['id_member'];
+	// $hasil = $lihat -> member_edit($id);
 ?>
 	<br>
 	<?php if(isset($_GET['success'])){?>
@@ -20,20 +20,49 @@
 	</div>
 	<?php }?>
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
 				<div class="card-header bg-primary text-white">
 					<h5>Data Admin</h5>
 				</div>
 				<div class="card-body">
+
 					<div class="table-responsive">
 						<div id="hasil_cari"></div>
 						<div id="tunggu"></div>
 					</div>
+					<!-- ================== -->
+
+				
+					<div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                   
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+											<td>tes</td>
+                                        </tr>
+										<tr>
+                                            <th>nomor telpon</th>
+											<td>087856757585</td>
+                                        </tr>
+										<tr>
+                                            <th>nama negara</th>
+											<td>indonesia</td>
+                                        </tr>
+                                    </tfoot>
+								
+                                </table>
+                            </div>
+                    </div>
+
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-8">
+
+
+		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
 				<div class="card-header bg-primary text-white">
 					<h5>Data Costumer</h5>
@@ -42,6 +71,28 @@
 					<div class="table-responsive">
 						<div id="hasil_cari"></div>
 						<div id="tunggu"></div>
+						<div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                   
+                                    <tfoot>
+                                        <tr>
+                                            <th >Name</th>
+											<td>tes</td>
+                                        </tr>
+										<tr>
+                                            <th>nomor telpon</th>
+											<td>087856757585</td>
+                                        </tr>
+										<tr>
+                                            <th>nama negara</th>
+											<td>indonesia</td>
+                                        </tr>
+                                    </tfoot>
+								
+                                </table>
+                            </div>
+                    </div>
 					</div>
 				</div>
 			</div>
@@ -61,44 +112,67 @@
 					<div id="keranjang" class="table-responsive">
 						<table class="table table-bordered">
 							<tr>
-								<td><b>Date </b></td>
+								<td style="width:20%;"><b>Date </b></td>
 								<td><input type="text" readonly="readonly" class="form-control" value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
 							</tr>
 						</table>
 						<table class="table table-bordered">
 							<tr>
-								<td><b>Due Date</b></td>
+								<td style="width:20%;"><b>Due Date</b></td>
 								<td><input type="text" readonly="readonly" class="form-control" value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
 							</tr>
 						</table>
 						<table class="table table-bordered w-100">
-							<div class="col-sm-12">
+							<thead class="col-sm-12">
 								<div class="card card-primary">
-									<div class="card card-primary mb-3">
-										<div class="card-header bg-primary text-white">
-											<a class="btn btn-danger float-right" 
-											href="fungsi/hapus/hapus.php?penjualan=jual">
+									<div class="card-header bg-primary text-white">
+										<h5> Data Transaction <a class="btn btn-danger float-right" href="fungsi/hapus/hapus.php?penjualan=jual">
 											<b> Add </b></a>
-										</div>
+										</h5>
 									</div>
 								</div>
-							</div>
-							<thead>
-								<tr>
-									<td> Date <input type="text" class="form-control" value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
-									<td> Unit <p>1</p></td>
-									<td style="width:20%;"> Item & Description
-										<p>Lambo | Car</p></td>
-									<td style="width:10%;"> Rate</td>
-									<td> Quantity</td>
-									<td> Amount</td>
-								</tr>
 							</thead>
+							
+							<div>
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Unit</th>
+										<th>Item & Description</th>
+										<th>Rate</th>
+										<th>Quantity</th>
+										<th>Amount</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Tiger Nixon</td>
+										<td>System Architect</td>
+										<td>Edinburgh</td>
+										<td>61</td>
+										<td>2011/04/25</td>
+										<td>$320,800</td>
+									</tr>
+									<tr>
+										<td>Cedric Kelly</td>
+										<td>Senior Javascript Developer</td>
+										<td>Edinburgh</td>
+										<td>22</td>
+										<td>2012/03/29</td>
+										<td>$433,060</td>
+									</tr>
+						
+								</tbody>
+										
+								
+							</div>
+						</div>
+							
 							<tbody>
 								<?php $total_bayar=0; $no=1; $hasil_penjualan = $lihat -> penjualan();?>
 								<?php foreach($hasil_penjualan  as $isi){?>
 								<tr>
-									<td><?php echo $no;?></td>
+									<td><?php echo $no;?>]]</td>
 									<td><?php echo $isi['nama_barang'];?></td>
 									<td>
 										<!-- aksi ke table penjualan -->
@@ -184,7 +258,7 @@
 								<?php $no++; }?>
 								<tr>
 									<td>Total Semua  </td>
-									<td><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>"></td>
+									<td style="width:80%;"><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>"></td>
 								</tr>
 							</form>
 							
@@ -195,6 +269,8 @@
 				</div>
 			</div>
 		</div>
+
+
 	</div>
 	
 

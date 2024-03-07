@@ -4,7 +4,7 @@
 	@ob_start();
 	session_start();
 
-	if(!empty($_SESSION['admin'])){
+	if(true){
 		require 'config.php';
 		include $view;
 		$lihat = new view($config);
