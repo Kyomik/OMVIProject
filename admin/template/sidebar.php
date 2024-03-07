@@ -32,7 +32,7 @@ okelah
            Master
        </div> -->
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item active">
+    <li class="nav-item active"> 
         <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Managed Accounts</span></a>
