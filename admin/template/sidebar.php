@@ -1,4 +1,3 @@
-okelah
 <!--sidebar start-->
 <?php 
     $id = $_SESSION['admin']['id_member'];
