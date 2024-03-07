@@ -41,13 +41,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true"
             aria-controls="collapse3">
             <i class="fas fa-fw fa-desktop"></i>
-            <span>Transaksi</span>
+            <span>Transaction</span>
         </a>
         <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                <a class="collapse-item" href="index.php?page=jual">Transaksi Jual</a>
-                <a class="collapse-item" href="index.php?page=laporan">Laporan Penjualan</a>
+                <a class="collapse-item" href="index.php?page=jual">Add</a>
+                <a class="collapse-item" href="index.php?page=laporan">View</a>
             </div>
         </div>
     </li>
