@@ -31,9 +31,11 @@
            Master
        </div> -->
     <!-- Nav Item - Pages Collapse Menu -->
+
     <li class="nav-item active">
         <a class="nav-link collapsed" href="index.php?page=barang">
             <i class="fas fa-fw fa-database"></i>maneger akun</a>
+
     </li>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
