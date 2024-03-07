@@ -11,7 +11,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-cash-register"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">POS Codekop<sup></sup></div>
+        <div class="sidebar-brand-text mx-3">OMVI SINGAPURE<sup></sup></div>
     </a>
 
     <!-- Divider -->
@@ -52,11 +52,12 @@
         </div>
     </li>
     <hr class="sidebar-divider">
-    <li class="nav-item active">
+    <!-- <li class="nav-item active">
         <a class="nav-link" href="index.php?page=pengaturan">
             <i class="fas fa-fw fa-cogs"></i>
             <span>Pengaturan Toko</span></a>
-    </li>
+    </li> -->
+    
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
