@@ -33,10 +33,7 @@
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
             <i class="fa fa-plus"></i> Insert Data</button>
-        <a href="index.php?page=barang&stok=yes" class="btn btn-warning btn-md mr-2">
-            <i class="fa fa-list"></i> Sortir Stok Kurang</a>
-        <a href="index.php?page=barang" class="btn btn-success btn-md">
-            <i class="fa fa-refresh"></i> Refresh Data</a>
+
         <div class="clearfix"></div>
         <br />
         <!-- view barang -->
@@ -46,15 +43,11 @@
                     <thead>
                         <tr style="background:#DFF0D8;color:#333;">
                             <th>No.</th>
-                            <th>ID Barang</th>
-                            <th>Kategori</th>
-                            <th>Nama Barang</th>
-                            <th>Merk</th>
-                            <th>Stok</th>
-                            <th>Harga Beli</th>
-                            <th>Harga Jual</th>
-                            <th>Satuan</th>
-                            <th>Aksi</th>
+                            <th>No Telpon</th>
+                            <th>email</th>
+                            <th>Nama user</th>
+                            <th>Password</th>
+                            <th style="width:22%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,17 +70,10 @@
                             <td><?php echo $isi['id_barang'];?></td>
                             <td><?php echo $isi['nama_kategori'];?></td>
                             <td><?php echo $isi['nama_barang'];?></td>
-                            <td><?php echo $isi['merk'];?></td>
-                            <td>
-                                <?php if($isi['stok'] == '0'){?>
-                                <button class="btn btn-danger"> Habis</button>
-                                <?php }else{?>
-                                <?php echo $isi['stok'];?>
-                                <?php }?>
-                            </td>
-                            <td>Rp.<?php echo number_format($isi['harga_beli']);?>,-</td>
-                            <td>Rp.<?php echo number_format($isi['harga_jual']);?>,-</td>
-                            <td> <?php echo $isi['satuan_barang'];?></td>
+                            <td><?php echo $isi['id_barang'];?></td>
+                       
+                           
+                
                             <td>
                                 <?php if($isi['stok'] <=  '3'){?>
                                 <form method="POST" action="fungsi/edit/edit.php?stok=edit">
@@ -120,15 +106,7 @@
 						}
 					?>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="5">Total </td>
-                            <th><?php echo $totalStok;?></td>
-                            <th>Rp.<?php echo number_format($totalBeli);?>,-</td>
-                            <th>Rp.<?php echo number_format($totalJual);?>,-</td>
-                            <th colspan="2" style="background:#ddd"></th>
-                        </tr>
-                    </tfoot>
+                    
                 </table>
             </div>
         </div>

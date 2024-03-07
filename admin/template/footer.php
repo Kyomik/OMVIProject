@@ -8,8 +8,8 @@
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span>
-                    <?php echo date('Y');?> - Sistem Penjualan Barang Berbasis Web |
-                    BY <b><a href="https://codekop.com" target="_blank">CODEKOP.COM</a></b>
+                    <?php echo date('Y');?> - tes |
+                    BY <b><a href="#" target="_blank">OMVI Singapure</a></b>
                 </span>
             </div>
         </div>

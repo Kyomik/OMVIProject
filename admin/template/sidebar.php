@@ -11,7 +11,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-cash-register"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">POS Codekop<sup></sup></div>
+        <div class="sidebar-brand-text mx-3">OMVI SINGAPURE<sup></sup></div>
     </a>
 
     <!-- Divider -->
@@ -32,20 +32,8 @@
        </div> -->
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-            aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-database"></i>
-            <span>Data Master</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                <a class="collapse-item" href="index.php?page=barang">Barang</a>
-                <a class="collapse-item" href="index.php?page=kategori">Kategori</a>
-         
-                <!-- <a class="collapse-item" href="index.php?page=user">User</a> -->
-            </div>
-        </div>
+        <a class="nav-link collapsed" href="index.php?page=barang">
+            <i class="fas fa-fw fa-database"></i>maneger akun</a>
     </li>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
@@ -63,11 +51,12 @@
         </div>
     </li>
     <hr class="sidebar-divider">
-    <li class="nav-item active">
+    <!-- <li class="nav-item active">
         <a class="nav-link" href="index.php?page=pengaturan">
             <i class="fas fa-fw fa-cogs"></i>
             <span>Pengaturan Toko</span></a>
-    </li>
+    </li> -->
+    
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
