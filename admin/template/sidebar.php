@@ -32,7 +32,7 @@
        </div> -->
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active"> 
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="index.php?page=barang">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Managed Accounts</span></a>
     </li>
