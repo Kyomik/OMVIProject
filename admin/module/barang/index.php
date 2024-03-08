@@ -71,32 +71,12 @@
                             <td><?php echo $isi['nama_kategori'];?></td>
                             <td><?php echo $isi['nama_barang'];?></td>
                             <td><?php echo $isi['id_barang'];?></td>
-                       
-                           
-                
                             <td>
-                                <?php if($isi['stok'] <=  '3'){?>
-                                <form method="POST" action="fungsi/edit/edit.php?stok=edit">
-                                    <input type="text" name="restok" class="form-control">
-                                    <input type="hidden" name="id" value="<?php echo $isi['id_barang'];?>"
-                                        class="form-control">
-                                    <button class="btn btn-primary btn-sm">
-                                        Restok
-                                    </button>
-                                    <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>"
-                                        onclick="javascript:return confirm('Hapus Data barang ?');">
-                                        <button class="btn btn-danger btn-sm">Hapus</button></a>
-                                </form>
-                                <?php }else{?>
-                                <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>"><button
-                                        class="btn btn-primary btn-xs">Details</button></a>
-
-                                <a href="index.php?page=barang/edit&barang=<?php echo $isi['id_barang'];?>"><button
-                                        class="btn btn-warning btn-xs">Edit</button></a>
-                                <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>"
-                                    onclick="javascript:return confirm('Hapus Data barang ?');"><button
+                            
+                            <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>"><button class="btn btn-primary btn-xs">Details</button></a>
+                            <a href="index.php?page=barang/edit&barang=<?php echo $isi['id_barang'];?>"><button class="btn btn-warning btn-xs">Edit</button></a>
+                            <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>" onclick="javascript:return confirm('Hapus Data barang ?');"><button
                                         class="btn btn-danger btn-xs">Hapus</button></a>
-                                <?php }?>
                         </tr>
                         <?php 
 							$no++; 
