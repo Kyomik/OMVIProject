@@ -1,7 +1,7 @@
 <!--sidebar start-->
 <?php 
-    $id = $_SESSION['admin']['id_member'];
-    $hasil_profil = $lihat -> member_edit($id);
+    // $id = $_SESSION['admin']['id_member'];
+    // $hasil_profil = $lihat -> member_edit($id);
 ?>
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
