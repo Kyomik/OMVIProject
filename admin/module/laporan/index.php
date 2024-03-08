@@ -130,34 +130,44 @@
 					<table class="table table-bordered w-100 table-sm" id="example1">
 						<thead>
 							<tr style="background:#DFF0D8;color:#333;">
-							<th > No</th>
-								<th style="width:15%;"> ID TRANSAKSI</th>
-								<th style="width:15%;"> TGL PEMBUATAN</th>
-								<th style="width:10%;"> TGL TEMPO</th>
-								<th style="width:10%;"> ADMIN</th>
-								<th style="width:10%;"> JUMLA ITEM</th>
-								<th style="width:10%;"> TOTAL HARGA</th>
+								<th > No</th>
+								<th> ID TRANSAKSI</th>
+								<th> TGL PEMBUATAN</th>
+								<th> TGL TEMPO</th>
+								<th> ADMIN</th>
+								<th> JUMLA ITEM</th>
+								<th> TOTAL HARGA</th>
 								<th>AKSI</th>
 							</tr>
 						</thead>
 						<tbody>
+							<tr>
+								<td>1</td>
+								<td>System Architect</td>
+								<td>Edinburgh</td>
+								<td>61</td>
+								<td>2011/04/25</td>
+								<td>$320,800</td>
+								<td>2011/04/25</td>
+								
+							</tr>
 							<?php 
-								$no=1; 
-								if(!empty($_GET['cari'])){
-									$periode = $_POST['bln'].'-'.$_POST['thn'];
-									$no=1; 
-									$jumlah = 0;
-									$bayar = 0;
-									$hasil = $lihat -> periode_jual($periode);
-								}elseif(!empty($_GET['hari'])){
-									$hari = $_POST['hari'];
-									$no=1; 
-									$jumlah = 0;
-									$bayar = 0;
-									$hasil = $lihat -> hari_jual($hari);
-								}else{
-									$hasil = $lihat -> jual();
-								}
+								// $no=1; 
+								// if(!empty($_GET['cari'])){
+								// 	$periode = $_POST['bln'].'-'.$_POST['thn'];
+								// 	$no=1; 
+								// 	$jumlah = 0;
+								// 	$bayar = 0;
+								// 	$hasil = $lihat -> periode_jual($periode);
+								// }elseif(!empty($_GET['hari'])){
+								// 	$hari = $_POST['hari'];
+								// 	$no=1; 
+								// 	$jumlah = 0;
+								// 	$bayar = 0;
+								// 	$hasil = $lihat -> hari_jual($hari);
+								// }else{
+								// 	$hasil = $lihat -> jual();
+								// }
 							?>
 							<?php 
 								$bayar = 0;
