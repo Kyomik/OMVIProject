@@ -1,9 +1,3 @@
- <!--sidebar end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
-      <!--main content start-->
 <?php 
 	// $id = $_SESSION['admin']['id_member'];
 	// $hasil = $lihat -> member_edit($id);
@@ -19,7 +13,7 @@
 		<p>Hapus Data Berhasil !</p>
 	</div>
 	<?php }?>
-	<div class="row">
+	<form class="row">
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
 				<div class="card-header bg-primary text-white">
@@ -31,8 +25,6 @@
 						<div id="hasil_cari"></div>
 						<div id="tunggu"></div>
 					</div>
-					<!-- ================== -->
-
 				
 					<div class="card-body">
                             <div class="table-responsive">
@@ -74,7 +66,6 @@
 						<div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                   
                                     <tfoot>
                                         <tr>
                                             <th >Name</th>
@@ -89,15 +80,13 @@
 											<td>indonesia</td>
                                         </tr>
                                     </tfoot>
-								
                                 </table>
                             </div>
-                    </div>
+                    	</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
 
 		<div class="col-sm-12">
 			<div class="card card-primary">
@@ -122,157 +111,58 @@
 								<td><input type="text" readonly="readonly" class="form-control" value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
 							</tr>
 						</table>
-						<table class="table table-bordered w-100">
-							<thead class="col-sm-12">
+							<div class="col-sm-12">
 								<div class="card card-primary">
 									<div class="card-header bg-primary text-white">
-										<h5> Data Transaction <a class="btn btn-danger float-right" href="fungsi/hapus/hapus.php?penjualan=jual">
+										<h5> Data Items <a class="btn btn-danger float-right" href="fungsi/hapus/hapus.php?penjualan=jual">
 											<b> Add </b></a>
 										</h5>
 									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>Date</th>
+														<th>Unit</th>
+														<th>Item & Description</th>
+														<th>Rate</th>
+														<th>Quantity</th>
+														<th>Amount</th>
+													</tr>
+												</thead>
+												<tbody class="card-body">
+													<tr>
+														<td value="<?php echo date("j F Y, G:i");?>" name="tgl"></td>
+														<td>1</td>
+														<td>Edinburgh</td>
+														<td>61</td>
+														<td>6</td>
+														<td>$320,800</td>
+													</tr>
+													<tr>
+														<td>08/03/2024</td>
+														<td>2</td>
+														<td>Senior Javascript Developer</td>
+														<td>22</td>
+														<td>50</td>
+														<td>$433,060</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
 								</div>
-							</thead>
-							
-							<div>
-								<thead>
-									<tr>
-										<th>Date</th>
-										<th>Unit</th>
-										<th>Item & Description</th>
-										<th>Rate</th>
-										<th>Quantity</th>
-										<th>Amount</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Tiger Nixon</td>
-										<td>System Architect</td>
-										<td>Edinburgh</td>
-										<td>61</td>
-										<td>2011/04/25</td>
-										<td>$320,800</td>
-									</tr>
-									<tr>
-										<td>Cedric Kelly</td>
-										<td>Senior Javascript Developer</td>
-										<td>Edinburgh</td>
-										<td>22</td>
-										<td>2012/03/29</td>
-										<td>$433,060</td>
-									</tr>
-						
-								</tbody>
-										
-								
 							</div>
-						</div>
-							
-							<tbody>
-								<?php $total_bayar=0; $no=1; $hasil_penjualan = $lihat -> penjualan();?>
-								<?php foreach($hasil_penjualan  as $isi){?>
-								<tr>
-									<td><?php echo $no;?>]]</td>
-									<td><?php echo $isi['nama_barang'];?></td>
-									<td>
-										<!-- aksi ke table penjualan -->
-										<form method="POST" action="fungsi/edit/edit.php?jual=jual">
-												<input type="number" name="jumlah" value="<?php echo $isi['jumlah'];?>" class="form-control">
-												<input type="hidden" name="id" value="<?php echo $isi['id_penjualan'];?>" class="form-control">
-												<input type="hidden" name="id_barang" value="<?php echo $isi['id_barang'];?>" class="form-control">
-											</td>
-											<td>Rp.<?php echo number_format($isi['total']);?>,-</td>
-											<td><?php echo $isi['nm_member'];?></td>
-											<td>
-												<button type="submit" class="btn btn-warning">Update</button>
-										</form>
-										<!-- aksi ke table penjualan -->
-										<a href="fungsi/hapus/hapus.php?jual=jual&id=<?php echo $isi['id_penjualan'];?>&brg=<?php echo $isi['id_barang'];?>
-											&jml=<?php echo $isi['jumlah']; ?>"  class="btn btn-danger"><i class="fa fa-times"></i>
-										</a>
-									</td>
-								</tr>
-								<?php $no++; $total_bayar += $isi['total'];}?>
-							</tbody>
-					</table>
-					<br/>
-					<?php $hasil = $lihat -> jumlah(); ?>
-					<div id="kasirnya">
-						<table class="table table-stripped">
-							<?php
-							// proses bayar dan ke nota
-							if(!empty($_GET['nota'] == 'yes')) {
-								$total = $_POST['total'];
-								$bayar = $_POST['bayar'];
-								if(!empty($bayar))
-								{
-									$hitung = $bayar - $total;
-									if($bayar >= $total)
-									{
-										$id_barang = $_POST['id_barang'];
-										$id_member = $_POST['id_member'];
-										$jumlah = $_POST['jumlah'];
-										$total = $_POST['total1'];
-										$tgl_input = $_POST['tgl_input'];
-										$periode = $_POST['periode'];
-										$jumlah_dipilih = count($id_barang);
-										
-										for($x=0;$x<$jumlah_dipilih;$x++){
-
-											$d = array($id_barang[$x],$id_member[$x],$jumlah[$x],$total[$x],$tgl_input[$x],$periode[$x]);
-											$sql = "INSERT INTO nota (id_barang,id_member,jumlah,total,tanggal_input,periode) VALUES(?,?,?,?,?,?)";
-											$row = $config->prepare($sql);
-											$row->execute($d);
-
-											// ubah stok barang
-											$sql_barang = "SELECT * FROM barang WHERE id_barang = ?";
-											$row_barang = $config->prepare($sql_barang);
-											$row_barang->execute(array($id_barang[$x]));
-											$hsl = $row_barang->fetch();
-											
-											$stok = $hsl['stok'];
-											$idb  = $hsl['id_barang'];
-
-											$total_stok = $stok - $jumlah[$x];
-											// echo $total_stok;
-											$sql_stok = "UPDATE barang SET stok = ? WHERE id_barang = ?";
-											$row_stok = $config->prepare($sql_stok);
-											$row_stok->execute(array($total_stok, $idb));
-										}
-										echo '<script>alert("Belanjaan Berhasil Di Bayar !");</script>';
-									}else{
-										echo '<script>alert("Uang Kurang ! Rp.'.$hitung.'");</script>';
-									}
-								}
-							}
-							?>
-							<!-- aksi ke table nota -->
-							<form method="POST" action="index.php?page=jual&nota=yes#kasirnya">
-								<?php foreach($hasil_penjualan as $isi){;?>
-									<input type="hidden" name="id_barang[]" value="<?php echo $isi['id_barang'];?>">
-									<input type="hidden" name="id_member[]" value="<?php echo $isi['id_member'];?>">
-									<input type="hidden" name="jumlah[]" value="<?php echo $isi['jumlah'];?>">
-									<input type="hidden" name="total1[]" value="<?php echo $isi['total'];?>">
-									<input type="hidden" name="tgl_input[]" value="<?php echo $isi['tanggal_input'];?>">
-									<input type="hidden" name="periode[]" value="<?php echo date('m-Y');?>">
-								<?php $no++; }?>
-								<tr>
-									<td>Total Semua  </td>
-									<td style="width:80%;"><input type="text" class="form-control" name="total" value="<?php echo $total_bayar;?>"></td>
-								</tr>
-							</form>
-							
-						</table>
-						<br/>
-						<br/>
 					</div>
 				</div>
 			</div>
+			<br>
 		</div>
-
-
-	</div>
-	
+		<div class="btn-container" style="width: 100%; border: 1px solid transparent;">
+		<button class="btn btn-submit" style="border:1px solid #1cc88a; background-color: #1cc88a; color: white; display:inline-block; float: right; margin-right: 50px;"><b>Submit</b></button>
+		</div>
+	</form>
 
 <script>
 // AJAX call for autocomplete 
@@ -294,5 +184,4 @@ $(document).ready(function(){
 		});
 	});
 });
-//To select country name
 </script>
