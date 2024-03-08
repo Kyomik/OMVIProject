@@ -1,4 +1,4 @@
-        <h4>Data Barang</h4>
+        <h4>Data Akun</h4>
         <br />
         <?php if(isset($_GET['success-stok'])){?>
         <div class="alert alert-success">
@@ -32,7 +32,7 @@
 		?>
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-            <i class="fa fa-plus"></i> Insert Data</button>
+            <i class="fa fa-plus"></i> Tambah Akun</button>
 
         <div class="clearfix"></div>
         <br />
