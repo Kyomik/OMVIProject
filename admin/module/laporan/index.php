@@ -151,6 +151,7 @@
 								<td>2011/04/25</td>
 								
 							</tr>
+						</tbody>
 							<?php 
 								// $no=1; 
 								// if(!empty($_GET['cari'])){
@@ -169,30 +170,6 @@
 								// 	$hasil = $lihat -> jual();
 								// }
 							?>
-							<?php 
-								$bayar = 0;
-								$jumlah = 0;
-								$modal = 0;
-								foreach($hasil as $isi){ 
-									$bayar += $isi['total'];
-									$modal += $isi['harga_beli']* $isi['jumlah'];
-									$jumlah += $isi['jumlah'];
-							?>
-							<tr>
-								<td><?php echo $no;?></td>
-								<td><?php echo $isi['id_barang'];?></td>
-								<td><?php echo $isi['nama_barang'];?></td>
-								<td><?php echo $isi['jumlah'];?> </td>
-								<td>Rp.<?php echo number_format($isi['harga_beli']* $isi['jumlah']);?>,-</td>
-								<td>Rp.<?php echo number_format($isi['total']);?>,-</td>
-								<td><?php echo $isi['nm_member'];?></td>
-								<td><?php echo $isi['jumlah'];?> </td>
-								<td><?php echo $isi['jumlah'];?> </td>
-								<td><?php echo $isi['tanggal_input'];?></td>
-							</tr>
-							<?php $no++; }?>
-						</tbody>
-						
 					</table>
 				</div>
 			</div>
