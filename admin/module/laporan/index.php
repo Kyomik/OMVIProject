@@ -21,11 +21,11 @@
 						<button class="btn btn-danger">RESET</button>
 					</a>-->
 			<?php if(!empty($_GET['cari'])){ ?>
-			Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?>
+			<!-- Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?> -->
 			<?php }elseif(!empty($_GET['hari'])){?>
-			Data Laporan Penjualan <?= $_POST['hari'];?>
+			<!-- Data Laporan Penjualan <?= $_POST['hari'];?> -->
 			<?php }else{?>
-			Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?>
+			<!-- Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?> -->
 			<?php }?>
 		</h4>
 		<br />
@@ -126,6 +126,7 @@
          <!-- view barang -->
 		<div class="card">
 			<div class="card-body">
+				<div class="test" id="example1_length" style="width:100%; border: 1px solid black; height: 50px;"></div>
 				<div class="table-responsive">
 					<table class="table table-bordered w-100 table-sm" id="example1">
 						<thead>

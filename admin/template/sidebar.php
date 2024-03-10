@@ -11,7 +11,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i ><img style="width:100%;" src="assets/img/user/travelnew.png" alt=""></i>
         </div>
-        <div class="sidebar-brand-text mx-3">OMVI SINGAPURE<sup></sup></div>
+        <div class="sidebar-brand-text mx-3">OMFAI SINGAPORE<sup></sup></div>
     </a>
 
     <!-- Divider -->
