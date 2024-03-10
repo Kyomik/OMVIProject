@@ -152,7 +152,7 @@
 						<table class="table table-stripped">
 							<tr>
 								<td>Total</td>
-								<td><input readonly="readonly" type="number" class="form-control" name="total" placeholder="$ 15000000"></td>
+								<td><input readonly="readonly" type="number" class="form-control" name="total" id="total"></td>
 							</tr>
 						</table>
 					</div>
@@ -259,6 +259,7 @@ function AddTable() {
             input.type = "number";
             cell.appendChild(input);
             row.appendChild(cell);
+            input.placeholder = 'Amount';
             input.readOnly = true;
         }
         tblBody.appendChild(row);
@@ -269,29 +270,39 @@ function AddTable() {
     });
 }
 
+function calculateTotal() {
+    total = 0; // Setel total ke 0 sebelum memulai perhitungan ulang
+    const amountInputs = document.querySelectorAll("input[placeholder='Amount']");
+    amountInputs.forEach(input => {
+        if (!isNaN(parseFloat(input.value))) {
+            total += parseFloat(input.value);
+        }
+    });
+    document.getElementById('total').value = total;
+}
+
 function calculateAmount() {
     const row = this.parentNode.parentNode; // Mendapatkan elemen baris (tr)
     let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value);
     let quantity = parseFloat(row.querySelector("input[placeholder='Quantity']").value);
     let amountInput = row.querySelector("input[placeholder='Amount']");
-
     if(isNaN(quantity)){
         quantity = 0;
     }
-
     if(isNaN(rate)){
         rate = 0;
     }
-
     let amount = rate * quantity;
-
     if (!isNaN(amount)) {
-        // Mengatur nilai input 'Amount' ke satu angka desimal
         amountInput.value = Math.round(amount); // Memperbaiki ke Math.round(amount)
     } else {
         amountInput.value = ''; // Mengosongkan nilai input 'Amount' jika perhitungan tidak valid
     }
+
+    calculateTotal();
 }
+
+
 
 
 </script>
