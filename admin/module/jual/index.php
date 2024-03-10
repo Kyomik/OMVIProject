@@ -92,7 +92,7 @@
 			<div class="card card-primary">
 				<div class="card-header bg-primary text-white">
 					<h5> Transaction
-					<button class="btn btn-danger float-right" type="reset" value="Reset Data" onclick="fun()">
+					<button class="btn btn-danger float-right" type="reset" value="Reset Data" onclick="resetdata()">
 						<b> Reset All </b></button>
 					</h5>
 				</div>
@@ -114,7 +114,7 @@
 								<div class="card card-primary">
 									<div class="card-header bg-primary text-white">
 										<h5> Data Items 
-											<input class="btn btn-danger float-right" value="Add" onclick="AddTable()" type="button">
+											<button class="btn btn-danger float-right"  value="Add" onclick="AddTable()" type="button">
 											<b> Add </b></button>
 										</h5>
 									</div>
@@ -185,21 +185,26 @@ $(document).ready(function(){
 	});
 });
 
-        let nomorBerurut = 1;
+
 
 // Button reset
-	function fun(){
-    // document.getElementsTagName("input").reset();
-		for (let i = 0; i < inputs.length; i++) {
-        inputs[i].value = ''; // Mengosongkan nilai setiap input
+function resetdata(){
+	const inputs = document.getElementsByTagName("input");
+    for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].type === "text" || inputs[i].type === "number" || inputs[i].type === "date") {
+            inputs[i].value = ''; 
+        }
     }
+
  }
 
+let nomorBerurut = 1;
+
 function tambahNomor() {
-            let nomor = nomorBerurut;
-            nomorBerurut++;
-            return nomor;
-        }
+    let nomor = nomorBerurut;
+    nomorBerurut++;
+    return nomor;
+}
 
 // Add Button
 function AddTable() {
@@ -218,12 +223,11 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "number";
-            input.placeholder = 'Unit' + tambahNomor();
+            input.placeholder = 'Unit' + nomorBerurut;
             input.value = nomorBerurut++;
             input.readOnly = true; // Membuat input hanya bisa dibaca
             cell.appendChild(input);
             row.appendChild(input);
-            console.log("kimak")
         }
         for (let j = 0; j < 1; j++) {
             const cell = document.createElement("td");
