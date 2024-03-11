@@ -47,7 +47,7 @@
                             <th>email</th>
                             <th>Nama user</th>
                             <th>Password</th>
-                            <th style="width:22%;">Aksi</th>
+                            <th style="width:15%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,13 +67,13 @@
 					?>
                         <tr>
                             <td><?php echo $no;?></td>
-                            <td><?php echo $isi['id_barang'];?></td>
-                            <td><?php echo $isi['nama_kategori'];?></td>
+                            <td>0859373376723</td>
+                            <td>tes@gmail.com</td>
                             <td><?php echo $isi['nama_barang'];?></td>
-                            <td><?php echo $isi['id_barang'];?></td>
+                            <td>tesjii</td>
                             <td>
                             
-                            <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>"><button class="btn btn-primary btn-xs">Details</button></a>
+                            <!-- <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>"><button class="btn btn-primary btn-xs">Details</button></a> -->
                             <a href="index.php?page=barang/edit&barang=<?php echo $isi['id_barang'];?>"><button class="btn btn-warning btn-xs">Edit</button></a>
                             <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>" onclick="javascript:return confirm('Hapus Data barang ?');"><button
                                         class="btn btn-danger btn-xs">Hapus</button></a>
@@ -109,61 +109,23 @@
 									$format = $lihat -> barang_id();
 								?>
                                 <tr>
-                                    <td>ID Barang</td>
-                                    <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
+                                    <td>No Telpon</td>
+                                    <td><input type="text" readonly="readonly" required value="No telpon"
                                             class="form-control" name="id"></td>
                                 </tr>
+                               
                                 <tr>
-                                    <td>Kategori</td>
-                                    <td>
-                                        <select name="kategori" class="form-control" required>
-                                            <option value="#">Pilih Kategori</option>
-                                            <?php  $kat = $lihat -> kategori(); foreach($kat as $isi){ 	?>
-                                            <option value="<?php echo $isi['id_kategori'];?>">
-                                                <?php echo $isi['nama_kategori'];?></option>
-                                            <?php }?>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Nama Barang</td>
-                                    <td><input type="text" placeholder="Nama Barang" required class="form-control"
+                                    <td>email</td>
+                                    <td><input type="text" placeholder="email" required class="form-control"
                                             name="nama"></td>
                                 </tr>
                                 <tr>
-                                    <td>Merk Barang</td>
-                                    <td><input type="text" placeholder="Merk Barang" required class="form-control"
+                                    <td>UserNama</td>
+                                    <td><input type="text" placeholder="username" required class="form-control"
                                             name="merk"></td>
                                 </tr>
-                                <tr>
-                                    <td>Harga Beli</td>
-                                    <td><input type="number" placeholder="Harga beli" required class="form-control"
-                                            name="beli"></td>
-                                </tr>
-                                <tr>
-                                    <td>Harga Jual</td>
-                                    <td><input type="number" placeholder="Harga Jual" required class="form-control"
-                                            name="jual"></td>
-                                </tr>
-                                <tr>
-                                    <td>Satuan Barang</td>
-                                    <td>
-                                        <select name="satuan" class="form-control" required>
-                                            <option value="#">Pilih Satuan</option>
-                                            <option value="PCS">PCS</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Stok</td>
-                                    <td><input type="number" required Placeholder="Stok" class="form-control"
-                                            name="stok"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Input</td>
-                                    <td><input type="text" required readonly="readonly" class="form-control"
-                                            value="<?php echo  date("j F Y, G:i");?>" name="tgl"></td>
-                                </tr>
+                              
+                               
                             </table>
                         </div>
                         <div class="modal-footer">
