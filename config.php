@@ -21,7 +21,7 @@ error_reporting(0);
 	// sesuaikan dengan server anda
 	$host 	= 'localhost'; // host server
 	$user 	= 'root';  // username server
-	$pass 	= ''; // password server, kalau pakai xampp kosongin saja
+	$pass 	= 'ammarjie500'; // password server, kalau pakai xampp kosongin saja
 	$dbname = 'db_toko'; // nama database anda
 	
 	try{
