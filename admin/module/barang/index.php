@@ -1,4 +1,4 @@
-        <h4>Data Akun</h4>
+<h4>Data Akun</h4>
         <br />
         <?php if(isset($_GET['success-stok'])){?>
         <div class="alert alert-success">
@@ -15,20 +15,13 @@
             <p>Hapus Data Berhasil !</p>
         </div>
         <?php }?>
-
         <?php 
-			$sql=" select * from barang where stok <= 3";
+			$sql = "SELECT akun.id_akun, akun.nama, akun.no_telp, akun.hak_access, login.username, login.password
+            FROM akun
+            INNER JOIN login ON akun.id_akun = login.id_akun";
 			$row = $config -> prepare($sql);
 			$row -> execute();
 			$r = $row -> rowCount();
-			if($r > 0){
-				echo "
-				<div class='alert alert-warning'>
-					<span class='glyphicon glyphicon-info-sign'></span> Ada <span style='color:red'>$r</span> barang yang Stok tersisa sudah kurang dari 3 items. silahkan pesan lagi !!
-					<span class='pull-right'><a href='index.php?page=barang&stok=yes'>Cek Barang <i class='fa fa-angle-double-right'></i></a></span>
-				</div>
-				";	
-			}
 		?>
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
@@ -43,49 +36,42 @@
                     <thead>
                         <tr style="background:#DFF0D8;color:#333;">
                             <th>No.</th>
+                            <th>nama</th>
                             <th>No Telpon</th>
-                            <th>email</th>
+                            <th>Hak Akses</th>
                             <th>Nama user</th>
                             <th>Password</th>
                             <th style="width:15%;">Aksi</th>
                         </tr>
+                        
                     </thead>
                     <tbody>
-                        <?php 
-						$totalBeli = 0;
-						$totalJual = 0;
-						$totalStok = 0;
-						if($_GET['stok'] == 'yes')
-						{
-							$hasil = $lihat -> barang_stok();
-
-						}else{
-							$hasil = $lihat -> barang();
-						}
-						$no=1;
-						foreach($hasil as $isi) {
-					?>
-                        <tr>
-                            <td><?php echo $no;?></td>
-                            <td>0859373376723</td>
-                            <td>tes@gmail.com</td>
-                            <td><?php echo $isi['nama_barang'];?></td>
-                            <td>tesjii</td>
-                            <td>
-                            
-                            <!-- <a href="index.php?page=barang/details&barang=<?php echo $isi['id_barang'];?>"><button class="btn btn-primary btn-xs">Details</button></a> -->
-                            <a href="index.php?page=barang/edit&barang=<?php echo $isi['id_barang'];?>"><button class="btn btn-warning btn-xs">Edit</button></a>
-                            <a href="fungsi/hapus/hapus.php?barang=hapus&id=<?php echo $isi['id_barang'];?>" onclick="javascript:return confirm('Hapus Data barang ?');"><button
-                                        class="btn btn-danger btn-xs">Hapus</button></a>
-                        </tr>
-                        <?php 
-							$no++; 
-							$totalBeli += $isi['harga_beli'] * $isi['stok']; 
-							$totalJual += $isi['harga_jual'] * $isi['stok'];
-							$totalStok += $isi['stok'];
-						}
-					?>
-                    </tbody>
+                <?php 
+                $no = 1; // Inisialisasi nomor urut
+                foreach ($row as $data) {
+                ?>
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $data['nama']; ?></td>
+                    <td><?php echo $data['no_telp']; ?></td>
+                    <td><?php  if ($data['hak_access'] == 1) {
+                                echo "Manajer";
+                            } elseif ($data['hak_access'] == 0) {
+                                echo "Admin";
+                            } else {
+                                echo "Unknown";
+                            } ?></td>
+                    <td><?php echo $data['username']; ?></td>
+                    <td><?php echo $data['password']; ?></td>
+                    <td>
+                        <a href="index.php?page=barang/edit&barang=<?php echo $data['id_akun']; ?>"><button class="btn btn-warning btn-xs">Edit</button></a>
+                        <a href="fungsi/hapus/hapus.php?akun=hapus&id=<?php echo $data['id_akun']; ?>" onclick="javascript:return confirm('Hapus Data akun ?');"><button class="btn btn-danger btn-xs">Hapus</button></a>
+                    </td>
+                </tr>
+                <?php 
+                }
+                ?>
+            </tbody>
                     
                 </table>
             </div>
@@ -102,27 +88,43 @@
                         <h5 class="modal-title"><i class="fa fa-plus"></i> Tambah Barang</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <form action="fungsi/tambah/tambah.php?barang=tambah" method="POST">
+                    <form action="fungsi/tambah/tambah.php?akun=tambah" method="POST">
                         <div class="modal-body">
                             <table class="table table-striped bordered">
-                                <?php
-									$format = $lihat -> barang_id();
-								?>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td><input type="text" placeholder="nama" required 
+                                            class="form-control" name="nama"></td>
+                                </tr>
+
                                 <tr>
                                     <td>No Telpon</td>
-                                    <td><input type="text" readonly="readonly" required value="No telpon"
-                                            class="form-control" name="id"></td>
+                                    <td><input type="text" placeholder="no telpon" required 
+                                            class="form-control" name="No_Telpon"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Hak akses</td>
+                                    <td>
+                                        <select class="form-control" style="width:100%;" id="hakAksesSelect" name="hakAkses" >
+                                            <option  value="admin">Admin</option>
+                                            <option  value="user">User</option>
+                                           
+                                        </select>
+                                    </td>
                                 </tr>
                                
+        
                                 <tr>
-                                    <td>email</td>
-                                    <td><input type="text" placeholder="email" required class="form-control"
-                                            name="nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>UserNama</td>
+                                    <td>username</td>
                                     <td><input type="text" placeholder="username" required class="form-control"
-                                            name="merk"></td>
+                                            name="username"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>password</td>
+                                    <td><input type="text" placeholder="password" required class="form-control"
+                                            name="password"></td>
                                 </tr>
                               
                                

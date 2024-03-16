@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2024 at 11:56 AM
+-- Generation Time: Mar 16, 2024 at 04:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -72,15 +72,16 @@ CREATE TABLE `item` (
   `id_item` int(10) NOT NULL,
   `nama` varchar(20) NOT NULL,
   `harga` varchar(15) NOT NULL,
-  `jumlah` varchar(10) NOT NULL
+  `jumlah` varchar(10) NOT NULL,
+  `tgl` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`id_transaksi`, `id_item`, `nama`, `harga`, `jumlah`) VALUES
-(27, 1, 'bee', '2500000', '2');
+INSERT INTO `item` (`id_transaksi`, `id_item`, `nama`, `harga`, `jumlah`, `tgl`) VALUES
+(27, 1, 'bee', '2500000', '2', NULL);
 
 -- --------------------------------------------------------
 
@@ -175,6 +176,18 @@ ALTER TABLE `akun`
 --
 ALTER TABLE `customer`
   MODIFY `id_customer` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `item`
+--
+ALTER TABLE `item`
+  MODIFY `id_item` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables

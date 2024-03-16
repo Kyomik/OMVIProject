@@ -1,44 +1,50 @@
 <?php
 
 session_start();
-if (!empty($_SESSION['admin'])) {
+// if (!empty($_SESSION['admin'])) {
     require '../../config.php';
-    if (!empty($_GET['kategori'])) {
-        $nama= htmlentities(htmlentities($_POST['kategori']));
-        $tgl= date("j F Y, G:i");
-        $data[] = $nama;
-        $data[] = $tgl;
-        $sql = 'INSERT INTO kategori (nama_kategori,tgl_input) VALUES(?,?)';
-        $row = $config -> prepare($sql);
-        $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=kategori&&success=tambah-data"</script>';
-    }
 
-    if (!empty($_GET['barang'])) {
-        $id = htmlentities($_POST['id']);
-        $kategori = htmlentities($_POST['kategori']);
+    if (!empty($_GET['akun'])) {
+
+      
         $nama = htmlentities($_POST['nama']);
-        $merk = htmlentities($_POST['merk']);
-        $beli = htmlentities($_POST['beli']);
-        $jual = htmlentities($_POST['jual']);
-        $satuan = htmlentities($_POST['satuan']);
-        $stok = htmlentities($_POST['stok']);
-        $tgl = htmlentities($_POST['tgl']);
-
-        $data[] = $id;
-        $data[] = $kategori;
-        $data[] = $nama;
-        $data[] = $merk;
-        $data[] = $beli;
-        $data[] = $jual;
-        $data[] = $satuan;
-        $data[] = $stok;
-        $data[] = $tgl;
-        $sql = 'INSERT INTO barang (id_barang,id_kategori,nama_barang,merk,harga_beli,harga_jual,satuan_barang,stok,tgl_input) 
-			    VALUES (?,?,?,?,?,?,?,?,?) ';
-        $row = $config -> prepare($sql);
-        $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=barang&success=tambah-data"</script>';
+        $no_telp = htmlentities($_POST['No_Telpon']);
+        $hak_access = htmlentities($_POST['hakAkses']);
+        $username = htmlentities($_POST['username']);
+        $password = htmlentities($_POST['password']);
+       
+        try {
+            // Mulai transaksi
+            $config->beginTransaction();
+        
+            // Query SQL untuk menyisipkan data ke dalam tabel akun
+            $sql_insert_akun = "INSERT INTO akun (nama, no_telp, hak_access) VALUES (:nama, :no_telp, :hak_access)";
+            $stmt_akun = $config->prepare($sql_insert_akun);
+            $stmt_akun->bindParam(':nama', $nama);
+            $stmt_akun->bindParam(':no_telp', $no_telp);
+            $stmt_akun->bindParam(':hak_access', $hak_access);
+            $stmt_akun->execute();
+        
+            // Ambil ID akun yang baru saja dimasukkan
+            $id_akun_baru = $config->lastInsertId();
+        
+            // Query SQL untuk menyisipkan data ke dalam tabel login
+            $sql_insert_login = "INSERT INTO login (username, password, id_akun) VALUES (:username, :password, :id_akun)";
+            $stmt_login = $config->prepare($sql_insert_login);
+            $stmt_login->bindParam(':username', $username);
+            $stmt_login->bindParam(':password', $password);
+            $stmt_login->bindParam(':id_akun', $id_akun_baru);
+            $stmt_login->execute();
+        
+            // Commit transaksi
+            $config->commit();
+        
+            echo '<script>window.location="../../index.php?page=barang&success=tambah-data"</script>';
+        } catch (PDOException $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            $config->rollBack();
+            echo "Error: " . $e->getMessage();
+        }
     }
     
     if (!empty($_GET['jual'])) {
@@ -72,4 +78,4 @@ if (!empty($_SESSION['admin'])) {
 					window.location="../../index.php?page=jual#keranjang"</script>';
         }
     }
-}
+// }
