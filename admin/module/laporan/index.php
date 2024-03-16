@@ -21,11 +21,11 @@
 						<button class="btn btn-danger">RESET</button>
 					</a>-->
 			<?php if(!empty($_GET['cari'])){ ?>
-			Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?>
+			<!-- Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?> -->
 			<?php }elseif(!empty($_GET['hari'])){?>
-			Data Laporan Penjualan <?= $_POST['hari'];?>
+			<!-- Data Laporan Penjualan <?= $_POST['hari'];?> -->
 			<?php }else{?>
-			Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?>
+			<!-- Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?> -->
 			<?php }?>
 		</h4>
 		<br />
@@ -126,6 +126,7 @@
          <!-- view barang -->
 		<div class="card">
 			<div class="card-body">
+				<div class="test" id="example1_length" style="width:100%; border: 1px solid black; height: 50px;"></div>
 				<div class="table-responsive">
 					<table class="table table-bordered w-100 table-sm" id="example1">
 						<thead>
@@ -151,6 +152,7 @@
 								<td>2011/04/25</td>
 								
 							</tr>
+						</tbody>
 							<?php 
 								// $no=1; 
 								// if(!empty($_GET['cari'])){
@@ -169,30 +171,6 @@
 								// 	$hasil = $lihat -> jual();
 								// }
 							?>
-							<?php 
-								$bayar = 0;
-								$jumlah = 0;
-								$modal = 0;
-								foreach($hasil as $isi){ 
-									$bayar += $isi['total'];
-									$modal += $isi['harga_beli']* $isi['jumlah'];
-									$jumlah += $isi['jumlah'];
-							?>
-							<tr>
-								<td><?php echo $no;?></td>
-								<td><?php echo $isi['id_barang'];?></td>
-								<td><?php echo $isi['nama_barang'];?></td>
-								<td><?php echo $isi['jumlah'];?> </td>
-								<td>Rp.<?php echo number_format($isi['harga_beli']* $isi['jumlah']);?>,-</td>
-								<td>Rp.<?php echo number_format($isi['total']);?>,-</td>
-								<td><?php echo $isi['nm_member'];?></td>
-								<td><?php echo $isi['jumlah'];?> </td>
-								<td><?php echo $isi['jumlah'];?> </td>
-								<td><?php echo $isi['tanggal_input'];?></td>
-							</tr>
-							<?php $no++; }?>
-						</tbody>
-						
 					</table>
 				</div>
 			</div>

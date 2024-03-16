@@ -8,8 +8,8 @@
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span>
-                    <?php echo date('Y');?> - tes |
-                    BY <b><a href="#" target="_blank">OMVI Singapure</a></b>
+                    <?php echo date('Y');?> - Copyright |
+                    BY <b><a href="#" target="_blank">OMFAI SINGAPORE</a></b>
                 </span>
             </div>
         </div>
