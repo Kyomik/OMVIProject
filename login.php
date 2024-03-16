@@ -4,14 +4,14 @@
 	if(isset($_POST['proses'])){
 		require 'config.php';
 			
-		$user = strip_tags($_POST['user']);
-		$pass = strip_tags($_POST['pass']);
+		$userusername = strip_tags($_POST['userusernameuserusernamename']);
+		$password = strip_tags($_POST['password']);
 
-		$sql = 'select member.*, login.user, login.pass
+		$sql = 'select member.*, login.userusername, login.password
 				from member inner join login on member.id_member = login.id_member
-				where user =? and pass = md5(?)';
+				where userusername =? and password = md5(?)';
 		$row = $config->prepare($sql);
-		$row -> execute(array($user,$pass));
+		$row -> execute(array($userusername,$password));
 		$jum = $row -> rowCount();
 		if($jum > 0){
 			$hasil = $row -> fetch();
@@ -56,11 +56,11 @@
 							</div>
 							<form class="form-login" method="POST">
 								<div class="form-group">
-									<input type="text" class="form-control form-control-user" name="user"
-										placeholder="User ID" autofocus>
+									<input type="text" class="form-control form-control-user" name="username"
+										placeholder="Username" autofocus>
 								</div>
 								<div class="form-group">
-									<input type="password" class="form-control form-control-user" name="pass"
+									<input type="password" class="form-control form-control-user" name="password"
 										placeholder="Password">
 								</div>
 								<button class="btn btn-primary btn-block" name="proses" type="submit"><i
