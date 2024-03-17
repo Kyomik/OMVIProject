@@ -9,6 +9,7 @@
 		include $view;
 		$lihat = new view($config);
 		$toko = $lihat -> toko();
+
 		//  admin
 			include 'admin/template/header.php';
 			include 'admin/template/sidebar.php';
