@@ -3,24 +3,28 @@
 	session_start();
 	if(isset($_POST['proses'])){
 		require 'config.php';
-			
-		$userusername = strip_tags($_POST['userusernameuserusernamename']);
+		
+		$username = strip_tags($_POST['username']);
 		$password = strip_tags($_POST['password']);
-
-		$sql = 'select member.*, login.userusername, login.password
-				from member inner join login on member.id_member = login.id_member
-				where userusername =? and password = md5(?)';
+		$hashed_password = hash('sha256', $password); // Menggunakan SHA-256 untuk keamanan yang lebih baik
+		
+		$sql = 'SELECT akun.nama, akun.no_telp, akun.hak_access
+				FROM akun INNER JOIN login ON akun.id_akun = login.id_akun
+				WHERE username = ? AND password = ?'; // Tanda tanya disertakan dengan benar
+		
 		$row = $config->prepare($sql);
-		$row -> execute(array($userusername,$password));
-		$jum = $row -> rowCount();
+		$row->execute(array($username, $hashed_password));
+		$jum = $row->rowCount();
+		
 		if($jum > 0){
-			$hasil = $row -> fetch();
-			$_SESSION['admin'] = $hasil;
+			$hasil = $row->fetch();
+			$_SESSION['akun'] = $hasil;
 			echo '<script>alert("Login Sukses");window.location="index.php"</script>';
-		}else{
+		} else {
 			echo '<script>alert("Login Gagal");history.go(-1);</script>';
 		}
 	}
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">

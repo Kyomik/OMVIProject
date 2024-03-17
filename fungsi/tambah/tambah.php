@@ -12,6 +12,7 @@ session_start();
         $hak_access = htmlentities($_POST['hakAkses']);
         $username = htmlentities($_POST['username']);
         $password = htmlentities($_POST['password']);
+        $password = hash('sha256', $password); 
        
         try {
             // Mulai transaksi
