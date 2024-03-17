@@ -1,81 +1,102 @@
 <?php
 session_start();
-if (!empty($_SESSION['admin'])) {
+// if (!empty($_SESSION['admin'])) {
     require '../../config.php';
-    if (!empty($_GET['pengaturan'])) {
-        $nama= htmlentities($_POST['namatoko']);
-        $alamat = htmlentities($_POST['alamat']);
-        $kontak = htmlentities($_POST['kontak']);
-        $pemilik = htmlentities($_POST['pemilik']);
-        $id = '1';
+    // if (!empty($_GET['pengaturan'])) {
+    //     $nama= htmlentities($_POST['namatoko']);
+    //     $alamat = htmlentities($_POST['alamat']);
+    //     $kontak = htmlentities($_POST['kontak']);
+    //     $pemilik = htmlentities($_POST['pemilik']);
+    //     $id = '1';
 
-        $data[] = $nama;
-        $data[] = $alamat;
-        $data[] = $kontak;
-        $data[] = $pemilik;
-        $data[] = $id;
-        $sql = 'UPDATE toko SET nama_toko=?, alamat_toko=?, tlp=?, nama_pemilik=? WHERE id_toko = ?';
-        $row = $config -> prepare($sql);
-        $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=pengaturan&success=edit-data"</script>';
-    }
+    //     $data[] = $nama;
+    //     $data[] = $alamat;
+    //     $data[] = $kontak;
+    //     $data[] = $pemilik;
+    //     $data[] = $id;
+    //     $sql = 'UPDATE toko SET nama_toko=?, alamat_toko=?, tlp=?, nama_pemilik=? WHERE id_toko = ?';
+    //     $row = $config -> prepare($sql);
+    //     $row -> execute($data);
+    //     echo '<script>window.location="../../index.php?page=pengaturan&success=edit-data"</script>';
+    // }
 
-    if (!empty($_GET['kategori'])) {
-        $nama= htmlentities($_POST['kategori']);
-        $id= htmlentities($_POST['id']);
-        $data[] = $nama;
-        $data[] = $id;
-        $sql = 'UPDATE kategori SET  nama_kategori=? WHERE id_kategori=?';
-        $row = $config -> prepare($sql);
-        $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=kategori&uid='.$id.'&success-edit=edit-data"</script>';
-    }
+    // if (!empty($_GET['kategori'])) {
+    //     $nama= htmlentities($_POST['kategori']);
+    //     $id= htmlentities($_POST['id']);
+    //     $data[] = $nama;
+    //     $data[] = $id;
+    //     $sql = 'UPDATE kategori SET  nama_kategori=? WHERE id_kategori=?';
+    //     $row = $config -> prepare($sql);
+    //     $row -> execute($data);
+    //     echo '<script>window.location="../../index.php?page=kategori&uid='.$id.'&success-edit=edit-data"</script>';
+    // }
 
-    if (!empty($_GET['stok'])) {
-        $restok = htmlentities($_POST['restok']);
-        $id = htmlentities($_POST['id']);
-        $dataS[] = $id;
-        $sqlS = 'select*from barang WHERE id_barang=?';
-        $rowS = $config -> prepare($sqlS);
-        $rowS -> execute($dataS);
-        $hasil = $rowS -> fetch();
+    // if (!empty($_GET['stok'])) {
+    //     $restok = htmlentities($_POST['restok']);
+    //     $id = htmlentities($_POST['id']);
+    //     $dataS[] = $id;
+    //     $sqlS = 'select*from barang WHERE id_barang=?';
+    //     $rowS = $config -> prepare($sqlS);
+    //     $rowS -> execute($dataS);
+    //     $hasil = $rowS -> fetch();
 
-        $stok = $restok + $hasil['stok'];
+    //     $stok = $restok + $hasil['stok'];
 
-        $data[] = $stok;
-        $data[] = $id;
-        $sql = 'UPDATE barang SET stok=? WHERE id_barang=?';
-        $row = $config -> prepare($sql);
-        $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=barang&success-stok=stok-data"</script>';
-    }
+    //     $data[] = $stok;
+    //     $data[] = $id;
+    //     $sql = 'UPDATE barang SET stok=? WHERE id_barang=?';
+    //     $row = $config -> prepare($sql);
+    //     $row -> execute($data);
+    //     echo '<script>window.location="../../index.php?page=barang&success-stok=stok-data"</script>';
+    // }
 
-    if (!empty($_GET['barang'])) {
-        $id = htmlentities($_POST['id']);
-        $kategori = htmlentities($_POST['kategori']);
+    if (!empty($_GET['akun'])) {
+        $id_akun = htmlentities($_POST['id']);
         $nama = htmlentities($_POST['nama']);
-        $merk = htmlentities($_POST['merk']);
-        $beli = htmlentities($_POST['beli']);
-        $jual = htmlentities($_POST['jual']);
-        $satuan = htmlentities($_POST['satuan']);
-        $stok = htmlentities($_POST['stok']);
-        $tgl = htmlentities($_POST['tgl']);
-
-        $data[] = $kategori;
-        $data[] = $nama;
-        $data[] = $merk;
-        $data[] = $beli;
-        $data[] = $jual;
-        $data[] = $satuan;
-        $data[] = $stok;
-        $data[] = $tgl;
-        $data[] = $id;
-        $sql = 'UPDATE barang SET id_kategori=?, nama_barang=?, merk=?, 
-				harga_beli=?, harga_jual=?, satuan_barang=?, stok=?, tgl_update=?  WHERE id_barang=?';
-        $row = $config -> prepare($sql);
-        $row -> execute($data);
-        echo '<script>window.location="../../index.php?page=barang/edit&barang='.$id.'&success=edit-data"</script>';
+        $no_telp = htmlentities($_POST['no_telp']); // Perhatikan nama input
+        $hak_access = htmlentities($_POST['hak_access']); // Pastikan nama input sesuai
+        $username = htmlentities($_POST['username']);
+        $password = htmlentities($_POST['password']);
+    
+        try {
+            $config->beginTransaction();
+        
+            // Update tabel akun
+            $sql_akun = "UPDATE akun SET nama=:nama, no_telp=:no_telp, hak_access=:hak_access WHERE id_akun=:id_akun";
+            $stmt_akun = $config->prepare($sql_akun);
+            $stmt_akun->bindParam(':nama', $nama);
+            $stmt_akun->bindParam(':no_telp', $no_telp);
+            $stmt_akun->bindParam(':hak_access', $hak_access);
+            $stmt_akun->bindParam(':id_akun', $id_akun);
+            $stmt_akun->execute();
+        
+            // Update tabel login
+            $sql_login = "UPDATE login SET password=:password WHERE id_akun=:id_akun";
+            $stmt_login = $config->prepare($sql_login);
+            $stmt_login->bindParam(':password', $password);
+            $stmt_login->bindParam(':id_akun', $id_akun);
+            $stmt_login->execute();
+        
+            $config->commit();
+        
+            // Arahkan pengguna ke halaman lain setelah proses selesai
+            echo '<script>window.location="../../index.php?page=barang/edit&akun='.$id_akun.'&success=edit-data"</script>';
+            exit();
+        } catch (PDOException $e) {
+            $config->rollBack();
+            echo "Error: " . $e->getMessage();
+        }
+    }else {
+        echo "Parameter 'akun' tidak ditemukan atau kosong";
+        exit;
     }
+    
+    // } else {
+    //     // Jika parameter 'akun' tidak ada, berikan pesan error dan hentikan eksekusi skrip
+    //     echo "Parameter 'akun' tidak ditemukan atau kosong";
+    //     exit;
+    // }
+
 
     if (!empty($_GET['gambar'])) {
         $id = htmlentities($_POST['id']);
@@ -229,4 +250,4 @@ if (!empty($_SESSION['admin'])) {
 <?php
         }
     }
-}
+

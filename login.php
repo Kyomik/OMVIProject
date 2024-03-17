@@ -3,24 +3,28 @@
 	session_start();
 	if(isset($_POST['proses'])){
 		require 'config.php';
-			
-		$user = strip_tags($_POST['user']);
-		$pass = strip_tags($_POST['pass']);
-
-		$sql = 'select member.*, login.user, login.pass
-				from member inner join login on member.id_member = login.id_member
-				where user =? and pass = md5(?)';
+		
+		$username = strip_tags($_POST['username']);
+		$password = strip_tags($_POST['password']);
+		$hashed_password = hash('sha256', $password); // Menggunakan SHA-256 untuk keamanan yang lebih baik
+		
+		$sql = 'SELECT akun.nama, akun.no_telp, akun.hak_access
+				FROM akun INNER JOIN login ON akun.id_akun = login.id_akun
+				WHERE username = ? AND password = ?'; // Tanda tanya disertakan dengan benar
+		
 		$row = $config->prepare($sql);
-		$row -> execute(array($user,$pass));
-		$jum = $row -> rowCount();
+		$row->execute(array($username, $hashed_password));
+		$jum = $row->rowCount();
+		
 		if($jum > 0){
-			$hasil = $row -> fetch();
-			$_SESSION['admin'] = $hasil;
+			$hasil = $row->fetch();
+			$_SESSION['akun'] = $hasil;
 			echo '<script>alert("Login Sukses");window.location="index.php"</script>';
-		}else{
+		} else {
 			echo '<script>alert("Login Gagal");history.go(-1);</script>';
 		}
 	}
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,11 +60,11 @@
 							</div>
 							<form class="form-login" method="POST">
 								<div class="form-group">
-									<input type="text" class="form-control form-control-user" name="user"
-										placeholder="User ID" autofocus>
+									<input type="text" class="form-control form-control-user" name="username"
+										placeholder="Username" autofocus>
 								</div>
 								<div class="form-group">
-									<input type="password" class="form-control form-control-user" name="pass"
+									<input type="password" class="form-control form-control-user" name="password"
 										placeholder="Password">
 								</div>
 								<button class="btn btn-primary btn-block" name="proses" type="submit"><i
