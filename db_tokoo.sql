@@ -200,6 +200,24 @@ ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`);
 COMMIT;
 
+
+/*Table structure for table `toko` */
+
+-- DROP TABLE IF EXISTS `toko`;
+
+-- CREATE TABLE `toko` (
+--   `id_toko` int(11) NOT NULL AUTO_INCREMENT,
+--   `nama_toko` varchar(255) NOT NULL,
+--   `alamat_toko` text NOT NULL,
+--   `tlp` varchar(255) NOT NULL,
+--   `nama_pemilik` varchar(255) NOT NULL,
+--   PRIMARY KEY (`id_toko`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- /*Data for the table `toko` */
+
+-- insert  into `toko`(`id_toko`,`nama_toko`,`alamat_toko`,`tlp`,`nama_pemilik`) values 
+-- (1,'CV Daruttaqwa','Ujung Harapan','081234567890','Fauzan Falah');
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
