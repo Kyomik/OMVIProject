@@ -46,31 +46,31 @@
                         
                     </thead>
                     <tbody>
-                <?php 
-                $no = 1; // Inisialisasi nomor urut
-                foreach ($row as $data) {
-                ?>
-                <tr>
-                    <td><?php echo $no++; ?></td>
-                    <td><?php echo $data['nama']; ?></td>
-                    <td><?php echo $data['no_telp']; ?></td>
-                    <td><?php  if ($data['hak_access'] == 1) {
-                                echo "Manajer";
-                            } elseif ($data['hak_access'] == 0) {
-                                echo "Admin";
-                            } else {
-                                echo "Unknown";
-                            } ?></td>
-                    <td><?php echo $data['username']; ?></td>
-                    <td><?php echo $data['password']; ?></td>
-                    <td>
-                        <a href="index.php?page=barang/edit&barang=<?php echo $data['id_akun']; ?>"><button class="btn btn-warning btn-xs">Edit</button></a>
-                        <a href="fungsi/hapus/hapus.php?akun=hapus&id=<?php echo $data['id_akun']; ?>" onclick="javascript:return confirm('Hapus Data akun ?');"><button class="btn btn-danger btn-xs">Hapus</button></a>
-                    </td>
-                </tr>
-                <?php 
-                }
-                ?>
+                        <?php 
+                        $no = 1; 
+                        foreach ($row as $data) {
+                        ?>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $data['nama']; ?></td>
+                            <td><?php echo $data['no_telp']; ?></td>
+                            <td><?php  if ($data['hak_access'] == 1) {
+                                        echo "Manajer";
+                                    } elseif ($data['hak_access'] == 0) {
+                                        echo "Admin";
+                                    } else {
+                                        echo "Unknown";
+                                    } ?></td>
+                            <td><?php echo $data['username']; ?></td>
+                            <td><?php echo $data['password']; ?></td>
+                            <td>
+                                <a href="index.php?page=barang/edit&akun=<?php echo $data['id_akun']; ?>"><button class="btn btn-warning btn-xs">Edit</button></a>
+                                <a href="fungsi/hapus/hapus.php?akun=hapus&id=<?php echo $data['id_akun']; ?>" onclick="javascript:return confirm('Hapus Data akun ?');"><button class="btn btn-danger btn-xs">Hapus</button></a>
+                            </td>
+                        </tr>
+                        <?php 
+                        }
+                        ?>
             </tbody>
                     
                 </table>
@@ -85,7 +85,7 @@
                 <!-- Modal content-->
                 <div class="modal-content" style=" border-radius:0px;">
                     <div class="modal-header" style="background:#285c64;color:#fff;">
-                        <h5 class="modal-title"><i class="fa fa-plus"></i> Tambah Barang</h5>
+                        
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <form action="fungsi/tambah/tambah.php?akun=tambah" method="POST">
@@ -100,7 +100,7 @@
                                 <tr>
                                     <td>No Telpon</td>
                                     <td><input type="text" placeholder="no telpon" required 
-                                            class="form-control" name="No_Telpon"></td>
+                                            class="form-control" name="no_telp"></td>
                                 </tr>
 
                                 <tr>
