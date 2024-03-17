@@ -64,7 +64,7 @@
                 </center>
             </div>
             <div class="card-footer">
-                <a href='index.php?page=barang'>Tabel
+                <a href='index.php?page=barang'>
                     Item <i class='fa fa-angle-double-right'></i></a>
             </div>
         </div>
