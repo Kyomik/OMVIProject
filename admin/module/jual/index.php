@@ -1,19 +1,9 @@
 <?php 
-	// $id = $_SESSION['admin']['id_member'];
+	// $id = $_SESSION['login']['id_akun'];
 	// $hasil = $lihat -> member_edit($id);
 ?>
-	<br>
-	<?php if(isset($_GET['success'])){?>
-	<div class="alert alert-success">
-		<p>Edit Data Berhasil !</p>
-	</div>
-	<?php }?>
-	<?php if(isset($_GET['remove'])){?>
-	<div class="alert alert-danger">
-		<p>Hapus Data Berhasil !</p>
-	</div>
-	<?php }?>
-	<form class="row">
+
+	<form class="row" method="POST" action="admin/module/jual/add_transaksi.php">
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
 				<div class="card-header bg-primary text-white">
@@ -31,17 +21,21 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                    
                                     <tfoot>
+                                    	<tr>
+                                    		<th hidden="hidden">id_akun</th>
+                                    		<td hidden="hidden"><input type="number" name="id_akun" readonly="readonly" value="6" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+                                    	</tr>
                                         <tr>
                                             <th>Name</th>
-											<td><input type="text" name="name" readonly="readonly" placeholder="Ardbee" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" name="nama" readonly="readonly" placeholder="Ardbee" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
-											<td><input type="tel" name="tlp" readonly="readonly" placeholder="+62" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="tel" name="no_telp" readonly="readonly" placeholder="+62" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Country</th>
-											<td><input type="text" name="country" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" name="negara" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
 								
@@ -65,19 +59,24 @@
 						<div id="tunggu"></div>
 						<div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
                                     <tfoot>
+
+                                    	<tr>
+                                    	<th hidden="hidden">id_customer</th>
+                                    		<td hidden="hidden"><input type="number" name="id_costumer" readonly="readonly" placeholder="" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+                                    	</tr>
                                         <tr>
                                             <th >Name</th>
-											<td><input type="text" name="name" placeholder="Ardbee" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" name="nama" placeholder="Ardbee" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
-											<td><input type="tel" name="phonenumber" placeholder="+62" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="tel" name="no_telp" placeholder="+62" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Country</th>
-											<td><input type="text" name="country" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" name="negara" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -101,13 +100,13 @@
 						<table class="table table-bordered">
 							<tr>
 								<td style="width:20%;"><b>Date </b></td>
-								<td><input type="date" class="form-control" name="tgl" placeholder="date"></td>
+								<td><input type="date" class="form-control" name="tgl_input" placeholder="data"></td>
 							</tr>
 						</table>
 						<table class="table table-bordered">
 							<tr>
 								<td style="width:20%;"><b>Due Date</b></td>
-								<td><input type="date" class="form-control" name="tgl" placeholder="date"></td>
+								<td><input type="date" class="form-control" name="tgl_priode" placeholder="Due Date"></td>
 							</tr>
 						</table>
 							<div class="col-sm-12">
@@ -132,35 +131,69 @@
 													</tr>
 												</thead>
 												<tbody class="card-body" id="MyTBody">
-													<!-- <tr>
-														<td><input type="date" name="Date" id="iDate"></td>
-														<td><input type="number" name="Unit" id="iUnit"></td>
-														<td><input type="text" name="Item and Description" id="iDesc"></td>
-														<td><input type="number" name="Rate" id="iRate"></td>
-														<td><input type="number" name="Quantity" id="iQty"></td>
-														<td><input type="number" name="Amount" id="iAmount"></td>
-													</tr> -->
+													<?php
+
+													// $sql = "SELECT * FROM transaksi";
+													// $result = $koneksi->query($sql);
+
+													// if ($result->num_rows > 0) {
+            										// 	while ($row = $result->fetch_assoc()) {
+                									// 		echo "<tr>";
+                									// 		echo "<td>" . $row['date'] . "</td>";
+                									// 		echo "<td>" . $row['unit'] . "</td>";
+                									// 		echo "<td>" . $row['item_description'] . "</td>";
+                									// 		echo "<td>" . $row['rate'] . "</td>";
+                									// 		echo "<td>" . $row['quantity'] . "</td>";
+                									// 		echo "<td>" . $row['amount'] . "</td>";
+                									// 		echo "</tr>";
+                									// 		$totalAmount += $row['amount'];
+            										// 	}
+        											// } else {
+            										// 	echo "<tr><td colspan='6'>Kimak</td></tr>";
+        											// }
+
+													// $koneksi->close();
+													?>
 												</tbody>
 											</table>
 										</div>
 									</div>
+									<?php
+										// $sql = "SELECT * FROM transaksi";
+										// $result = $koneksi->query($sql);
+
+										// $data = array();
+										// if ($result->num_rows > 0) {
+    									// 	while ($row = $result->fetch_assoc()) {
+        								// 		$data[] = $row;
+    									// 	}
+										// }
+										// echo json_encode($data);
+									?>
 								</div>
 							</div>
 					</div>
 				</div>
-						<div id="kasirnya">
+					<div id="kasirnya">
 						<table class="table table-stripped">
 							<tr>
 								<td>Total</td>
-								<td><input readonly="readonly" type="number" class="form-control" name="total" id="total"></td>
+								<td>
+									<!-- <input type="number" name="total" id="total" readonly="readonly" class="form-control"> -->
+							<?php 
+							echo "<input readonly='readonly' type='number' class='form-control' name='total_harga' id='total' value='" . $totalAmount . "'>"; 
+							?>
+							</td>
+								
 							</tr>
 						</table>
 					</div>
 			</div>
 			<br>
 		</div>
+
 		<div class="btn-container" style="width: 100%; border: 1px solid transparent;">
-		<button class="btn btn-submit" style="border:1px solid #1cc88a; background-color: #1cc88a; color: white; display:inline-block; float: right; margin-right: 50px;" type="submit"><b>Submit</b></button>
+		<button class="btn btn-submit" style="border:1px solid #1cc88a; background-color: #1cc88a; color: white; display:inline-block; float: right; margin-right: 50px;" type="submit" name="submit" onclick="confirmSubmit()"><b>Submit</b></button>
 		</div>
 	</form>
 
@@ -185,7 +218,14 @@ $(document).ready(function(){
 	});
 });
 
-
+// Button Confirm
+function confirmSubmit() {
+    if (confirm("Apakah data yang anda masukan sudah benar ?")) {
+        document.querySelector('form').submit();
+    } else {
+    	// Kimak
+    }
+}
 
 // Button reset
 function resetdata(){
@@ -215,6 +255,7 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.placeholder = 'Date';
+            input.name = "tgl[]";
             input.type = "date";
             cell.appendChild(input);
             row.appendChild(cell);
@@ -233,6 +274,7 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "text";
+            input.name = "nama[]";
             input.placeholder = 'Item & Description';
             cell.appendChild(input);
             row.appendChild(cell);
@@ -241,6 +283,7 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "text";
+            input.name = "harga[]";
             input.placeholder = 'Rate';
             cell.appendChild(input);
             row.appendChild(cell);
@@ -249,6 +292,7 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "number";
+            input.name = "jumlah";
             input.placeholder = 'Quantity';
             cell.appendChild(input);
             row.appendChild(cell);
@@ -271,8 +315,12 @@ function AddTable() {
 }
 
 function calculateTotal() {
+<<<<<<< HEAD
 
     total = 0; // Setel total ke 0 sebelum memulai perhitungan ulang
+=======
+    total = 0; 
+>>>>>>> 23dd864b09ccabb7fe23b1e671aa03588709022c
     const amountInputs = document.querySelectorAll("input[placeholder='Amount']");
     amountInputs.forEach(input => {
         if (!isNaN(parseFloat(input.value))) {
@@ -295,16 +343,11 @@ function calculateAmount() {
     }
     let amount = rate * quantity;
     if (!isNaN(amount)) {
-        amountInput.value = Math.round(amount); // Memperbaiki ke Math.round(amount)
+        amountInput.value = Math.round(amount); 
     } else {
-        amountInput.value = ''; // Mengosongkan nilai input 'Amount' jika perhitungan tidak valid
+        amountInput.value = ''; 
     }
-
     calculateTotal();
 }
-
-
-
-
 </script>
 
