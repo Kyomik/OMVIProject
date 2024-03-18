@@ -2,20 +2,20 @@
 <br/>
 <?php 
    
-	// $sql=" select * from barang where stok <= 3";
-	// $row = $config -> prepare($sql);
-	// $row -> execute();
-	// $r = $row -> rowCount();
-	// if($r > 0){
+	$sql=" select * from login ";
+	$row = $config -> prepare($sql);
+	$row -> execute();
+	$r = $row -> rowCount();
+	if($r > 0){
 ?>
 <?php
-	// 	echo "
-	// 	<div class='alert alert-warning'>
-	// 		<span class='glyphicon glyphicon-info-sign'></span> Ada <span style='color:red'>$r</span> barang yang Stok tersisa sudah kurang dari 3 items. silahkan pesan lagi !!
-	// 		<span class='pull-right'><a href='index.php?page=barang&stok=yes'>Tabel Barang <i class='fa fa-angle-double-right'></i></a></span>
-	// 	</div>
-	// 	";	
-	// }
+		// echo "
+		// <div class='alert alert-warning'>
+		// 	<span class='glyphicon glyphicon-info-sign'></span> Ada <span style='color:red'>$r</span> barang yang Stok tersisa sudah kurang dari 3 items. silahkan pesan lagi !!
+		// 	<span class='pull-right'><a href='index.php?page=barang&stok=yes'>Tabel Barang <i class='fa fa-angle-double-right'></i></a></span>
+		// </div>
+		// ";	
+	}
 ?>
 <?php 
 // $hasil_barang = $lihat -> barang_row();
@@ -32,14 +32,14 @@
 <?php 
 // $jual = $lihat -> jual_row();
 ?>
-<div class="row">
+<div class="row" >
     <!--STATUS cardS -->
-    <div class="col-md-6 mb-3">
+    <div class="col-md-6 mb-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h6 class="pt-2"><i class="fas fa-cubes"></i> Data Custamer</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="height:120px;" >
                 <center>
                     <h1><?php echo number_format($hasil_barang);?>1</h1>
                 </center>
@@ -53,12 +53,12 @@
     </div><!-- /col-md-3-->
     <!-- STATUS cardS -->
     
-    <div class="col-md-6 mb-3">
+    <div class="col-md-6 mb-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h6 class="pt-2"><i class="fas fa-chart-bar"></i> Data Item</h6>
+                <h6 class="pt-2"><i class="fas fa-chart-bar"></i> Data Teransaksi</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="height:120px;">
                 <center>
                     <h1><?php echo number_format($stok['jml']);?>5</h1>
                 </center>
@@ -71,46 +71,29 @@
     </div>
     <!-- /col-md-3-->
 
+  
 
-    <div class="col-md-12 mb-3">
-    <div class="card">
+</div>
+
+
+  <!-- cart -->
+<div class="row">
+    <div class="col-xl-12 col-lg-8">
+        <!-- Bar Chart -->
+        <div class="card shadow mb-4 " >
         <div class="card-header bg-primary text-white">
-            <h6 class="card-title"><i class="fas fa-chart-bar"></i> Data Item</h6>
-        </div>
-        <div class="card-body">
-            <div class="card mt-3">
-                <div class="card-body">
-                    <script>
-                        // Data perbulan (contoh)
-                        const monthlyData = [
-                            { month: "January", value: 100 },
-                            { month: "February", value: 120 },
-                            { month: "March", value: 90 },
-                            { month: "April", value: 110 },
-                            { month: "May", value: 130 },
-                            { month: "June", value: 95 },
-                            { month: "July", value: 115 },
-                            { month: "August", value: 105 },
-                            { month: "September", value: 125 },
-                            { month: "October", value: 85 },
-                            { month: "November", value: 95 },
-                            { month: "December", value: 105 }
-                        ];
-
-                        // Tambahkan data perbulan ke dalam kartu informasi tambahan
-                        const additionalInfoCard = document.querySelector(".card.mt-3 .card-body");
-                        monthlyData.forEach(data => {
-                            const paragraph = document.createElement("p");
-                            paragraph.textContent = `${data.month}: ${data.value}`;
-                            additionalInfoCard.appendChild(paragraph);
-                        });
-                    </script>
+                <h6 class="pt-2"><i class="fas fa-chart-bar"></i>chart</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="myBarChart"></canvas>
                 </div>
+                <hr>
+                Styling for the bar chart can be found in the
+                <!-- <code>/js/demo/chart-bar-demo.js</code> file. -->
             </div>
         </div>
     </div>
+ 
 </div>
 
-
-    <!-- STATUS cardS -->
-</div>
