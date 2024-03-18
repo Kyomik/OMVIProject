@@ -215,6 +215,25 @@
         						</td>
     						</tr>
 						</tbody>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>27</td>
+								<td>03/03/2024</td>
+								<td>25/03/2024</td>
+								<td>Bee</td>
+								<td>10</td>
+								<td>Rp. 2. 500. 000</td>
+								<td>
+								<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
+            					Details
+            					</button>
+								<a href="#">
+									<button class="btn btn-danger btn-xs">Report</button>
+								</a>
+							</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
