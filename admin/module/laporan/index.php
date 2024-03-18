@@ -16,19 +16,6 @@
 ?>
 <div class="row">
 	<div class="col-md-12">
-		<h4>
-			<!--<a  style="padding-left:2pc;" href="fungsi/hapus/hapus.php?laporan=jual" onclick="javascript:return confirm('Data Laporan akan di Hapus ?');">
-						<button class="btn btn-danger">RESET</button>
-					</a>-->
-			<?php if(!empty($_GET['cari'])){ ?>
-			<!-- Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?> -->
-			<?php }elseif(!empty($_GET['hari'])){?>
-			<!-- Data Laporan Penjualan <?= $_POST['hari'];?> -->
-			<?php }else{?>
-			<!-- Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?> -->
-			<?php }?>
-		</h4>
-		<br />
 		<div class="card">
 			<div class="card-header">
 				<h5 class="card-title mt-2">Cari Laporan Per Bulan</h5>
@@ -118,173 +105,106 @@
 							</td>
 						</tr>
 					</table>
-				
+				</form>
 			</div>
 		</div>
-		</form>
-         <br />
-         <br />
-         <!-- view barang -->
-
-    <?php
-
-    // require '../../config.php';
-
-    ?>
-		<div class="card">
-			<div class="card-body">
-				<div class="table-responsive">
-					<div class="row">
-						<div class="col-sm-12 col-md-6">
-							<div class="dataTables_length" id="example1_length">
-								<label>Show 
-									<select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
-										<option value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option>
-									</select> 
-								</label>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-6">
-							<div id="example1_filter" class="dataTables_filter" style="float: right;">
-								<label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label>
-							</div>
-						</div>
-					</div>
-					<?php 
-						$sql = "SELECT t.id_transaksi, t.tgl_input, t.tgl_priode, a.nama AS admin, t.total_harga, COUNT(i.jumlah) AS jumlah_item FROM transaksi t
-							INNER JOIN item i ON t.id_transaksi = i.id_transaksi
-							INNER JOIN akun a ON t.id_akun = a.id_akun
-							GROUP BY t.id_transaksi
-							LIMIT 10";
-					?>
-					<table class="table table-bordered w-100 table-sm" >
-						<thead>
-							<tr style="background:#DFF0D8;color:#333;">
-								<th > No</th>
-								<th> ID TRANSAKSI</th>
-								<th> TGL PEMBUATAN</th>
-								<th> TGL TEMPO</th>
-								<th> ADMIN</th>
-								<th> JUMLA ITEM</th>
-								<th> TOTAL HARGA</th>
-								<th>AKSI</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>27</td>
-								<td>03/03/2024</td>
-								<td>25/03/2024</td>
-								<td>Bee</td>
-								<td>10</td>
-								<td>Rp. 2. 500. 000</td>
-								<td>
+		<div class="card card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-sm" id="example1" >
+					<thead>
+						<tr style="background:#DFF0D8;color:#333;">
+							<th > No</th>
+							<th> ID TRANSAKSI</th>
+							<th> TGL PEMBUATAN</th>
+							<th> TGL TEMPO</th>
+							<th> ADMIN</th>
+							<th> JUMLA ITEM</th>
+							<th> TOTAL HARGA</th>
+							<th>AKSI</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>27</td>
+							<td>03/03/2024</td>
+							<td>25/03/2024</td>
+							<td>Bee</td>
+							<td>10</td>
+							<td>Rp. 2. 500. 000</td>
+							<td>
 								<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
             					Details
             					</button>
-									<a href="#">
-										<button class="btn btn-danger btn-xs">Report</button>
-									</a>
-								</td>
-							</tr>
-						</tbody>
-							<?php 
-								$no=1; 
-								if(!empty($_GET['cari'])){
-									$periode = $_POST['bln'].'-'.$_POST['thn'];
-									$no=1; 
-									$jumlah = 0;
-									$bayar = 0;
-									$hasil = $lihat -> periode_jual($periode);
-								}elseif(!empty($_GET['hari'])){
-									$hari = $_POST['hari'];
-									$no=1; 
-									$jumlah = 0;
-									$bayar = 0;
-									$hasil = $lihat -> hari_jual($hari);
-								}else{
-									$hasil = $lihat -> jual();
-								}
-							?>
-					</table>
-					<div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination" style="float:right;"><li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item next disabled" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>
-					</div>
-				</div>
+								<a href="#">
+									<button class="btn btn-danger btn-xs">Report</button>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<script>
-    			let data_item = [];
-			</script>
 		</div>
 	</div>
+</div>
 
-	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
-    	<div class="modal-dialog">
-    		<!-- Modal Content -->
-    		<div class="modal-content" style="border-radius:0px;">
-    			<div class="modal-header" style="background:#285c64;color:#fff;">
-                        <h5 class="modal-title">Details</h5>
+<div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style=" border-radius:0px;">
+                    <div class="modal-header" style="background:#285c64;color:#fff;">
+                        
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <form method="POST" action="admin/module/laporan/details_modal.php">
-                	<div class="modal-body">
-                		<table class="table table-striped bordered">
-							<?php
-								$format = $lihat -> nama();
-							?>
-								<tr>
-                                    <td>Admin</td>
-                                    <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
-                                            class="form-control" name="nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>Customer</td>
-                                    <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
-                                            class="form-control" name="nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Pembuatan</td>
-                                    <td><input type="date" class="form-control" name="tgl_input"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Priode</td>
-                                    <td><input type="date" required class="form-control"
-                                            name="tgl_priode"></td>
-                                </tr>
-                                <tr>
-                                    <td>Unit</td>
-                                    <td><input type="number" required class="form-control"
-                                            name="unit"></td>
-                                </tr>
-                                <tr>
-                                    <td>Item & Description</td>
-                                    <td><input type="text" required class="form-control"
-                                            name="nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>Jumlah</td>
-                                    <td><input type="number" required class="form-control"
-                                            name="harga"></td>
-                                </tr>
-                                <tr>
-                                    <td>Harga</td>
-                                    <td><input type="number" required class="form-control" 
-                                    		name="jumlah"></td>
-                                </tr>   			
-                		</table>
-                	</div>
-                	<div class="modal-footer">
-                	   	<button type="submit" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-report" data-dismiss="modal">Hapus</button>
                     </div>
-                </form>
-    		</div>
-    	</div>
-    </div>
+                    <form action="fungsi/tambah/tambah.php?akun=tambah" method="POST">
+                        <div class="modal-body">
+                            <table class="table table-striped bordered">
+                                <tr>
+                                    <td>Nama</td>
+                                    <td><input type="text" placeholder="nama" required 
+                                            class="form-control" name="nama"></td>
+                                </tr>
 
+                                <tr>
+                                    <td>No Telpon</td>
+                                    <td><input type="text" placeholder="no telpon" required 
+                                            class="form-control" name="no_telp"></td>
+                                </tr>
 
+                                <tr>
+                                    <td>Hak akses</td>
+                                    <td>
+                                        <select class="form-control" style="width:100%;" id="hakAksesSelect" name="hakAkses" >
+                                            <option  value="admin">Admin</option>
+                                            <option  value="user">User</option>
+                                           
+                                        </select>
+                                    </td>
+                                </tr>
+                               
+        
+                                <tr>
+                                    <td>username</td>
+                                    <td><input type="text" placeholder="username" required class="form-control"
+                                            name="username"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>password</td>
+                                    <td><input type="text" placeholder="password" required class="form-control"
+                                            name="password"></td>
+                                </tr>
+                              
+                               
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Insert
+                                Data</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
