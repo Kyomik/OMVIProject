@@ -11,29 +11,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Begin transaction
-    $config->begin_transaction();
+    $config->beginTransaction();
 
     try {
         // Insert customer data
         $sql_customer = "INSERT INTO customer (nama, no_telp, negara) VALUES (?, ?, ?)";
         $stmt_customer = $config->prepare($sql_customer);
-        $stmt_customer->bind_param("sss", $_POST["nama"], $_POST["no_telp"], $_POST["negara"]);
+        $nama = $_POST["nama"];
+        $no_telp = $_POST["no_telp"];
+        $negara = $_POST["negara"];
+        $stmt_customer->bindParam(1, $nama);
+        $stmt_customer->bindParam(2, $no_telp);
+        $stmt_customer->bindParam(3, $negara);
         $stmt_customer->execute();
-        $last_customer_id = $stmt_customer->insert_id;
+        $last_customer_id = $config->lastInsertId();
 
         // Insert transaction data
-        $sql_transaction = "INSERT INTO transaksi (tgl_input, tgl_priode, id_akun, total_harga) VALUES (?, ?, ?, ?)";
+        $sql_transaction = "INSERT INTO transaksi (tgl_input, tgl_priode, id_akun, total_harga, id_customer) VALUES (?, ?, ?, ?, ?)";
         $stmt_transaction = $config->prepare($sql_transaction);
-        $stmt_transaction->bind_param("sssd", $_POST["tgl_input"], $_POST["tgl_priode"], $_POST["id_akun"], $_POST["total_harga"]);
+        $tgl_input = $_POST["tgl_input"];
+        $tgl_priode = $_POST["tgl_priode"];
+        $id_akun = $_POST["id_akun"];
+        $total_harga = $_POST["total_harga"];
+        $stmt_transaction->bindParam(1, $tgl_input);
+        $stmt_transaction->bindParam(2, $tgl_priode);
+        $stmt_transaction->bindParam(3, $id_akun);
+        $stmt_transaction->bindParam(4, $total_harga);
+        $stmt_transaction->bindParam(5, $last_customer_id);
         $stmt_transaction->execute();
-        $last_transaction_id = $stmt_transaction->insert_id;
+        $last_transaction_id = $config->lastInsertId();
 
         // Insert item data
         $sql_item = "INSERT INTO item (tgl, id_transaksi, nama, harga, jumlah) VALUES (?, ?, ?, ?, ?)";
         $stmt_item = $config->prepare($sql_item);
-
-        // Bind parameters
-        $stmt_item->bind_param("sdsdd", $tgl, $id_transaksi, $nama, $harga, $jumlah);
 
         // Iterate through each item data
         foreach ($_POST["tgl"] as $index => $tgl) {
@@ -44,25 +54,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $jumlah = $_POST["jumlah"][$index];
 
             // Execute prepared statement
+            $stmt_item->bindParam(1, $tgl);
+            $stmt_item->bindParam(2, $id_transaksi);
+            $stmt_item->bindParam(3, $nama);
+            $stmt_item->bindParam(4, $harga);
+            $stmt_item->bindParam(5, $jumlah);
             $stmt_item->execute();
         }
 
-        // Close prepared statement for item
-        $stmt_item->close();
-
         // Commit transaction
         $config->commit();
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
         // Rollback transaction if any error occurs
         $config->rollback();
         die("Error: " . $e->getMessage());
     } finally {
         // Close statements
-        $stmt_customer->close();
-        $stmt_transaction->close();
+        $stmt_customer = null;
+        $stmt_transaction = null;
+        $stmt_item = null;
     }
 
     // Close connection
-    $config->close();
+    $config = null;
 }
 ?>

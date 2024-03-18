@@ -47,10 +47,13 @@
                     </thead>
                     <tbody>
                         <?php 
+                         echo "berak";
                         $no = 1; 
                         foreach ($row as $data) {
+
                         ?>
                         <tr>
+
                             <td><?php echo $no++; ?></td>
                             <td><?php echo $data['nama']; ?></td>
                             <td><?php echo $data['no_telp']; ?></td>
