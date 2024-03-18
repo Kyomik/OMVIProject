@@ -1,81 +1,68 @@
 <h4>Data Akun</h4>
         <br />
-        <?php if(isset($_GET['success-stok'])){?>
-        <div class="alert alert-success">
-            <p>Tambah Stok Berhasil !</p>
-        </div>
-        <?php }?>
-        <?php if(isset($_GET['success'])){?>
-        <div class="alert alert-success">
-            <p>Tambah Data Berhasil !</p>
-        </div>
-        <?php }?>
-        <?php if(isset($_GET['remove'])){?>
-        <div class="alert alert-danger">
-            <p>Hapus Data Berhasil !</p>
-        </div>
-        <?php }?>
-        <?php 
-			$sql = "SELECT akun.id_akun, akun.nama, akun.no_telp, akun.hak_access, login.username, login.password
+<?php 
+    $sql = "SELECT akun.id_akun, akun.nama, akun.no_telp, akun.hak_access, login.username, login.password
             FROM akun
             INNER JOIN login ON akun.id_akun = login.id_akun";
-			$row = $config -> prepare($sql);
-			$row -> execute();
-			$r = $row -> rowCount();
-		?>
+	$row = $config -> prepare($sql);
+	$row -> execute();
+	$r = $row -> rowCount();
+?>
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-            <i class="fa fa-plus"></i> Tambah Akun</button>
-
-        <div class="clearfix"></div>
-        <br />
-        <!-- view barang -->
-        <div class="card card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped table-sm" id="example1">
-                    <thead>
-                        <tr style="background:#DFF0D8;color:#333;">
-                            <th>No.</th>
-                            <th>nama</th>
-                            <th>No Telpon</th>
-                            <th>Hak Akses</th>
-                            <th>Nama user</th>
-                            <th>Password</th>
-                            <th style="width:15%;">Aksi</th>
-                        </tr>
-                        
-                    </thead>
-                    <tbody>
-                        <?php 
-                        $no = 1; 
-                        foreach ($row as $data) {
+<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
+    <i class="fa fa-plus"></i> Tambah Aku
+n</button>
+<div class="clearfix"></div>
+<br />
+<!-- view barang -->
+<div class="card card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-sm" id="example1">
+            <thead>
+                <tr style="background:#DFF0D8;color:#333;">
+                    <th>No.</th>
+                    <th>nama</th>
+                    <th>No Telpon</th>
+                    <th>Hak Akses</th>
+                    <th>Nama user</th>
+                    <th>Password</th>
+                    <th style="width:15%;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    $no = 1; 
+                    foreach ($row as $data) {
+                ?>
+                <tr>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $data['nama']; ?></td>
+                    <td><?php echo $data['no_telp']; ?></td>
+                    <td>
+                        <?php  
+                            if ($data['hak_access'] == 1) {
+                                echo "Manajer";
+                            } elseif ($data['hak_access'] == 0) {
+                                echo "Admin";
+                            } else {
+                                echo "Unknown";
+                            } 
                         ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><?php echo $data['nama']; ?></td>
-                            <td><?php echo $data['no_telp']; ?></td>
-                            <td><?php  if ($data['hak_access'] == 1) {
-                                        echo "Manajer";
-                                    } elseif ($data['hak_access'] == 0) {
-                                        echo "Admin";
-                                    } else {
-                                        echo "Unknown";
-                                    } ?></td>
-                            <td><?php echo $data['username']; ?></td>
-                            <td><?php echo $data['password']; ?></td>
-                            <td>
-                                <a href="index.php?page=barang/edit&akun=<?php echo $data['id_akun']; ?>"><button class="btn btn-warning btn-xs">Edit</button></a>
-                                <a href="fungsi/hapus/hapus.php?akun=hapus&id=<?php echo $data['id_akun']; ?>" onclick="javascript:return confirm('Hapus Data akun ?');"><button class="btn btn-danger btn-xs">Hapus</button></a>
-                            </td>
-                        </tr>
-                        <?php 
-                        }
-                        ?>
+                    </td>
+                    <td><?php echo $data['username']; ?></td>
+                    <td><?php echo $data['password']; ?></td>
+                    <td>
+                        <a href="index.php?page=barang/edit&akun=<?php echo $data['id_akun']; ?>"><button class="btn btn-warning btn-xs">Edit</button></a>
+                        <a href="fungsi/hapus/hapus.php?akun=hapus&id=<?php echo $data['id_akun']; ?>" onclick="javascript:return confirm('Hapus Data akun ?');"><button class="btn btn-danger btn-xs">Hapus</button></a>
+                    </td>
+                 </tr>
+                <?php 
+                    }
+                ?>
             </tbody>
-                    
-                </table>
-            </div>
-        </div>
+        </table>
+    </div>
+</div>
         <!-- end view barang -->
         <!-- tambah barang MODALS-->
         <!-- Modal -->
@@ -138,5 +125,5 @@
                     </form>
                 </div>
             </div>
-
         </div>
+

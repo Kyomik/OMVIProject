@@ -16,19 +16,6 @@
 ?>
 <div class="row">
 	<div class="col-md-12">
-		<h4>
-			<!--<a  style="padding-left:2pc;" href="fungsi/hapus/hapus.php?laporan=jual" onclick="javascript:return confirm('Data Laporan akan di Hapus ?');">
-						<button class="btn btn-danger">RESET</button>
-					</a>-->
-			<?php if(!empty($_GET['cari'])){ ?>
-			<!-- Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?> -->
-			<?php }elseif(!empty($_GET['hari'])){?>
-			<!-- Data Laporan Penjualan <?= $_POST['hari'];?> -->
-			<?php }else{?>
-			<!-- Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?> -->
-			<?php }?>
-		</h4>
-		<br />
 		<div class="card">
 			<div class="card-header">
 				<h5 class="card-title mt-2">Cari Laporan Per Bulan</h5>
@@ -118,7 +105,7 @@
 							</td>
 						</tr>
 					</table>
-				
+				</form>
 			</div>
 		</div>
 		</form>
@@ -239,61 +226,91 @@
 					<div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination" style="float:right;"><li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item next disabled" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>
 					</div>
 				</div>
+		<div class="card card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-sm" id="example1" >
+					<thead>
+						<tr style="background:#DFF0D8;color:#333;">
+							<th > No</th>
+							<th> ID TRANSAKSI</th>
+							<th> TGL PEMBUATAN</th>
+							<th> TGL TEMPO</th>
+							<th> ADMIN</th>
+							<th> JUMLA ITEM</th>
+							<th> TOTAL HARGA</th>
+							<th>AKSI</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>27</td>
+							<td>03/03/2024</td>
+							<td>25/03/2024</td>
+							<td>Bee</td>
+							<td>10</td>
+							<td>Rp. 2. 500. 000</td>
+							<td>
+								<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
+            					Details
+            					</button>
+								<a href="#">
+									<button class="btn btn-danger btn-xs">Report</button>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<script>
-    			let data_item = [];
-			</script>
 		</div>
 	</div>
+</div>
 
-	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
-    	<div class="modal-dialog">
-    		<!-- Modal Content -->
-    		<div class="modal-content" style="border-radius:0px;">
-    			<div class="modal-header" style="background:#285c64;color:#fff;">
-                        <h5 class="modal-title">Details</h5>
+<div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style=" border-radius:0px;">
+                    <div class="modal-header" style="background:#285c64;color:#fff;">
+                        
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <form method="POST" action="admin/module/laporan/details_modal.php">
-                	<div class="modal-body">
-                		<table class="table table-striped bordered">
-							<?php
-								$format = $lihat -> nama();
-							?>
-								<tr>
-                                    <td>Admin</td>
-                                    <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
+                    </div>
+                    <form action="fungsi/tambah/tambah.php?akun=tambah" method="POST">
+                        <div class="modal-body">
+                            <table class="table table-striped bordered">
+                                <tr>
+                                    <td>Nama</td>
+                                    <td><input type="text" placeholder="nama" required 
                                             class="form-control" name="nama"></td>
                                 </tr>
+
                                 <tr>
-                                    <td>Customer</td>
-                                    <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
-                                            class="form-control" name="nama"></td>
+                                    <td>No Telpon</td>
+                                    <td><input type="text" placeholder="no telpon" required 
+                                            class="form-control" name="no_telp"></td>
                                 </tr>
+
                                 <tr>
-                                    <td>Tanggal Pembuatan</td>
-                                    <td><input type="date" class="form-control" name="tgl_input"></td>
+                                    <td>Hak akses</td>
+                                    <td>
+                                        <select class="form-control" style="width:100%;" id="hakAksesSelect" name="hakAkses" >
+                                            <option  value="admin">Admin</option>
+                                            <option  value="user">User</option>
+                                           
+                                        </select>
+                                    </td>
                                 </tr>
+                               
+        
                                 <tr>
-                                    <td>Tanggal Priode</td>
-                                    <td><input type="date" required class="form-control"
-                                            name="tgl_priode"></td>
+                                    <td>username</td>
+                                    <td><input type="text" placeholder="username" required class="form-control"
+                                            name="username"></td>
                                 </tr>
+
                                 <tr>
-                                    <td>Unit</td>
-                                    <td><input type="number" required class="form-control"
-                                            name="unit"></td>
-                                </tr>
-                                <tr>
-                                    <td>Item & Description</td>
-                                    <td><input type="text" required class="form-control"
-                                            name="nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>Jumlah</td>
-                                    <td><input type="number" required class="form-control"
-                                            name="harga"></td>
+                                    <td>password</td>
+                                    <td><input type="text" placeholder="password" required class="form-control"
+                                            name="password"></td>
                                 </tr>
                                 <tr>
                                     <td>Harga</td>
@@ -310,15 +327,3 @@
     		</div>
     	</div>
     </div>
-
-
-<script>
-let nomorBerurut = 1;
-
-function updateNomorInput() {
-    document.getElementById("nomor").value = nomorBerurut;
-    nomorBerurut++; 
-}
-
-document.addEventListener('DOMContentLoaded', updateNomorInput);
-</script>

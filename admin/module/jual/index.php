@@ -23,7 +23,7 @@
                                     <tfoot>
                                     	<tr>
                                     		<th hidden="hidden">id_akun</th>
-                                    		<td hidden="hidden"><input type="number" name="id_akun" readonly="readonly" value="6" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+                                    		<td hidden="hidden"><input type="number" name="id_akun" readonly="readonly" value="9" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                     	</tr>
                                         <tr>
                                             <th>Name</th>
@@ -292,7 +292,7 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "number";
-            input.name = "jumlah";
+            input.name = "jumlah[]";
             input.placeholder = 'Quantity';
             cell.appendChild(input);
             row.appendChild(cell);
