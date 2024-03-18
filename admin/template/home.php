@@ -5,7 +5,7 @@
     
     // Query untuk mengambil jumlah customer
 try {
-    $query_customer = "SELECT COUNT(*) AS jumlah_customer FROM customer";
+    $query_customer = "SELECT COUNT(DISTINCT nama) AS jumlah_customer FROM customer";
     $statement_customer = $config->query($query_customer);
     $result_customer = $statement_customer->fetch(PDO::FETCH_ASSOC);
     $jumlah_customer = $result_customer['jumlah_customer'];
