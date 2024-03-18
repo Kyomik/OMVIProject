@@ -174,6 +174,47 @@
 								<th>AKSI</th>
 							</tr>
 						</thead>
+						<?php
+						$id_transaksi = $_GET['id_transaksi'];
+						$tgl_input = $_GET['tgl_input'];
+						$tgl_priode = $_GET['tgl_priode'];
+						$total_harga = $_GET['total_harga'];
+
+						$sql_transaksi = 'SELECT * FROM transaksi WHERE id_transaksi = ? AND tgl_input = ? AND tgl_priode = ? AND total_harga = ?';
+						$stmt_transaksi = $config->prepare($sql_transaksi);
+						$stmt_transaksi->execute([$id_transaksi, $tgl_input, $tgl_priode, $total_harga]);
+						$transaksi  = $stmt_transaksi->fetch(PDO::FETCH_ASSOC);
+
+						$sql_akun = 'SELECT akun.nama AS nama_akun FROM akun WHERE akun.nama = ?';
+						$stmt_akun = $config->prepare($sql_akun);
+						$stmt_akun->execute([$transaksi['nama']]);
+						$akun  = $stmt_akun->fetch(PDO::FETCH_ASSOC);
+
+						$sql_item = 'SELECT * FROM item WHERE nama = ?';
+						$stmt_item = $config->prepare($sql_item);
+						$stmt_item->execute([$nama]);
+						$item  = $stmt_item->fetch(PDO::FETCH_ASSOC);
+						?>
+
+						<tbody id="myTbody">
+    						<tr>
+        						<td id="nomor">1</td>
+        						<td><?php echo $transaksi['id_transaksi']; ?></td>
+        						<td><?php echo $transaksi['tgl_input']; ?></td>
+        						<td><?php echo $transaksi['tgl_priode']; ?></td>
+        						<td><?php echo $akun['nama_akun']; ?></td>
+        						<td><?php echo $item['nama']; ?></td>
+        						<td><?php echo $transaksi['total_harga']; ?></td>
+    							<td>
+            						<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
+                						Details
+            						</button>
+            						<a href="#">
+                						<button class="btn btn-danger btn-xs">Report</button>
+            						</a>
+        						</td>
+    						</tr>
+						</tbody>
 						<tbody>
 							<tr>
 								<td>1</td>

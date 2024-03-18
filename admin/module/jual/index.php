@@ -316,7 +316,6 @@ function AddTable() {
 
 function calculateTotal() {
     total = 0; // Setel total ke 0 sebelum memulai perhitungan ulang
-
     const amountInputs = document.querySelectorAll("input[placeholder='Amount']");
     amountInputs.forEach(input => {
         if (!isNaN(parseFloat(input.value))) {
