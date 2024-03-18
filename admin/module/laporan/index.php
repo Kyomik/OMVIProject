@@ -29,6 +29,7 @@
 			<?php }?>
 		</h4>
 		<br />
+
 		<div class="card">
 			<div class="card-header">
 				<h5 class="card-title mt-2">Cari Laporan Per Bulan</h5>
@@ -90,6 +91,7 @@
 						</tr>
 					</table>
 				</form>
+
 				<form method="POST" action="index.php?page=laporan&hari=cek">
 					<table class="table table-striped">
 						<tr>
@@ -118,10 +120,10 @@
 							</td>
 						</tr>
 					</table>
-				
+				</form>
 			</div>
 		</div>
-		</form>
+		
          <br />
          <br />
          <!-- view barang -->
@@ -219,72 +221,74 @@
     			let data_item = [];
 			</script>
 		</div>
-	</div>
+	
 
 	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
-    	<div class="modal-dialog">
-    		<!-- Modal Content -->
-    		<div class="modal-content" style="border-radius:0px;">
-    			<div class="modal-header" style="background:#285c64;color:#fff;">
-                        <h5 class="modal-title">Details</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <form method="POST" action="admin/module/laporan/details_modal.php">
-                	<div class="modal-body">
-                		<table class="table table-striped bordered">
-							<?php
-								$format = $lihat -> nama();
-							?>
-								<tr>
-                                    <td>Admin</td>
-                                    <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
-                                            class="form-control" name="nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>Customer</td>
-                                    <td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
-                                            class="form-control" name="nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Pembuatan</td>
-                                    <td><input type="date" class="form-control" name="tgl_input"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Priode</td>
-                                    <td><input type="date" required class="form-control"
-                                            name="tgl_priode"></td>
-                                </tr>
-                                <tr>
-                                    <td>Unit</td>
-                                    <td><input type="number" required class="form-control"
-                                            name="unit"></td>
-                                </tr>
-                                <tr>
-                                    <td>Item & Description</td>
-                                    <td><input type="text" required class="form-control"
-                                            name="nama"></td>
-                                </tr>
-                                <tr>
-                                    <td>Jumlah</td>
-                                    <td><input type="number" required class="form-control"
-                                            name="harga"></td>
-                                </tr>
-                                <tr>
-                                    <td>Harga</td>
-                                    <td><input type="number" required class="form-control" 
-                                    		name="jumlah"></td>
-                                </tr>   			
-                		</table>
-                	</div>
-                	<div class="modal-footer">
-                	   	<button type="submit" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-report" data-dismiss="modal">Hapus</button>
-                    </div>
-                </form>
-    		</div>
-    	</div>
-    </div>
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal Content -->
+				<div class="modal-content" style="border-radius:0px;">
+					<div class="modal-header" style="background:#285c64;color:#fff;">
+							<h5 class="modal-title">Details</h5>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<form method="POST" action="admin/module/laporan/details_modal.php">
+						<div class="modal-body">
+							<table class="table table-striped bordered">
+								<?php
+									$format = $lihat -> nama();
+								?>
+									<tr>
+										<td>Admin</td>
+										<td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
+												class="form-control" name="nama"></td>
+									</tr>
+									<tr>
+										<td>Customer</td>
+										<td><input type="text" readonly="readonly" required value="<?php echo $format;?>"
+												class="form-control" name="nama"></td>
+									</tr>
+									<tr>
+										<td>Tanggal Pembuatan</td>
+										<td><input type="date" class="form-control" name="tgl_input"></td>
+									</tr>
+									<tr>
+										<td>Tanggal Priode</td>
+										<td><input type="date" required class="form-control"
+												name="tgl_priode"></td>
+									</tr>
+									<tr>
+										<td>Unit</td>
+										<td><input type="number" required class="form-control"
+												name="unit"></td>
+									</tr>
+									<tr>
+										<td>Item & Description</td>
+										<td><input type="text" required class="form-control"
+												name="nama"></td>
+									</tr>
+									<tr>
+										<td>Jumlah</td>
+										<td><input type="number" required class="form-control"
+												name="harga"></td>
+									</tr>
+									<tr>
+										<td>Harga</td>
+										<td><input type="number" required class="form-control" 
+												name="jumlah"></td>
+									</tr>   			
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Edit</button>
+							<button type="button" class="btn btn-report" data-dismiss="modal">Hapus</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 

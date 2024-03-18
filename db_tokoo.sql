@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2024 at 03:57 PM
+-- Generation Time: Mar 18, 2024 at 08:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -61,22 +61,12 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id_customer`, `nama`, `no_telp`, `negara`) VALUES
-(2, 'bee', '081234567890', 'Indonesia');
+(2, 'bee', '081234567890', 'Indonesia'),
+(3, 'Array', '08123456242', 'indoooo'),
+(4, 'Array', '749553', 'indoooo');
 
 -- --------------------------------------------------------
-CREATE TABLE `toko` (
-  `id_toko` int(11) NOT NULL AUTO_INCREMENT,
-  `nama_toko` varchar(255) NOT NULL,
-  `alamat_toko` text NOT NULL,
-  `tlp` varchar(255) NOT NULL,
-  `nama_pemilik` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_toko`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
-/*Data for the table `toko` */
-
-insert  into `toko`(`id_toko`,`nama_toko`,`alamat_toko`,`tlp`,`nama_pemilik`) values 
-(1,'CV Daruttaqwa','Ujung Harapan','081234567890','Fauzan Falah');
 --
 -- Table structure for table `item`
 --
@@ -95,7 +85,9 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`id_transaksi`, `id_item`, `nama`, `harga`, `jumlah`, `tgl`) VALUES
-(27, 1, 'bee', '2500000', '2', NULL);
+(27, 1, 'bee', '2500000', '2', NULL),
+(28, 2, '6', '5', '2', '2024-03-13'),
+(29, 3, '1', '1', '1', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -158,7 +150,9 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`tgl_input`, `tgl_priode`, `id_akun`, `total_harga`, `id_transaksi`, `id_customer`) VALUES
-('2024-03-10', '2024-03-25', 1, 5000000, 27, 2);
+('2024-03-10', '2024-03-25', 1, 5000000, 27, 2),
+('2024-03-21', '2024-03-21', 9, 10, 28, 3),
+('2024-03-21', '2024-03-21', 9, 1, 29, 4);
 
 --
 -- Indexes for dumped tables
@@ -217,13 +211,13 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id_customer` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_customer` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id_item` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_item` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `toko`
@@ -235,7 +229,7 @@ ALTER TABLE `toko`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
@@ -261,24 +255,6 @@ ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_2` FOREIGN KEY (`id_customer`) REFERENCES `customer` (`id_customer`);
 COMMIT;
 
-
-/*Table structure for table `toko` */
-
--- DROP TABLE IF EXISTS `toko`;
-
--- CREATE TABLE `toko` (
---   `id_toko` int(11) NOT NULL AUTO_INCREMENT,
---   `nama_toko` varchar(255) NOT NULL,
---   `alamat_toko` text NOT NULL,
---   `tlp` varchar(255) NOT NULL,
---   `nama_pemilik` varchar(255) NOT NULL,
---   PRIMARY KEY (`id_toko`)
--- ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- /*Data for the table `toko` */
-
--- insert  into `toko`(`id_toko`,`nama_toko`,`alamat_toko`,`tlp`,`nama_pemilik`) values 
--- (1,'CV Daruttaqwa','Ujung Harapan','081234567890','Fauzan Falah');
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
