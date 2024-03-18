@@ -62,7 +62,19 @@ INSERT INTO `customer` (`id_customer`, `nama`, `no_telp`, `negara`) VALUES
 (2, 'bee', '081234567890', 'Indonesia');
 
 -- --------------------------------------------------------
+CREATE TABLE `toko` (
+  `id_toko` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_toko` varchar(255) NOT NULL,
+  `alamat_toko` text NOT NULL,
+  `tlp` varchar(255) NOT NULL,
+  `nama_pemilik` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_toko`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+/*Data for the table `toko` */
+
+insert  into `toko`(`id_toko`,`nama_toko`,`alamat_toko`,`tlp`,`nama_pemilik`) values 
+(1,'CV Daruttaqwa','Ujung Harapan','081234567890','Fauzan Falah');
 --
 -- Table structure for table `item`
 --
