@@ -191,8 +191,6 @@
         						<td><?php echo $akun['nama_akun']; ?></td>
         						<td><?php echo $item['nama']; ?></td>
         						<td><?php echo $transaksi['total_harga']; ?></td>
-    						</tr>
-    						<tr>
     							<td>
             						<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
                 						Details
