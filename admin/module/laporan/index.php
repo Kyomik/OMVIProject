@@ -16,6 +16,19 @@
 ?>
 <div class="row">
 	<div class="col-md-12">
+		<h4>
+			<!--<a  style="padding-left:2pc;" href="fungsi/hapus/hapus.php?laporan=jual" onclick="javascript:return confirm('Data Laporan akan di Hapus ?');">
+						<button class="btn btn-danger">RESET</button>
+					</a>-->
+			<?php if(!empty($_GET['cari'])){ ?>
+			<!-- Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?> -->
+			<?php }elseif(!empty($_GET['hari'])){?>
+			<!-- Data Laporan Penjualan <?= $_POST['hari'];?> -->
+			<?php }else{?>
+			<!-- Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?> -->
+			<?php }?>
+		</h4>
+		<br />
 		<div class="card">
 			<div class="card-header">
 				<h5 class="card-title mt-2">Cari Laporan Per Bulan</h5>
@@ -77,6 +90,7 @@
 						</tr>
 					</table>
 				</form>
+
 				<form method="POST" action="index.php?page=laporan&hari=cek">
 					<table class="table table-striped">
 						<tr>
@@ -108,7 +122,7 @@
 				</form>
 			</div>
 		</div>
-		</form>
+		
          <br />
          <br />
          <!-- view barang -->
@@ -201,63 +215,6 @@
         						</td>
     						</tr>
 						</tbody>
-
-							<?php 
-								$no=1; 
-								if(!empty($_GET['cari'])){
-									$periode = $_POST['bln'].'-'.$_POST['thn'];
-									$no=1; 
-									$jumlah = 0;
-									$bayar = 0;
-									$hasil = $lihat -> periode_jual($periode);
-								}elseif(!empty($_GET['hari'])){
-									$hari = $_POST['hari'];
-									$no=1; 
-									$jumlah = 0;
-									$bayar = 0;
-									$hasil = $lihat -> hari_jual($hari);
-								}else{
-									$hasil = $lihat -> jual();
-								}
-							?>
-					</table>
-					<div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination" style="float:right;"><li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item next disabled" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">Next</a></li></ul></div></div></div>
-					</div>
-				</div>
-		<div class="card card-body">
-			<div class="table-responsive">
-				<table class="table table-bordered table-striped table-sm" id="example1" >
-					<thead>
-						<tr style="background:#DFF0D8;color:#333;">
-							<th > No</th>
-							<th> ID TRANSAKSI</th>
-							<th> TGL PEMBUATAN</th>
-							<th> TGL TEMPO</th>
-							<th> ADMIN</th>
-							<th> JUMLA ITEM</th>
-							<th> TOTAL HARGA</th>
-							<th>AKSI</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>27</td>
-							<td>03/03/2024</td>
-							<td>25/03/2024</td>
-							<td>Bee</td>
-							<td>10</td>
-							<td>Rp. 2. 500. 000</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-            					Details
-            					</button>
-								<a href="#">
-									<button class="btn btn-danger btn-xs">Report</button>
-								</a>
-							</td>
-						</tr>
-					</tbody>
 				</table>
 			</div>
 		</div>
@@ -310,18 +267,17 @@
                                     <td><input type="text" placeholder="password" required class="form-control"
                                             name="password"></td>
                                 </tr>
-                                <tr>
-                                    <td>Harga</td>
-                                    <td><input type="number" required class="form-control" 
-                                    		name="jumlah"></td>
-                                </tr>   			
-                		</table>
-                	</div>
-                	<div class="modal-footer">
-                	   	<button type="submit" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-report" data-dismiss="modal">Hapus</button>
-                    </div>
-                </form>
-    		</div>
-    	</div>
-    </div>
+                              
+                               
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Insert
+                                Data</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
