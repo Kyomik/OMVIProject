@@ -22,16 +22,12 @@ try {
 } catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
 }
-
 // Tutup koneksi database
 $config = null;
     
 ?>
 
 
-<?php 
-// $trw = $lihat -> transaksi_stok_row();
-?>
 
 <div class="row" >
     <!--STATUS cardS -->
@@ -41,7 +37,7 @@ $config = null;
                 <h6 class="pt-2"><i class="fas fa-cubes"></i> Data Custamer</h6>
             </div>
             <div class="card-body" style="height:120px;" >
-                <center>
+                <center >
                     <h1><?php echo number_format($jumlah_customer); ?></h1>
                 </center>
             </div>
@@ -57,7 +53,7 @@ $config = null;
     <div class="col-md-6 mb-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h6 class="pt-2"><i class="fas fa-chart-bar"></i> Data Teransaksi</h6>
+                <h6 class="pt-2"><i class="fa-brands fa-slack"></i> Data Teransaksi</h6>
             </div>
             <div class="card-body" style="height:120px;">
                 <center>
