@@ -274,7 +274,7 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "text";
-            input.name = "nama[]";
+            input.name = "nama_barang[]";
             input.placeholder = 'Item & Description';
             cell.appendChild(input);
             row.appendChild(cell);
