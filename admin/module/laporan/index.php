@@ -16,6 +16,19 @@
 ?>
 <div class="row">
 	<div class="col-md-12">
+		<h4>
+			<!--<a  style="padding-left:2pc;" href="fungsi/hapus/hapus.php?laporan=jual" onclick="javascript:return confirm('Data Laporan akan di Hapus ?');">
+						<button class="btn btn-danger">RESET</button>
+					</a>-->
+			<?php if(!empty($_GET['cari'])){ ?>
+			<!-- Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?> -->
+			<?php }elseif(!empty($_GET['hari'])){?>
+			<!-- Data Laporan Penjualan <?= $_POST['hari'];?> -->
+			<?php }else{?>
+			<!-- Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?> -->
+			<?php }?>
+		</h4>
+		<br />
 		<div class="card">
 			<div class="card-header">
 				<h5 class="card-title mt-2">Cari Laporan Per Bulan</h5>
@@ -77,6 +90,7 @@
 						</tr>
 					</table>
 				</form>
+
 				<form method="POST" action="index.php?page=laporan&hari=cek">
 					<table class="table table-striped">
 						<tr>
@@ -108,31 +122,68 @@
 				</form>
 			</div>
 		</div>
-		<div class="card card-body">
-			<div class="table-responsive">
-				<table class="table table-bordered table-striped table-sm" id="example1" >
-					<thead>
-						<tr style="background:#DFF0D8;color:#333;">
-							<th > No</th>
-							<th> ID TRANSAKSI</th>
-							<th> TGL PEMBUATAN</th>
-							<th> TGL TEMPO</th>
-							<th> ADMIN</th>
-							<th> JUMLA ITEM</th>
-							<th> TOTAL HARGA</th>
-							<th>AKSI</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>27</td>
-							<td>03/03/2024</td>
-							<td>25/03/2024</td>
-							<td>Bee</td>
-							<td>10</td>
-							<td>Rp. 2. 500. 000</td>
-							<td>
+		
+         <br />
+         <br />
+         <!-- view barang -->
+
+    <?php
+
+    // require '../../config.php';
+
+    ?>
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<div class="row">
+						<div class="col-sm-12 col-md-6">
+							<div class="dataTables_length" id="example1_length">
+								<label>Show 
+									<select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select> 
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-6">
+							<div id="example1_filter" class="dataTables_filter" style="float: right;">
+								<label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label>
+							</div>
+						</div>
+					</div>
+					<?php 
+						$sql = "SELECT t.id_transaksi, t.tgl_input, t.tgl_priode, a.nama AS admin, t.total_harga, COUNT(i.jumlah) AS jumlah_item FROM transaksi t
+							INNER JOIN item i ON t.id_transaksi = i.id_transaksi
+							INNER JOIN akun a ON t.id_akun = a.id_akun
+							GROUP BY t.id_transaksi
+							LIMIT 10";
+					?>
+					<table class="table table-bordered w-100 table-sm" >
+						<thead>
+							<tr style="background:#DFF0D8;color:#333;">
+								<th > No</th>
+								<th> ID TRANSAKSI</th>
+								<th> TGL PEMBUATAN</th>
+								<th> TGL TEMPO</th>
+								<th> ADMIN</th>
+								<th> JUMLA ITEM</th>
+								<th> TOTAL HARGA</th>
+								<th>AKSI</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>27</td>
+								<td>03/03/2024</td>
+								<td>25/03/2024</td>
+								<td>Bee</td>
+								<td>10</td>
+								<td>Rp. 2. 500. 000</td>
+								<td>
 								<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
             					Details
             					</button>
