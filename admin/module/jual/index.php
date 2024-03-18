@@ -315,7 +315,12 @@ function AddTable() {
 }
 
 function calculateTotal() {
+<<<<<<< HEAD
+
+    total = 0; // Setel total ke 0 sebelum memulai perhitungan ulang
+=======
     total = 0; 
+>>>>>>> 23dd864b09ccabb7fe23b1e671aa03588709022c
     const amountInputs = document.querySelectorAll("input[placeholder='Amount']");
     amountInputs.forEach(input => {
         if (!isNaN(parseFloat(input.value))) {

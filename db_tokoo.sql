@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2024 at 04:10 PM
+-- Generation Time: Mar 18, 2024 at 03:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,17 +29,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `akun` (
   `id_akun` int(10) NOT NULL,
-  `nama` varchar(25) NOT NULL,
+  `nama` varchar(50) NOT NULL,
   `no_telp` varchar(15) NOT NULL,
-  `hak_akses` int(1) NOT NULL
+  `hak_access` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `akun`
 --
 
-INSERT INTO `akun` (`id_akun`, `nama`, `no_telp`, `hak_akses`) VALUES
-(1, 'ardbee', '081234567890', 1);
+INSERT INTO `akun` (`id_akun`, `nama`, `no_telp`, `hak_access`) VALUES
+(1, 'ardi dongo sekali masih d', '081234567890', 0),
+(9, 'amar', '123', 0),
+(10, 'qeq', '08123456242', 0);
 
 -- --------------------------------------------------------
 
@@ -102,8 +104,8 @@ INSERT INTO `item` (`id_transaksi`, `id_item`, `nama`, `harga`, `jumlah`, `tgl`)
 --
 
 CREATE TABLE `login` (
-  `username` varchar(25) NOT NULL,
-  `password` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `id_akun` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -112,7 +114,29 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`username`, `password`, `id_akun`) VALUES
-('admin', '123', 1);
+('amarjie', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 9),
+('balai14', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `toko`
+--
+
+CREATE TABLE `toko` (
+  `id_toko` int(11) NOT NULL,
+  `nama_toko` varchar(255) NOT NULL,
+  `alamat_toko` text NOT NULL,
+  `tlp` varchar(255) NOT NULL,
+  `nama_pemilik` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `toko`
+--
+
+INSERT INTO `toko` (`id_toko`, `nama_toko`, `alamat_toko`, `tlp`, `nama_pemilik`) VALUES
+(1, 'CV Daruttaqwa', 'Ujung Harapan', '081234567890', 'Fauzan Falah');
 
 -- --------------------------------------------------------
 
@@ -166,6 +190,12 @@ ALTER TABLE `login`
   ADD KEY `id_akun` (`id_akun`);
 
 --
+-- Indexes for table `toko`
+--
+ALTER TABLE `toko`
+  ADD PRIMARY KEY (`id_toko`);
+
+--
 -- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
@@ -181,7 +211,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id_akun` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_akun` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -194,6 +224,12 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `item`
   MODIFY `id_item` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `toko`
+--
+ALTER TABLE `toko`
+  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
