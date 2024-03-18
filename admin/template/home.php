@@ -68,10 +68,49 @@
                     Item <i class='fa fa-angle-double-right'></i></a>
             </div>
         </div>
-        <!--/grey-card -->
     </div>
     <!-- /col-md-3-->
+
+
+    <div class="col-md-12 mb-3">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h6 class="card-title"><i class="fas fa-chart-bar"></i> Data Item</h6>
+        </div>
+        <div class="card-body">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <script>
+                        // Data perbulan (contoh)
+                        const monthlyData = [
+                            { month: "January", value: 100 },
+                            { month: "February", value: 120 },
+                            { month: "March", value: 90 },
+                            { month: "April", value: 110 },
+                            { month: "May", value: 130 },
+                            { month: "June", value: 95 },
+                            { month: "July", value: 115 },
+                            { month: "August", value: 105 },
+                            { month: "September", value: 125 },
+                            { month: "October", value: 85 },
+                            { month: "November", value: 95 },
+                            { month: "December", value: 105 }
+                        ];
+
+                        // Tambahkan data perbulan ke dalam kartu informasi tambahan
+                        const additionalInfoCard = document.querySelector(".card.mt-3 .card-body");
+                        monthlyData.forEach(data => {
+                            const paragraph = document.createElement("p");
+                            paragraph.textContent = `${data.month}: ${data.value}`;
+                            additionalInfoCard.appendChild(paragraph);
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <!-- STATUS cardS -->
-   
-    
 </div>
