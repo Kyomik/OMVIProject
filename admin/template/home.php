@@ -3,10 +3,28 @@
 
 <?php 
     
+    // Query untuk mengambil jumlah customer
+try {
+    $query_customer = "SELECT COUNT(*) AS jumlah_customer FROM customer";
+    $statement_customer = $config->query($query_customer);
+    $result_customer = $statement_customer->fetch(PDO::FETCH_ASSOC);
+    $jumlah_customer = $result_customer['jumlah_customer'];
+} catch (PDOException $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+
+// Query untuk mengambil jumlah transaksi
+try {
     $query_transaksi = "SELECT COUNT(*) AS jumlah_transaksi FROM TRANSAKSI";
     $statement_transaksi = $config->query($query_transaksi);
     $result_transaksi = $statement_transaksi->fetch(PDO::FETCH_ASSOC);
     $jumlah_transaksi = $result_transaksi['jumlah_transaksi'];
+} catch (PDOException $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+
+// Tutup koneksi database
+$config = null;
     
 ?>
 
@@ -24,7 +42,7 @@
             </div>
             <div class="card-body" style="height:120px;" >
                 <center>
-                    <h1><?php echo number_format($jumlah_customer);?>1</h1>
+                    <h1><?php echo number_format($jumlah_customer); ?></h1>
                 </center>
             </div>
             <div class="card-footer">
