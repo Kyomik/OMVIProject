@@ -1,6 +1,7 @@
 <!--sidebar start-->
 <?php 
-    // $id = $_SESSION['admin']['id_member'];
+    $hak_access = $_SESSION['akun']['hak_access'];
+    $nama = $_SESSION['akun']['nama']
     // $hasil_profil = $lihat -> member_edit($id);
 ?>
 <!-- Sidebar -->
@@ -31,11 +32,17 @@
            Master
        </div> -->
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item active"> 
-        <a class="nav-link" href="index.php?page=barang">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Managed Accounts</span></a>
-    </li>
+    <?php
+        if ($hak_access==1){
+            echo "<li class='nav-item active'> 
+            <a class='nav-link' href='index.php?page=barang'>
+                <i class='fas fa-fw fa-tachometer-alt'></i>
+                <span>Managed Accounts</span></a>
+        </li>";
+        } 
+
+    ?>
+    
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true"
@@ -81,7 +88,7 @@
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                 <i class="fa fa-bars"></i>
             </button>
-            <h5 class="d-lg-block d-none mt-2"><b><?php echo $toko['nama_toko'];?>, <?php echo $toko['alamat_toko'];?></b></h5>
+            <h5 class="d-lg-block d-none mt-2"><b>Selamat Datang <?php echo " $nama" ; ?></b></h5>
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
