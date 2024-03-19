@@ -22,8 +22,7 @@ error_reporting(0);
 	$host 	= 'localhost'; // host server
 	$user 	= 'root';  // username server
 	$pass 	= 'ammarjie500'; // password server, kalau pakai xampp kosongin saja
-	$dbname = 'db_toko'; // nama database anda
-	//    
+	$dbname = 'db_tokoo'; // nama database anda
 	
 	try{
 		$config = new PDO("mysql:host=$host;dbname=$dbname;", $user,$pass);
