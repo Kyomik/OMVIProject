@@ -1,6 +1,8 @@
 <?php 
-	// $id = $_SESSION['login']['id_akun'];
-	// $hasil = $lihat -> member_edit($id);
+	session_start();
+
+	$nama = $_SESSION['akun']['nama'];
+	$no_telp = $_SESSION['akun']['no_telp'];
 ?>
 
 	<form class="row" method="POST" action="admin/module/jual/add_transaksi.php">
@@ -10,39 +12,30 @@
 					<h5>Data Admin</h5>
 				</div>
 				<div class="card-body">
-
 					<div class="table-responsive">
 						<div id="hasil_cari"></div>
 						<div id="tunggu"></div>
 					</div>
-				
 					<div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                   
                                     <tfoot>
-                                    	<tr>
-                                    		<th hidden="hidden">id_akun</th>
-                                    		<td hidden="hidden"><input type="number" name="id_akun" readonly="readonly" value="9" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
-                                    	</tr>
                                         <tr>
                                             <th>Name</th>
-											<td><input type="text" name="nama" readonly="readonly" placeholder="Ardbee" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" name="nama" readonly="readonly" value="<?php echo $_SESSION['akun']['nama']; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
-											<td><input type="tel" name="no_telp" readonly="readonly" placeholder="+62" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="tel" name="no_telp" readonly="readonly" value="<?php echo $_SESSION['akun']['no_telp']; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Country</th>
 											<td><input type="text" name="negara" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
-								
                                 </table>
                             </div>
                     </div>
-
 				</div>
 			</div>
 		</div>
@@ -61,11 +54,6 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
                                     <tfoot>
-
-                                    	<tr>
-                                    	<th hidden="hidden">id_customer</th>
-                                    		<td hidden="hidden"><input type="number" name="id_costumer" readonly="readonly" placeholder="" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
-                                    	</tr>
                                         <tr>
                                             <th >Name</th>
 											<td><input type="text" name="nama" placeholder="Ardbee" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
@@ -99,14 +87,14 @@
 					<div id="keranjang" class="table-responsive">
 						<table class="table table-bordered">
 							<tr>
-								<td style="width:20%;"><b>Date </b></td>
-								<td><input type="date" class="form-control" name="tgl_input" placeholder="data"></td>
+								<td style="width:20%;"><b>Date of Entry</b></td>
+								<td><input type="date" class="form-control" name="tgl_input"></td>
 							</tr>
 						</table>
 						<table class="table table-bordered">
 							<tr>
 								<td style="width:20%;"><b>Due Date</b></td>
-								<td><input type="date" class="form-control" name="tgl_priode" placeholder="Due Date"></td>
+								<td><input type="date" class="form-control" name="tgl_priode"></td>
 							</tr>
 						</table>
 							<div class="col-sm-12">
@@ -131,45 +119,11 @@
 													</tr>
 												</thead>
 												<tbody class="card-body" id="MyTBody">
-													<?php
 
-													// $sql = "SELECT * FROM transaksi";
-													// $result = $koneksi->query($sql);
-
-													// if ($result->num_rows > 0) {
-            										// 	while ($row = $result->fetch_assoc()) {
-                									// 		echo "<tr>";
-                									// 		echo "<td>" . $row['date'] . "</td>";
-                									// 		echo "<td>" . $row['unit'] . "</td>";
-                									// 		echo "<td>" . $row['item_description'] . "</td>";
-                									// 		echo "<td>" . $row['rate'] . "</td>";
-                									// 		echo "<td>" . $row['quantity'] . "</td>";
-                									// 		echo "<td>" . $row['amount'] . "</td>";
-                									// 		echo "</tr>";
-                									// 		$totalAmount += $row['amount'];
-            										// 	}
-        											// } else {
-            										// 	echo "<tr><td colspan='6'>Kimak</td></tr>";
-        											// }
-
-													// $koneksi->close();
-													?>
 												</tbody>
 											</table>
 										</div>
 									</div>
-									<?php
-										// $sql = "SELECT * FROM transaksi";
-										// $result = $koneksi->query($sql);
-
-										// $data = array();
-										// if ($result->num_rows > 0) {
-    									// 	while ($row = $result->fetch_assoc()) {
-        								// 		$data[] = $row;
-    									// 	}
-										// }
-										// echo json_encode($data);
-									?>
 								</div>
 							</div>
 					</div>

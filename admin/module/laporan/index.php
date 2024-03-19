@@ -14,6 +14,7 @@
 		'12'=>"Desember"
 	);
 ?>
+
 <div class="row">
 	<div class="col-md-12">
 		<h4>
@@ -154,149 +155,186 @@
 							</div>
 						</div>
 					</div>
-					<?php 
-						$sql = "SELECT t.id_transaksi, t.tgl_input, t.tgl_priode, a.nama AS admin, t.total_harga, COUNT(i.jumlah) AS jumlah_item FROM transaksi t
-							INNER JOIN item i ON t.id_transaksi = i.id_transaksi
-							INNER JOIN akun a ON t.id_akun = a.id_akun
-							GROUP BY t.id_transaksi
-							LIMIT 10";
+					<?php
+						try {
+							$tahun_sekarang = date('Y');
+						   	$sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ':', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
+						            FROM transaksi t
+						            INNER JOIN item i ON t.id_transaksi = i.id_transaksi
+						            INNER JOIN akun a ON t.id_akun = a.id_akun
+						            INNER JOIN customer c ON t.id_customer = c.id_customer
+						            GROUP BY t.id_transaksi
+						            LIMIT 10";
+
+						    $stmt = $config->prepare($sql);
+							$stmt->execute();
+						} catch(PDOException $e) {
+						    // Tangani kesalahan jika query gagal dijalankan
+						    echo "Query failed: " . $e->getMessage();
+						}
 					?>
-					<table class="table table-bordered w-100 table-sm" >
-						<thead>
-							<tr style="background:#DFF0D8;color:#333;">
-								<th > No</th>
-								<th> ID TRANSAKSI</th>
-								<th> TGL PEMBUATAN</th>
-								<th> TGL TEMPO</th>
-								<th> ADMIN</th>
-								<th> JUMLA ITEM</th>
-								<th> TOTAL HARGA</th>
-								<th>AKSI</th>
-							</tr>
-						</thead>
-						<?php
-						$id_transaksi = $_GET['id_transaksi'];
-						$tgl_input = $_GET['tgl_input'];
-						$tgl_priode = $_GET['tgl_priode'];
-						$total_harga = $_GET['total_harga'];
-
-						$sql_transaksi = 'SELECT * FROM transaksi WHERE id_transaksi = ? AND tgl_input = ? AND tgl_priode = ? AND total_harga = ?';
-						$stmt_transaksi = $config->prepare($sql_transaksi);
-						$stmt_transaksi->execute([$id_transaksi, $tgl_input, $tgl_priode, $total_harga]);
-						$transaksi  = $stmt_transaksi->fetch(PDO::FETCH_ASSOC);
-
-						$sql_akun = 'SELECT akun.nama AS nama_akun FROM akun WHERE akun.nama = ?';
-						$stmt_akun = $config->prepare($sql_akun);
-						$stmt_akun->execute([$transaksi['nama']]);
-						$akun  = $stmt_akun->fetch(PDO::FETCH_ASSOC);
-
-						$sql_item = 'SELECT * FROM item WHERE nama = ?';
-						$stmt_item = $config->prepare($sql_item);
-						$stmt_item->execute([$nama]);
-						$item  = $stmt_item->fetch(PDO::FETCH_ASSOC);
-						?>
-
-						<tbody id="myTbody">
-    						<tr>
-        						<td id="nomor">1</td>
-        						<td><?php echo $transaksi['id_transaksi']; ?></td>
-        						<td><?php echo $transaksi['tgl_input']; ?></td>
-        						<td><?php echo $transaksi['tgl_priode']; ?></td>
-        						<td><?php echo $akun['nama_akun']; ?></td>
-        						<td><?php echo $item['nama']; ?></td>
-        						<td><?php echo $transaksi['total_harga']; ?></td>
-    							<td>
-            						<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-                						Details
-            						</button>
-            						<a href="#">
-                						<button class="btn btn-danger btn-xs">Report</button>
-            						</a>
-        						</td>
-    						</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>27</td>
-								<td>03/03/2024</td>
-								<td>25/03/2024</td>
-								<td>Bee</td>
-								<td>10</td>
-								<td>Rp. 2. 500. 000</td>
-								<td>
-								<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-            					Details
-            					</button>
-								<a href="#">
-									<button class="btn btn-danger btn-xs">Report</button>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+					<table class="table table-bordered w-100 table-sm">
+    					<thead>
+        					<tr style="background:#DFF0D8;color:#333;">
+            					<th> No</th>
+            					<th> ID TRANSAKSI</th>
+            					<th> TGL PEMBUATAN</th>
+            					<th> TGL TEMPO</th>
+            					<th> ADMIN</th>
+            					<th> JUMLAH ITEM</th>
+            					<th> TOTAL HARGA</th>
+            					<th> AKSI</th>
+        					</tr>
+    					</thead>
+    					<tbody>
+        					<?php
+        						$index = 0; 
+        						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+        					?>
+            				<tr>
+	                			<td><?php echo $index + 1; ?></td>
+	                			<td><?php echo "OMFAI" . "-" . substr($tahun_sekarang, -2) . "-" . $row['id_transaksi']; ?></td>
+	               				<td><?php echo $row['tgl_input']; ?></td>
+	             				<td><?php echo $row['tgl_priode']; ?></td>
+	                			<td><?php echo $row['nama_akun']; ?></td>
+	                			<td><?php echo $row['jumlah_item']; ?></td>
+	                			<td><?php echo $row['total_harga']; ?></td>
+	                			<td>
+	                    			<button id="detail_<?php echo $transaksi['id_transaksi']; ?>" type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
+	                        			Details
+	                    			</button>
+	                    			<a href="#">
+	                        			<button class="btn btn-danger btn-xs">Report</button>
+	                    			</a>
+	                			</td>
+            				</tr>
+        					<?php 
+        						$index++;
+		        				};
+		        			?>
+    					</tbody>
+					</table>
+				</div>			
 			</div>
 		</div>
 	</div>
 </div>
-
 <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="max-width: 1750px;">
                 <!-- Modal content-->
                 <div class="modal-content" style=" border-radius:0px;">
                     <div class="modal-header" style="background:#285c64;color:#fff;">
                         
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
                     </div>
-                    <form action="fungsi/tambah/tambah.php?akun=tambah" method="POST">
                         <div class="modal-body">
-                            <table class="table table-striped bordered">
-                                <tr>
-                                    <td>Nama</td>
-                                    <td><input type="text" placeholder="nama" required 
-                                            class="form-control" name="nama"></td>
-                                </tr>
+                    	<form class="row">
+                        	<div class="col-sm-6">
+	                        		<div class="card-body">
+										<div class="table-responsive">
+				                            <table class="table table-striped bordered table-responsive" width="100%" cellspacing="0">
+				                            	<tfoot>
+					                                <tr>
+													<label>Admin</label>
+														<td><input type="text" name="nama" readonly="readonly" placeholder="ardbee" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+														</td>
+													</tr>
+												</tfoot>
+				                            </table>
+			                        	</div>
+	                            	</div>
+                        	</div>
+                        	<div class="col-sm-6">
+	                        		<div class="card-body">
+										<div class="table-responsive">
+				                            <table class="table table-striped bordered table-responsive" id="datatable" width="100%" cellspacing="0">
+				                            	<tfoot>
+					                                <tr>
+													<label>Customer</label>
+														<td><input type="text" name="nama" readonly="readonly" placeholder="ilham dongo" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+														</td>
+													</tr>
+												</tfoot>
+				                            </table>
+			                        	</div>
+		                        	</div>
+                        	</div>
 
-                                <tr>
-                                    <td>No Telpon</td>
-                                    <td><input type="text" placeholder="no telpon" required 
-                                            class="form-control" name="no_telp"></td>
-                                </tr>
+                        	<div class="col-sm-12">
+                        		<div id="keranjang" class="table-resposive">
+                        			<table class="table bordered">
+										<tr>
+											<td style="width:20%;"><b>Date of Entry</b></td>
+											<td><input type="date" class="form-control" readonly="readonly" name="tgl_input"></td>
+										</tr>
+									</table>
+									<table class="table bordered">
+										<tr>
+											<td style="width:20%;"><b>Due Date</b></td>
+											<td><input type="date" class="form-control" readonly="readonly" name="tgl_input"></td>
+										</tr>
+									</table>
 
-                                <tr>
-                                    <td>Hak akses</td>
-                                    <td>
-                                        <select class="form-control" style="width:100%;" id="hakAksesSelect" name="hakAkses" >
-                                            <option  value="admin">Admin</option>
-                                            <option  value="user">User</option>
-                                           
-                                        </select>
-                                    </td>
-                                </tr>
-                               
-        
-                                <tr>
-                                    <td>username</td>
-                                    <td><input type="text" placeholder="username" required class="form-control"
-                                            name="username"></td>
-                                </tr>
-
-                                <tr>
-                                    <td>password</td>
-                                    <td><input type="text" placeholder="password" required class="form-control"
-                                            name="password"></td>
-                                </tr>
-                              
-                               
-                            </table>
+									<div class="col-sm-12">
+										<h5> Data Items 
+											<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
+											<b> Add </b></button>
+										</h5>
+										<div class="card-body">
+											<table class="table bordered">
+												<thead>
+													<tr>
+														<th>Date</th>
+														<th>Unit</th>
+														<th>Item & Description</th>
+														<th>Rate</th>
+														<th>Quantity</th>
+														<th>Amount</th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody class="MTbody">
+													<tr>
+														<td><input type="date" name="tgl"></td>
+														<td><input type="text" name="tes" readonly="readonly"></td>
+														<td><input type="text" name="tes" readonly="readonly"></td>
+														<td><input type="text" name="tes" readonly="readonly"></td>
+														<td><input type="text" name="tes" readonly="readonly"></td>
+														<td><input type="text" name="tes" readonly="readonly"></td>
+														<td>
+															<button id="deleteButton" style="color: red; border:none; background-color:transparent; ">❌</button>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+                        		</div>
+                        	</div>
                         </div>
+                    	</form>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Insert
-                                Data</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id="editButton" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Edit</button>
+                            <button id="deleteButton" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
 
+<script>
+    var editButton = document.querySelector('#editButton');
+    var addButton = document.querySelector('#addButton');
+    var closeButton = document.querySelector('#closeButton');
+
+    editButton.addEventListener('click', function() {
+        addButton.hidden = false; 
+    });
+
+    closeButton.addEventListener('click', function() {
+        addButton.hidden = true; 
+    });
+
+    addButton.addEventListener('click', function() {
+    	console.log("ilham babi");
+    });
+</script>
