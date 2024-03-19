@@ -133,18 +133,18 @@ class view
         return $hasil;
     }
 
-    public function barang_row()
+    public function transaksi_row()
     {
-        $sql = "select*from barang";
+        $sql = "select*from transaksi";
         $row = $this-> db -> prepare($sql);
         $row -> execute();
         $hasil = $row -> rowCount();
         return $hasil;
     }
 
-    public function barang_stok_row()
+    public function transaksi_stok_row()
     {
-        $sql ="SELECT SUM(stok) as jml FROM barang";
+        $sql ="SELECT SUM(stok) as transaksi FROM transaksi";
         $row = $this-> db -> prepare($sql);
         $row -> execute();
         $hasil = $row -> fetch();

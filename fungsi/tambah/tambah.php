@@ -8,10 +8,11 @@ session_start();
 
       
         $nama = htmlentities($_POST['nama']);
-        $no_telp = htmlentities($_POST['No_Telpon']);
+        $no_telp = htmlentities($_POST['no_telp']);
         $hak_access = htmlentities($_POST['hakAkses']);
         $username = htmlentities($_POST['username']);
         $password = htmlentities($_POST['password']);
+        $password = hash('sha256', $password); 
        
         try {
             // Mulai transaksi

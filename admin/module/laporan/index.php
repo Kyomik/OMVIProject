@@ -90,7 +90,8 @@
 						</tr>
 					</table>
 				</form>
-				<form method="post" action="index.php?page=laporan&hari=cek">
+
+				<form method="POST" action="index.php?page=laporan&hari=cek">
 					<table class="table table-striped">
 						<tr>
 							<th>
@@ -121,14 +122,46 @@
 				</form>
 			</div>
 		</div>
+		
          <br />
          <br />
          <!-- view barang -->
+
+    <?php
+
+    // require '../../config.php';
+
+    ?>
 		<div class="card">
 			<div class="card-body">
-				<div class="test" id="example1_length" style="width:100%; border: 1px solid black; height: 50px;"></div>
 				<div class="table-responsive">
-					<table class="table table-bordered w-100 table-sm" id="example1">
+					<div class="row">
+						<div class="col-sm-12 col-md-6">
+							<div class="dataTables_length" id="example1_length">
+								<label>Show 
+									<select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select> 
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-6">
+							<div id="example1_filter" class="dataTables_filter" style="float: right;">
+								<label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label>
+							</div>
+						</div>
+					</div>
+					<?php 
+						$sql = "SELECT t.id_transaksi, t.tgl_input, t.tgl_priode, a.nama AS admin, t.total_harga, COUNT(i.jumlah) AS jumlah_item FROM transaksi t
+							INNER JOIN item i ON t.id_transaksi = i.id_transaksi
+							INNER JOIN akun a ON t.id_akun = a.id_akun
+							GROUP BY t.id_transaksi
+							LIMIT 10";
+					?>
+					<table class="table table-bordered w-100 table-sm" >
 						<thead>
 							<tr style="background:#DFF0D8;color:#333;">
 								<th > No</th>
@@ -144,36 +177,85 @@
 						<tbody>
 							<tr>
 								<td>1</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-								<td>2011/04/25</td>
-								
-							</tr>
-						</tbody>
-							<?php 
-								// $no=1; 
-								// if(!empty($_GET['cari'])){
-								// 	$periode = $_POST['bln'].'-'.$_POST['thn'];
-								// 	$no=1; 
-								// 	$jumlah = 0;
-								// 	$bayar = 0;
-								// 	$hasil = $lihat -> periode_jual($periode);
-								// }elseif(!empty($_GET['hari'])){
-								// 	$hari = $_POST['hari'];
-								// 	$no=1; 
-								// 	$jumlah = 0;
-								// 	$bayar = 0;
-								// 	$hasil = $lihat -> hari_jual($hari);
-								// }else{
-								// 	$hasil = $lihat -> jual();
-								// }
-							?>
-					</table>
-				</div>
+								<td>27</td>
+								<td>03/03/2024</td>
+								<td>25/03/2024</td>
+								<td>Bee</td>
+								<td>10</td>
+								<td>Rp. 2. 500. 000</td>
+								<td>
+								<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
+            					Details
+            					</button>
+								<a href="#">
+									<button class="btn btn-danger btn-xs">Report</button>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-     </div>
- </div>
+	</div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style=" border-radius:0px;">
+                    <div class="modal-header" style="background:#285c64;color:#fff;">
+                        
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="fungsi/tambah/tambah.php?akun=tambah" method="POST">
+                        <div class="modal-body">
+                            <table class="table table-striped bordered">
+                                <tr>
+                                    <td>Nama</td>
+                                    <td><input type="text" placeholder="nama" required 
+                                            class="form-control" name="nama"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>No Telpon</td>
+                                    <td><input type="text" placeholder="no telpon" required 
+                                            class="form-control" name="no_telp"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Hak akses</td>
+                                    <td>
+                                        <select class="form-control" style="width:100%;" id="hakAksesSelect" name="hakAkses" >
+                                            <option  value="admin">Admin</option>
+                                            <option  value="user">User</option>
+                                           
+                                        </select>
+                                    </td>
+                                </tr>
+                               
+        
+                                <tr>
+                                    <td>username</td>
+                                    <td><input type="text" placeholder="username" required class="form-control"
+                                            name="username"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>password</td>
+                                    <td><input type="text" placeholder="password" required class="form-control"
+                                            name="password"></td>
+                                </tr>
+                              
+                               
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Insert
+                                Data</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
