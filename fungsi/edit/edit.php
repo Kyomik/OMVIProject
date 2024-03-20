@@ -57,7 +57,7 @@ session_start();
         $hak_access = htmlentities($_POST['hak_access']); // Pastikan nama input sesuai
         $username = htmlentities($_POST['username']);
         $password = htmlentities($_POST['password']);
-    
+        $password = hash('sha256', $password);
         try {
             $config->beginTransaction();
         

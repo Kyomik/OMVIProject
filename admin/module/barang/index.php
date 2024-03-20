@@ -10,8 +10,7 @@
 ?>
         <!-- Trigger the modal with a button -->
 <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-    <i class="fa fa-plus"></i> Tambah Aku
-n</button>
+    <i class="fa fa-plus"></i> Tambah Akun</button>
 <div class="clearfix"></div>
 <br />
 <!-- view barang -->
@@ -21,12 +20,12 @@ n</button>
             <thead>
                 <tr style="background:#DFF0D8;color:#333;">
                     <th>No.</th>
-                    <th>nama</th>
+                    <th>Nama</th>
                     <th>No Telpon</th>
                     <th>Hak Akses</th>
                     <th>Nama user</th>
-                    <th>Password</th>
-                    <th style="width:15%;">Aksi</th>
+                    <th style="width:20px;">Password</th>
+                    <th style="width:45%;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,8 +93,8 @@ n</button>
                                     <td>Hak akses</td>
                                     <td>
                                         <select class="form-control" style="width:100%;" id="hakAksesSelect" name="hakAkses" >
-                                            <option  value="admin">Admin</option>
-                                            <option  value="user">User</option>
+                                            <option  value="0">Admin</option>
+                                            <option  value="1">Manager</option>
                                            
                                         </select>
                                     </td>
@@ -103,7 +102,7 @@ n</button>
                                
         
                                 <tr>
-                                    <td>username</td>
+                                    <td>Username</td>
                                     <td><input type="text" placeholder="username" required class="form-control"
                                             name="username"></td>
                                 </tr>
