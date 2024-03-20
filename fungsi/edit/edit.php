@@ -53,8 +53,8 @@ session_start();
     if (!empty($_GET['akun'])) {
         $id_akun = htmlentities($_POST['id']);
         $nama = htmlentities($_POST['nama']);
-        $no_telp = htmlentities($_POST['no_telp']); // Perhatikan nama input
-        $hak_access = htmlentities($_POST['hak_access']); // Pastikan nama input sesuai
+        $no_telp = htmlentities($_POST['no_telp']); 
+        $hak_access = htmlentities($_POST['hak_access']); 
         $username = htmlentities($_POST['username']);
         $password = htmlentities($_POST['password']);
         $password = hash('sha256', $password);
