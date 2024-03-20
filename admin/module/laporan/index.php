@@ -1,4 +1,4 @@
- <?php 
+  <?php 
 	$bulan_tes =array(
 		'01'=>"Januari",
 		'02'=>"Februari",
@@ -14,6 +14,24 @@
 		'12'=>"Desember"
 	);
 ?>
+
+<?php 
+	if(isset($_GET['success'])){
+		echo "<script>cuteAlert({
+		  type: 'question',
+		  title: 'Confirm Title',
+		  message: 'Confirm Message',
+		  confirmText: 'Okay',
+		  cancelText: 'Cancel'
+		}).then((e)=>{
+		  if ( e == ('Thanks')){
+		} else {
+		    alert(':-(');
+		  }
+		})</script>";
+	}
+?>
+
 <div class="row">
 	<div class="col-md-12">
 		<h4>
@@ -215,33 +233,15 @@
         						</td>
     						</tr>
 						</tbody>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>27</td>
-								<td>03/03/2024</td>
-								<td>25/03/2024</td>
-								<td>Bee</td>
-								<td>10</td>
-								<td>Rp. 2. 500. 000</td>
-								<td>
-								<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-            					Details
-            					</button>
-								<a href="#">
-									<button class="btn btn-danger btn-xs">Report</button>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+    <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content" style=" border-radius:0px;">
                     <div class="modal-header" style="background:#285c64;color:#fff;">
@@ -297,6 +297,6 @@
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
+    </div>
+</div>
 
