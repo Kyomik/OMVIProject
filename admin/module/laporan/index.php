@@ -108,7 +108,6 @@
 						</tr>
 					</table>
 				</form>
-
 				<form method="POST" action="index.php?page=laporan&hari=cek">
 					<table class="table table-striped">
 						<tr>
@@ -140,9 +139,8 @@
 				</form>
 			</div>
 		</div>
-		
-         <br />
-         <br />
+	</div>
+</div>			
          <!-- view barang -->
 
     <?php
@@ -294,108 +292,112 @@
 </div>
 <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog" style="max-width: 1750px;">
-    <div class="modal-dialog">
+    		<div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content" style=" border-radius:0px;">
                     <div class="modal-header" style="background:#285c64;color:#fff;">
                         
                         <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
                     </div>
-                        <div class="modal-body">
+                    <div class="modal-body">
                     	<form class="row">
-                    		<div class="col-sm-12">
-	                        		<div class="card-body" style="float: right; margin-right: 50px;">
-										<div class="table-responsive">
-				                            <table class="table table-striped bordered table-responsive" width="100%" cellspacing="0">
-				                            	<tfoot>
-					                                <tr>
-													<label>Id Transaksi</label>
-														<td><input type="text" name="nama" readonly="readonly" id="modal-id_transaksi" style="width:100%; background-color: transparent; color:black; opacity: 1; border-radius: 0.35rem; border: none; padding: 0.375rem 0.75rem;">
-														</td>
-													</tr>
-												</tfoot>
-				                            </table>
+	                    		<div class="col-sm-12">
+		                        		<div class="card-body" style="float: right; margin-right: 50px;">
+											<div class="table-responsive">
+					                            <table class="table table-striped bordered table-responsive" width="100%" cellspacing="0">
+					                            	<tfoot>
+						                                <tr>
+														<label>Id Transaksi</label>
+															<td><input type="text" name="nama" readonly="readonly" id="modal-id_transaksi" style="width:100%; background-color: transparent; color:black; opacity: 1; border-radius: 0.35rem; border: none; padding: 0.375rem 0.75rem;">
+															</td>
+														</tr>
+													</tfoot>
+					                            </table>
+				                        	</div>
+		                            	</div>
+	                        	</div>
+	                        	<div class="col-sm-6">
+		                        		<div class="card-body">
+											<div class="table-responsive">
+					                            <table class="table table-striped bordered table-responsive" width="100%" cellspacing="0">
+					                            	<tfoot>
+						                                <tr>
+														<label>Admin</label>
+															<td><input type="text" name="nama" readonly="readonly" id="modal-nama_akun" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+															</td>
+														</tr>
+													</tfoot>
+					                            </table>
+				                        	</div>
+		                            	</div>
+	                        	</div>
+	                        	<div class="col-sm-6">
+		                        		<div class="card-body">
+											<div class="table-responsive">
+					                            <table class="table table-striped bordered table-responsive" id="datatable" width="100%" cellspacing="0">
+					                            	<tfoot>
+						                                <tr>
+														<label>Customer</label>
+															<td><input type="text" name="nama" readonly="readonly" class="modal-nama_customer" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+															</td>
+														</tr>
+													</tfoot>
+					                            </table>
+				                        	</div>
 			                        	</div>
-	                            	</div>
-                        	</div>
-                        	<div class="col-sm-6">
-	                        		<div class="card-body">
-										<div class="table-responsive">
-				                            <table class="table table-striped bordered table-responsive" width="100%" cellspacing="0">
-				                            	<tfoot>
-					                                <tr>
-													<label>Admin</label>
-														<td><input type="text" name="nama" readonly="readonly" id="modal-nama_akun" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
-														</td>
-													</tr>
-												</tfoot>
-				                            </table>
-			                        	</div>
-	                            	</div>
-                        	</div>
-                        	<div class="col-sm-6">
-	                        		<div class="card-body">
-										<div class="table-responsive">
-				                            <table class="table table-striped bordered table-responsive" id="datatable" width="100%" cellspacing="0">
-				                            	<tfoot>
-					                                <tr>
-													<label>Customer</label>
-														<td><input type="text" name="nama" readonly="readonly" class="modal-nama_customer" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
-														</td>
-													</tr>
-												</tfoot>
-				                            </table>
-			                        	</div>
-		                        	</div>
-                        	</div>
+	                        	</div>
 
-                        	<div class="col-sm-12">
-                        		<div id="keranjang" class="table-resposive">
-                        			<table class="table bordered">
-										<tr>
-											<td style="width:20%;"><b>Date of Entry</b></td>
-											<td><input type="date" class="form-control" readonly="readonly" id="modal-tgl_input" name="tgl_input"></td>
-										</tr>
-									</table>
-									<table class="table bordered">
-										<tr>
-											<td style="width:20%;"><b>Due Date</b></td>
-											<td><input type="date" class="form-control" readonly="readonly" name="tgl_input" id="modal-tgl_priode"></td>
-										</tr>
-									</table>
+	                        	<div class="col-sm-12">
+	                        		<div id="keranjang" class="table-resposive">
+	                        			<table class="table bordered">
+											<tr>
+												<td style="width:20%;"><b>Date of Entry</b></td>
+												<td><input type="date" class="form-control" readonly="readonly" id="modal-tgl_input" name="tgl_input"></td>
+											</tr>
+										</table>
+										<table class="table bordered">
+											<tr>
+												<td style="width:20%;"><b>Due Date</b></td>
+												<td><input type="date" class="form-control" readonly="readonly" name="tgl_input" id="modal-tgl_priode"></td>
+											</tr>
+										</table>
 
-									<div class="col-sm-12">
-										<h5> Data Items 
-											<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
-											<b> Add </b></button>
-										</h5>
-										<div class="card-body">
-											<table class="table bordered" id="MTable">
-												<thead>
-													<tr>
-														<th>Date</th>
-														<th>Unit</th>
-														<th>Item & Description</th>
-														<th>Rate</th>
-														<th>Quantity</th>
-														<th>Amount</th>
-														<th></th>
-													</tr>
-												</thead>
-												<tbody>
-												</tbody>
-											</table>
+										<div class="col-sm-12">
+											<h5> Data Items 
+												<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
+												<b> Add </b></button>
+											</h5>
+											<div class="card-body">
+												<table class="table bordered" id="MTable">
+													<thead>
+														<tr>
+															<th>Date</th>
+															<th>Unit</th>
+															<th>Item & Description</th>
+															<th>Rate</th>
+															<th>Quantity</th>
+															<th>Amount</th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
 										</div>
-									</div>
-                        		</div>
-                        	</div>
-                        </div>
+	                        		</div>
+	                        	</div>
+	                        </div>
                     	</form>
-                        <div class="modal-footer">
-                            <button id="editButton" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Edit</button>
-                            <button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-                        </div>
-                </div>
+	                        <div class="modal-footer">
+	                            <button id="editButton" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Edit</button>
+	                            <button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+	                        </div>
+                	</div>
+            	</div>
+			</div>
+    		</div>
+		</div>    		
     </div>
 </div>
 
