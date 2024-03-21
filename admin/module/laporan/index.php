@@ -158,7 +158,7 @@
 					<?php
 						try {
 							$tahun_sekarang = date('Y');
-						   	$sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ':', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
+						   	$sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
 						            FROM transaksi t
 						            INNER JOIN item i ON t.id_transaksi = i.id_transaksi
 						            INNER JOIN akun a ON t.id_akun = a.id_akun
@@ -173,6 +173,18 @@
 						    echo "Query failed: " . $e->getMessage();
 						}
 					?>
+					<script type="text/javascript">
+						let allItemsString = '';
+						let allItems = '';
+						let list_transaksi = [];
+						let transaksi = {
+							id_transaksi: '',
+							customer: '',
+							data_items: []
+						};
+						let kerangka_item = {}
+
+					</script>
 					<table class="table table-bordered w-100 table-sm">
     					<thead>
         					<tr style="background:#DFF0D8;color:#333;">
@@ -200,7 +212,30 @@
 	                			<td><?php echo $row['jumlah_item']; ?></td>
 	                			<td><?php echo $row['total_harga']; ?></td>
 	                			<td>
-	                    			<button id="detail_<?php echo $transaksi['id_transaksi']; ?>" type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
+	                				<script type="text/javascript">
+	                					allItemsString = "<?php echo $row['all_items'];?>"
+	                					allItems = allItemsString.split('|');
+	                					
+	                					allItems.forEach(function(item) {
+										    let itemDetails = item.split(',');
+										    kerangka_item.id  = itemDetails[0];
+										    kerangka_item.nama = itemDetails[1];
+										    kerangka_item.date = itemDetails[2];
+										    kerangka_item.price = itemDetails[3];
+										    kerangka_item.qty = itemDetails[4];
+
+										    transaksi.data_items.push(kerangka_item)
+										    kerangka_item = {};
+										})
+										list_transaksi.push(transaksi)
+										transaksi = {
+											id_transaksi: "<?php echo $row['id_transaksi'];?>",
+											customer: "<?php echo $row['nama_customer'];?>",
+											data_items: []
+										};
+
+	                				</script>
+	                    			<button id="<?php echo $row['id_transaksi']; ?>" class="btn btn-primary btn-md mr-2 detailButton" data-toggle="modal" data-target="#myModal">
 	                        			Details
 	                    			</button>
 	                    			<a href="#">
@@ -229,6 +264,21 @@
                     </div>
                         <div class="modal-body">
                     	<form class="row">
+                    		<div class="col-sm-12">
+	                        		<div class="card-body" style="float: right; margin-right: 50px;">
+										<div class="table-responsive">
+				                            <table class="table table-striped bordered table-responsive" width="100%" cellspacing="0">
+				                            	<tfoot>
+					                                <tr>
+													<label>Id Transaksi</label>
+														<td><input type="text" name="nama" readonly="readonly" id="modal-id_transaksi" style="width:100%; background-color: transparent; color:black; opacity: 1; border-radius: 0.35rem; border: none; padding: 0.375rem 0.75rem;">
+														</td>
+													</tr>
+												</tfoot>
+				                            </table>
+			                        	</div>
+	                            	</div>
+                        	</div>
                         	<div class="col-sm-6">
 	                        		<div class="card-body">
 										<div class="table-responsive">
@@ -236,7 +286,7 @@
 				                            	<tfoot>
 					                                <tr>
 													<label>Admin</label>
-														<td><input type="text" name="nama" readonly="readonly" placeholder="ardbee" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+														<td><input type="text" name="nama" readonly="readonly" id="modal-nama_akun" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
 														</td>
 													</tr>
 												</tfoot>
@@ -251,7 +301,7 @@
 				                            	<tfoot>
 					                                <tr>
 													<label>Customer</label>
-														<td><input type="text" name="nama" readonly="readonly" placeholder="ilham dongo" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+														<td><input type="text" name="nama" readonly="readonly" class="modal-nama_customer" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
 														</td>
 													</tr>
 												</tfoot>
@@ -265,13 +315,13 @@
                         			<table class="table bordered">
 										<tr>
 											<td style="width:20%;"><b>Date of Entry</b></td>
-											<td><input type="date" class="form-control" readonly="readonly" name="tgl_input"></td>
+											<td><input type="date" class="form-control" readonly="readonly" id="modal-tgl_input" name="tgl_input"></td>
 										</tr>
 									</table>
 									<table class="table bordered">
 										<tr>
 											<td style="width:20%;"><b>Due Date</b></td>
-											<td><input type="date" class="form-control" readonly="readonly" name="tgl_input"></td>
+											<td><input type="date" class="form-control" readonly="readonly" name="tgl_input" id="modal-tgl_priode"></td>
 										</tr>
 									</table>
 
@@ -281,7 +331,7 @@
 											<b> Add </b></button>
 										</h5>
 										<div class="card-body">
-											<table class="table bordered">
+											<table class="table bordered" id="MTable">
 												<thead>
 													<tr>
 														<th>Date</th>
@@ -293,18 +343,7 @@
 														<th></th>
 													</tr>
 												</thead>
-												<tbody class="MTbody">
-													<tr>
-														<td><input type="date" name="tgl"></td>
-														<td><input type="text" name="tes" readonly="readonly"></td>
-														<td><input type="text" name="tes" readonly="readonly"></td>
-														<td><input type="text" name="tes" readonly="readonly"></td>
-														<td><input type="text" name="tes" readonly="readonly"></td>
-														<td><input type="text" name="tes" readonly="readonly"></td>
-														<td>
-															<button id="deleteButton" style="color: red; border:none; background-color:transparent; ">❌</button>
-														</td>
-													</tr>
+												<tbody>
 												</tbody>
 											</table>
 										</div>
@@ -315,7 +354,7 @@
                     	</form>
                         <div class="modal-footer">
                             <button id="editButton" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Edit</button>
-                            <button id="deleteButton" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                            <button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
                         </div>
                 </div>
             </div>
@@ -325,9 +364,14 @@
     var editButton = document.querySelector('#editButton');
     var addButton = document.querySelector('#addButton');
     var closeButton = document.querySelector('#closeButton');
+	let table_bordered = document.querySelector('.table-bordered');
 
     editButton.addEventListener('click', function() {
         addButton.hidden = false; 
+        const inputs = document.querySelectorAll('.modal-body input[readonly="readonly"]');
+		    inputs.forEach(input => {
+		        input.removeAttribute('readonly');
+		    });
     });
 
     closeButton.addEventListener('click', function() {
@@ -337,4 +381,77 @@
     addButton.addEventListener('click', function() {
     	console.log("ilham babi");
     });
+
+    function calculateAmount() {
+	    const row = this.parentNode.parentNode; // Mendapatkan elemen baris (tr)
+	    let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value);
+	    let quantity = parseFloat(row.querySelector("input[placeholder='Quantity']").value);
+	    let amountInput = row.querySelector("input[placeholder='Amount']");
+	    if(isNaN(quantity)){
+	        quantity = 0;
+	    }
+	    if(isNaN(rate)){
+	        rate = 0;
+	    }
+	    let amount = rate * quantity;
+	    if (!isNaN(amount)) {
+	        amountInput.value = Math.round(amount); 
+	    } else {
+	        amountInput.value = ''; 
+	    }
+	    // calculateTotal();
+	}
+
+	table_bordered.addEventListener('click', function(event){
+		const transaksi = event.target.parentNode.parentNode;
+		const modalBox = document.getElementById('myModal');
+		const modalBody = modalBox.querySelector('.modal-body').children[0];
+		let number = 1;
+		// console.log(transaksi.children[2].childNodes[0].textContent); // cek anak 
+		// id transaksi
+		modalBody.children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = transaksi.children[1].childNodes[0].textContent;
+		// admin
+		modalBody.children[1].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = transaksi.children[4].childNodes[0].textContent
+		// tgl input
+		modalBody.children[3].children[0].children[0].children[0].children[0].children[1].children[0].value = transaksi.children[2].childNodes[0].textContent
+		// tgl priode
+		modalBody.children[3].children[0].children[1].children[0].children[0].children[1].children[0].value = transaksi.children[3].childNodes[0].textContent
+
+		list_transaksi.forEach((data) => {
+			if(data.id_transaksi == event.target.id){
+				console.log(data.data_items)
+	            const modalBox = document.getElementById('myModal');
+	            const modalBody = modalBox.querySelector('.modal-body').children[0];
+	            const table = document.getElementById('MTable');
+				const tbody = table.querySelector('tbody');
+
+	            data.data_items.forEach((item) => {
+                const row = document.createElement('tr');
+	                row.innerHTML = `
+	                    <td><input type="date" name="tgl" readonly="readonly" style="border:none;" placeholder="Date" value="${item.date}"></td>
+	                    <td><input type="text" name="unit" readonly="readonly" style="border:none;" placeholder="Unit" value="${number}"></td>
+	                    <td><input type="text" name="nama" readonly="readonly" style="border:none;" placeholder="Item & Description" value="${item.nama}"></td>
+	                    <td><input type="text" name="harga" readonly="readonly" style="border:none;" placeholder="Rate" value="${item.price}"></td>
+	                    <td><input type="text" name="jumlah" readonly="readonly" style="border:none;" placeholder="Quantity" value="${item.qty}"></td>
+	                    <td><input type="text" name="total" readonly="readonly" style="border:none;" placeholder="Amount" value="${item.amount}"></td>
+	                    <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
+					`;
+					number++;
+					tbody.appendChild(row);
+					calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
+				});
+					tbody.addEventListener('click', function(event) {
+					    if (event.target.classList.contains('deleteButton')) {
+					        event.stopPropagation(); // Mencegah penyebaran event klik ke atas elemen induk
+					        const row = event.target.closest('tr');
+					        const inputs = row.querySelectorAll('input[type="text"], input[type="date"]');
+					        inputs.forEach((input) => {
+					            input.value = '';
+					        });
+					    }
+					});
+
+			}
+		});
+	});
 </script>
