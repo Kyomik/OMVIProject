@@ -5,7 +5,7 @@
 	$no_telp = $_SESSION['akun']['no_telp'];
 ?>
 
-	<form class="row" method="POST" action="admin/module/jual/add_transaksi.php">
+	<form name="addForm" class="row form-input" method="POST" action="admin/module/jual/add_transaksi.php">
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
 				<div class="card-header bg-primary text-white">
@@ -27,10 +27,21 @@
 										<tr>
                                             <th>Phone Number</th>
 											<td><input type="tel" name="no_telp" readonly="readonly" value="<?php echo $_SESSION['akun']['no_telp']; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+                                        <tr>
+                                            <th hidden="hidden">id_akun</th>
+                                            <td hidden="hidden"><input required type="number" name="id_akun" readonly="readonly" value="9" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Name</th>
+											<td><input required type="text" readonly="readonly" placeholder="Ardbee" value="ardbe" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+                                        </tr>
+										<tr>
+                                            <th>Phone Number</th>
+											<td><input required type="tel" readonly="readonly" placeholder="+62" value="9898989" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Country</th>
-											<td><input type="text" name="negara" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="text" name="negara_akun" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -56,15 +67,15 @@
                                     <tfoot>
                                         <tr>
                                             <th >Name</th>
-											<td><input type="text" name="nama" placeholder="Ardbee" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" placeholder="Ardbee" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
-											<td><input type="tel" name="no_telp" placeholder="+62" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="tel" placeholder="+62" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Country</th>
-											<td><input type="text" name="negara" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="text" name="negara_customer" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -89,12 +100,15 @@
 							<tr>
 								<td style="width:20%;"><b>Date of Entry</b></td>
 								<td><input type="date" class="form-control" name="tgl_input"></td>
+								<td style="width:20%;"><b>Date </b></td>
+								<td><input required type="date" class="form-control" name="tgl_input" placeholder="data"></td>
 							</tr>
 						</table>
 						<table class="table table-bordered">
 							<tr>
 								<td style="width:20%;"><b>Due Date</b></td>
 								<td><input type="date" class="form-control" name="tgl_priode"></td>
+								<td><input required type="date" class="form-control" name="tgl_priode" placeholder="Due Date"></td>
 							</tr>
 						</table>
 							<div class="col-sm-12">
@@ -121,6 +135,10 @@
 												<tbody class="card-body" id="MyTBody">
 
 												</tbody>
+                                                <tbody class="card-body" id="MyTBody">
+                                                    <?php
+                                                    ?>
+                                                </tbody>
 											</table>
 										</div>
 									</div>
@@ -147,7 +165,7 @@
 		</div>
 
 		<div class="btn-container" style="width: 100%; border: 1px solid transparent;">
-		<button class="btn btn-submit" style="border:1px solid #1cc88a; background-color: #1cc88a; color: white; display:inline-block; float: right; margin-right: 50px;" type="submit" name="submit" onclick="confirmSubmit()"><b>Submit</b></button>
+		<button  class="btn btn-submit" style="border:1px solid #1cc88a; background-color: #1cc88a; color: white; display:inline-block; float: right; margin-right: 50px;" type="submit" name="btnSubmit"><b>Submit</b></button>
 		</div>
 	</form>
 
@@ -172,15 +190,6 @@ $(document).ready(function(){
 	});
 });
 
-// Button Confirm
-function confirmSubmit() {
-    if (confirm("Apakah data yang anda masukan sudah benar ?")) {
-        document.querySelector('form').submit();
-    } else {
-    	// Kimak
-    }
-}
-
 // Button reset
 function resetdata(){
 	const inputs = document.getElementsByTagName("input");
@@ -191,6 +200,55 @@ function resetdata(){
     }
 
  }
+
+// validasi form
+document.querySelector('.form-input').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Mencegah pengiriman form secara langsung
+
+    let form = event.currentTarget;
+    // let inputs = Array.from(form.querySelectorAll('input[required]'));
+    // let isFormValid = true;
+
+    // inputs.forEach(function(input) {
+    //     console.log('coli')
+    //     if (!input.value) {
+    //         console.log('memek')
+    //         isFormValid = false;
+    //         return;
+    //     }
+    // });
+
+    // if (!isFormValid) {
+    //     return false; // Jangan melanjutkan validasi jika form tidak valid
+    // }
+
+    try {
+        const confirmation = await showConfirmationPopup(); // Menunggu respons dari jendela konfirmasi
+        if (confirmation === "confirm") {
+            form.submit();
+        }
+    } catch (error) {
+        console.error(error);
+        // Handle any errors that occur during confirmation process
+    }
+});
+
+function showConfirmationPopup() {
+    return new Promise((resolve, reject) => {
+        cuteAlert({
+            type: "question",
+            title: "Confirm",
+            message: "Apakah anda yakin ingin menginput?",
+            confirmText: "Okay",
+            cancelText: "Cancel"
+        }).then((e) => {
+            resolve(e); // Resolve dengan nilai yang diterima dari jendela konfirmasi
+        }).catch((error) => {
+            reject(error); // Reject jika terjadi kesalahan dalam jendela konfirmasi
+        });
+    });
+}
+
 
 let nomorBerurut = 1;
 
@@ -211,6 +269,7 @@ function AddTable() {
             input.placeholder = 'Date';
             input.name = "tgl[]";
             input.type = "date";
+            input.required = true;
             cell.appendChild(input);
             row.appendChild(cell);
         }
@@ -229,6 +288,7 @@ function AddTable() {
             const input = document.createElement("input");
             input.type = "text";
             input.name = "nama_barang[]";
+            input.required = true;
             input.placeholder = 'Item & Description';
             cell.appendChild(input);
             row.appendChild(cell);
@@ -238,6 +298,7 @@ function AddTable() {
             const input = document.createElement("input");
             input.type = "text";
             input.name = "harga[]";
+            input.required = true;
             input.placeholder = 'Rate';
             cell.appendChild(input);
             row.appendChild(cell);
@@ -247,6 +308,7 @@ function AddTable() {
             const input = document.createElement("input");
             input.type = "number";
             input.name = "jumlah[]";
+            input.required = true;
             input.placeholder = 'Quantity';
             cell.appendChild(input);
             row.appendChild(cell);

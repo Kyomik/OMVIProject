@@ -1,4 +1,4 @@
- <?php 
+  <?php 
 	$bulan_tes =array(
 		'01'=>"Januari",
 		'02'=>"Februari",
@@ -13,6 +13,23 @@
 		'11'=>"November",
 		'12'=>"Desember"
 	);
+?>
+
+<?php 
+	if(isset($_GET['success'])){
+		echo "<script>cuteAlert({
+		  type: 'question',
+		  title: 'Confirm Title',
+		  message: 'Confirm Message',
+		  confirmText: 'Okay',
+		  cancelText: 'Cancel'
+		}).then((e)=>{
+		  if ( e == ('Thanks')){
+		} else {
+		    alert(':-(');
+		  }
+		})</script>";
+	}
 ?>
 
 <div class="row">
@@ -250,12 +267,34 @@
     					</tbody>
 					</table>
 				</div>			
+						<tbody id="myTbody">
+    						<tr>
+        						<td id="nomor">1</td>
+        						<td><?php echo $transaksi['id_transaksi']; ?></td>
+        						<td><?php echo $transaksi['tgl_input']; ?></td>
+        						<td><?php echo $transaksi['tgl_priode']; ?></td>
+        						<td><?php echo $akun['nama_akun']; ?></td>
+        						<td><?php echo $item['nama']; ?></td>
+        						<td><?php echo $transaksi['total_harga']; ?></td>
+    							<td>
+            						<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
+                						Details
+            						</button>
+            						<a href="#">
+                						<button class="btn btn-danger btn-xs">Report</button>
+            						</a>
+        						</td>
+    						</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog" style="max-width: 1750px;">
+    <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content" style=" border-radius:0px;">
                     <div class="modal-header" style="background:#285c64;color:#fff;">
@@ -357,8 +396,8 @@
                             <button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
                         </div>
                 </div>
-            </div>
-        </div>
+    </div>
+</div>
 
 <script>
     var editButton = document.querySelector('#editButton');
