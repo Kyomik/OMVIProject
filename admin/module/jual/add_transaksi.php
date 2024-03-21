@@ -3,7 +3,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require "./../../../config.php";
 
     // Validasi input
-    $required_fields = ['tgl_input', 'tgl_priode', 'id_akun', 'total_harga', 'nama', 'no_telp', 'negara'];
+    $required_fields = ['tgl_input', 'tgl_priode', 'id_akun', 'total_harga', 'nama', 'no_telp', 'negara', 'nama_barang'];
     foreach ($required_fields as $field) {
         if (empty($_POST[$field])) {
             die("Error: $field is required.");
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($_POST["tgl"] as $index => $tgl) {
             // Assign values to parameters
             $id_transaksi = $last_transaction_id;
-            $nama = $_POST["nama"][$index];
+            $nama = $_POST["nama_barang"][$index];
             $harga = $_POST["harga"][$index];
             $jumlah = $_POST["jumlah"][$index];
 
