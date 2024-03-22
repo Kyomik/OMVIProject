@@ -150,121 +150,127 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">
-					<div class="row">
-						<div class="col-sm-12 col-md-6">
-							<div class="dataTables_length" id="example1_length">
-								<label>Show 
-									<select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
-										<option value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option>
-									</select> 
-								</label>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-6">
-							<div id="example1_filter" class="dataTables_filter" style="float: right;">
-								<label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label>
-							</div>
-						</div>
-					</div>
-					<?php
-						try {
-							$tahun_sekarang = date('Y');
-						   	$sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
-								FROM transaksi t
-								INNER JOIN item i ON t.id_transaksi = i.id_transaksi
-					            INNER JOIN akun a ON t.id_akun = a.id_akun
-								INNER JOIN customer c ON t.id_customer = c.id_customer
-								GROUP BY t.id_transaksi
-								LIMIT 10";
-							$stmt = $config->prepare($sql);
-							$stmt->execute();
-						} catch(PDOException $e) {
+								<div class="row">
+									<div class="col-sm-12 col-md-6">
+										<div class="dataTables_length" id="example1_length">
+											<label>Show 
+												<select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
+													<option value="10">10</option>
+													<option value="25">25</option>
+													<option value="50">50</option>
+													<option value="100">100</option>
+												</select> 
+											</label>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-6">
+										<div id="example1_filter" class="dataTables_filter" style="float: right;">
+											<label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label>
+										</div>
+									</div>
+								</div>
+									<?php
+										try {
+											$tahun_sekarang = date('Y');
+										   	$sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
+										            FROM transaksi t
+										            INNER JOIN item i ON t.id_transaksi = i.id_transaksi
+										            INNER JOIN akun a ON t.id_akun = a.id_akun
+										            INNER JOIN customer c ON t.id_customer = c.id_customer
+										            GROUP BY t.id_transaksi
+										            LIMIT 10";
+
+										    $stmt = $config->prepare($sql);
+											$stmt->execute();
+										} catch(PDOException $e) {
 										    // Tangani kesalahan jika query gagal dijalankan
-						    echo "Query failed: " . $e->getMessage();
-						}
-					?>
-					<script type="text/javascript">
-						let allItemsString = '';
-						let allItems = '';
-						let list_transaksi = [];
-						let transaksi = {
-							id_transaksi: '',
-							customer: '',
-							data_items: [],
-							total: '' 
-						};
-						let kerangka_item = {}
-					</script>
-					<table class="table table-bordered w-100 table-sm">
-		    			<thead>
-		        			<tr style="background:#DFF0D8;color:#333;">
-		            			<th> No</th>
-		            			<th> ID TRANSAKSI</th>
-		            			<th> TGL PEMBUATAN</th>
-		           				<th> TGL TEMPO</th>
-		          				<th> ADMIN</th>
-		            			<th> JUMLAH ITEM</th>
-		           				<th> TOTAL HARGA</th>
-		       					<th> AKSI</th>
-		        			</tr>
-		    			</thead>
-		    			<tbody>
-		        			<?php
-		        				$index = 0; 
-		        				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-		        			?>
-		            		<tr>
-			                	<td><?php echo $index + 1; ?></td>
-			                	<td><?php echo "OMFAI" . "-" . substr($tahun_sekarang, -2) . "-" . $row['id_transaksi']; ?></td>
-			               		<td><?php echo $row['tgl_input']; ?></td>
-			             		<td><?php echo $row['tgl_priode']; ?></td>
-			                	<td><?php echo $row['nama_akun']; ?></td>
-			                	<td><?php echo $row['jumlah_item']; ?></td>
-			           			<td><?php echo $row['total_harga']; ?></td>
-			           			<td>
-			                	<script type="text/javascript">
-			                		allItemsString = "<?php echo $row['all_items'];?>"
-			               			allItems = allItemsString.split('|');
-			                		transaksi.id_transaksi = "<?php echo $row['id_transaksi'];?>";
-									transaksi.customer = "<?php echo $row['nama_customer'];?>"
-									transaksi.total = "<?php echo $row['total']?>"
-			                		
-			                		allItems.forEach(function(item) {
-										let itemDetails = item.split(',');
-									    kerangka_item.id  = itemDetails[0];
-									    kerangka_item.nama = itemDetails[1];
-										kerangka_item.date = itemDetails[2];
-									    kerangka_item.price = itemDetails[3];
-									    kerangka_item.qty = itemDetails[4];
-										
-										transaksi.data_items.push(kerangka_item)
-										kerangka_item = {};
-									})
+										    echo "Query failed: " . $e->getMessage();
+										}
+									?>
+									<script type="text/javascript">
+										let allItemsString = '';
+										let allItems = '';
+										let list_transaksi = [];
+										let transaksi = {
+											id_transaksi: '',
+											customer: '',
+											data_items: [],
+											total: '' 
+										};
+										let kerangka_item = {}
+									</script>
+							<table class="table table-bordered w-100 table-sm">
+		    					<thead>
+		        					<tr style="background:#DFF0D8;color:#333;">
+		            					<th> No</th>
+		            					<th> ID TRANSAKSI</th>
+		            					<th> TGL PEMBUATAN</th>
+		            					<th> TGL TEMPO</th>
+		            					<th> ADMIN</th>
+		            					<th> JUMLAH ITEM</th>
+		            					<th> TOTAL HARGA</th>
+		            					<th> AKSI</th>
+		        					</tr>
+		    					</thead>
+		    					<tbody>
+		        					<?php
+		        						$index = 0; 
+		        						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+		        					?>
+		            				<tr>
+			                			<td><?php echo $index + 1; ?></td>
+			                			<td><?php echo "OMFAI" . "-" . substr($tahun_sekarang, -2) . "-" . $row['id_transaksi']; ?></td>
+			               				<td><?php echo $row['tgl_input']; ?></td>
+			             				<td><?php echo $row['tgl_priode']; ?></td>
+			                			<td><?php echo $row['nama_akun']; ?></td>
+			                			<td><?php echo $row['jumlah_item']; ?></td>
+			                			<td><?php echo $row['total_harga']; ?></td>
+			                			<td>
+			                				<script type="text/javascript">
+			                					allItemsString = "<?php echo $row['all_items'];?>"
+			                					allItems = allItemsString.split('|');
+			                					
+			                					transaksi.id_transaksi = "<?php echo $row['id_transaksi'];?>";
+												transaksi.customer = "<?php echo $row['nama_customer'];?>"
+												transaksi.total = "<?php echo $row['total']?>"
+
+			                					allItems.forEach(function(item) {
+												    let itemDetails = item.split(',');
+												    kerangka_item.id  = itemDetails[0];
+												    kerangka_item.nama = itemDetails[1];
+												    kerangka_item.date = itemDetails[2];
+												    kerangka_item.price = itemDetails[3];
+												    kerangka_item.qty = itemDetails[4];
+
+												    transaksi.data_items.push(kerangka_item)
+												    kerangka_item = {};
+												})
 												
-									list_transaksi.push(transaksi)
-									transaksi = {
-										id_transaksi: "",
-										customer: "",
-										data_items: [],
-										total : ""
-									}
-			                	</script>
-			                    	<button id="<?php echo $row['id_transaksi']; ?>" class="btn btn-primary btn-md mr-2 detailButton" data-toggle="modal" data-target="#myModal">
+												list_transaksi.push(transaksi)
+												transaksi = {
+													id_transaksi: "",
+													customer: "",
+													data_items: [],
+													total : ""
+												}
+
+
+			                				</script>
+			                    			<button id="<?php echo $row['id_transaksi']; ?>" class="btn btn-primary btn-md mr-2 detailButton" data-toggle="modal" data-target="#myModal">
 			                        			Details
-			                    	</button>
-			                    	<a href="#">
-			                        	<button class="btn btn-danger btn-xs">Report</button>
-			                    	</a>
-			                	</td>
-		            		</tr>
-		        			<?php 
-		        				$index++;
-				        		};
-				        	?>
-		    			</tbody>
+			                    			</button>
+			                    			<a href="#">
+			                        			<button class="btn btn-danger btn-xs">Report</button>
+			                    			</a>
+			                			</td>
+		            				</tr>
+		        					<?php 
+		        						$index++;
+				        				};
+				        			?>
+		    					</tbody>
+							</table>
+						</div>
 					</table>
 				</div>
 			</div>
@@ -272,7 +278,7 @@
 	</div>
 </div>
 <div id="myModal" class="modal fade" role="dialog">
-	<div class="modal-dialog" style="max-width: 1750px;">
+	<div class="modal-dialog" style="min-width: 1450px;">
 		<!-- Modal content-->
 		<div class="modal-content" style=" border-radius:0px;">
         	<div class="modal-header" style="background:#285c64;color:#fff;">
@@ -339,40 +345,41 @@
 									<td><input type="date" class="form-control" readonly="readonly" name="tgl_input" id="modal-tgl_priode"></td>
 								</tr>
 							</table>
-							<div class="col-sm-12">
-								<h5> Data Items 
-									<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
-									<b> Add </b></button>
-								</h5>
-								<div class="card-body">
-									<table class="table bordered" id="MTable">
-										<thead>
-											<tr>
-												<th>Date</th>
-												<th>Unit</th>
-												<th>Item & Description</th>
-												<th>Rate</th>
-												<th>Quantity</th>
-												<th>Amount</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody>
-										</tbody>
-									</table>
+								<div class="col-sm-12">
+											<h5> Data Items 
+												<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
+												<b> Add </b></button>
+											</h5>
+									<div class="card-body">
+											<table class="table bordered" id="MTable">
+												<thead>
+													<tr>
+														<th>Date</th>
+														<th>Unit</th>
+														<th>Item & Description</th>
+														<th>Rate</th>
+														<th>Quantity</th>
+														<th>Amount</th>
+														<th></th>
+													</tr>
+												</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
 								</div>
-							</div>
 						</div> 		
 					</div>
 				</form>
 			</div>
-            <div class="modal-footer">
-				<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
-				<button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-			</div>
+                <div class="modal-footer">
+					<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
+					<button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+				</div>
 		</div>                    
 	</div>
 </div>            
+</div>
 
 <script>
     var editButton = document.querySelector('#editButton');
