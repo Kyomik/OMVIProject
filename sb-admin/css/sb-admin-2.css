@@ -5568,7 +5568,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
-  color: #000;
+  color: #fff;
   text-shadow: 0 1px 0 #fff;
   opacity: .5;
 }
@@ -5579,7 +5579,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
-  opacity: .75;
+  opacity: .50;
 }
 
 button.close {
@@ -5812,9 +5812,9 @@ a.close.disabled {
   overflow: scroll;
 }
 
-@media (min-width: 576px) {
+@media (max-width: 2000px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 1750px;
     margin: 1.75rem auto;
   }
   .modal-dialog-scrollable {

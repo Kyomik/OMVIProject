@@ -20,9 +20,14 @@ try {
     $statement_transaksi = $config->query($query_transaksi);
     $result_transaksi = $statement_transaksi->fetch(PDO::FETCH_ASSOC);
     $jumlah_transaksi = $result_transaksi['jumlah_transaksi'];
+    
+
+
 } catch (PDOException $e) {
     echo 'Error: ' . $e->getMessage();
 }
+
+
 // Tutup koneksi database
 $config = null;
     
@@ -99,12 +104,13 @@ $config = null;
                                 // Assume monthly profit data is retrieved from PHP
                                 const monthlyProfits = [<?php echo "90000" ?>, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500];
 
+
                                 // Months array for labeling x-axis
                                 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
                                 // Generate random colors for each bar
                                 function generateRandomColor() {
-                                    return '#' + Math.floor(Math.random()*16777215).toString(16);
+                                    return '#' + Math.floor(Math.random()*1777215).toString(16);
                                 }
                                 const barColors = monthlyProfits.map(() => generateRandomColor());
 

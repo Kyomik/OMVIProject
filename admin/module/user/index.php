@@ -2,8 +2,8 @@
 
  
 <?php 
-	$id = $_SESSION['admin']['id_member'];
-	$hasil = $lihat -> member_edit($id);
+	// $id = $_SESSION['admin']['id_member'];
+	// $hasil = $lihat -> member_edit($id);
 ?>
 <h4>Profil Pengguna Aplikasi</h4>
 <br>
@@ -39,10 +39,11 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="col-sm-5">
 		<div class="card card-primary">
 			<div class="card-header">
-				<h5 class="mt-2"><i class="fa fa-user"></i> Kelola Pengguna </h5>
+				<h5 class="mt-2 " ><i class="fa fa-user"></i> Kelola Pengguna </h5>
 			</div>
 			<div class="card-body">
 				<div class="box-content">
@@ -71,13 +72,7 @@
 										value="<?php echo $hasil['telepon']; ?>" required="required" />
 								</div>
 							</div>
-							<div class="control-group mb-3">
-								<label class="control-label" for="typeahead">NIK ( KTP ) </label>
-								<div class="input-group">
-									<input type="text" class="form-control" style="border-radius:0px;" name="nik"
-										value="<?php echo $hasil['NIK']; ?>" required="required" />
-								</div>
-							</div>
+							
 							<div class="control-group mb-3">
 								<label class="control-label" for="typeahead">Alamat </label>
 								<div class="controls">
@@ -95,6 +90,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="col-sm-4">
 		<div class="card card-primary">
 			<div class="card-header">
