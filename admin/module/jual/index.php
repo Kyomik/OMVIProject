@@ -21,13 +21,6 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-											<td><input type="text" name="nama" readonly="readonly" value="<?php echo $_SESSION['akun']['nama']; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
-                                        </tr>
-										<tr>
-                                            <th>Phone Number</th>
-											<td><input type="tel" name="no_telp" readonly="readonly" value="<?php echo $_SESSION['akun']['no_telp']; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
-                                        <tr>
                                             <th hidden="hidden">id_akun</th>
                                             <td hidden="hidden"><input required type="number" name="id_akun" readonly="readonly" value="9" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
@@ -98,8 +91,6 @@
 					<div id="keranjang" class="table-responsive">
 						<table class="table table-bordered">
 							<tr>
-								<td style="width:20%;"><b>Date of Entry</b></td>
-								<td><input type="date" class="form-control" name="tgl_input"></td>
 								<td style="width:20%;"><b>Date </b></td>
 								<td><input required type="date" class="form-control" name="tgl_input" placeholder="data"></td>
 							</tr>
@@ -107,7 +98,6 @@
 						<table class="table table-bordered">
 							<tr>
 								<td style="width:20%;"><b>Due Date</b></td>
-								<td><input type="date" class="form-control" name="tgl_priode"></td>
 								<td><input required type="date" class="form-control" name="tgl_priode" placeholder="Due Date"></td>
 							</tr>
 						</table>
