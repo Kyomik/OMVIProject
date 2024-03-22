@@ -470,6 +470,7 @@
 			modalBody.children[2].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = detailTransaksi.customer;
 
 			detailTransaksi.data_items.forEach((item) => {
+				console.log(item.date)
 				const row = document.createElement('tr');
 		        row.innerHTML = `
 		         <td><input type="date" name="tgl" readonly="readonly" style="border:none;" placeholder="Date" value="${item.date}"></td>
