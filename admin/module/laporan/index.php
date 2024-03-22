@@ -24,13 +24,36 @@
 		  confirmText: 'Okay',
 		  cancelText: 'Cancel'
 		}).then((e)=>{
-		  if ( e == ('Thanks')){
+		if ( e == ('confirm')){
+			generateReport()
 		} else {
-		    alert(':-(');
-		  }
+		    removeSuccessParameterFromURL();
+		}
 		})</script>";
 	}
 ?>
+<script type="text/javascript">
+		// Mendapatkan URL saat ini
+	function removeSuccessParameterFromURL(){
+		let currentURL = window.location.href;
+
+		// Menghapus semua parameter kecuali parameter 'page'
+		let updatedURL = currentURL.replace(/([&\?](?!page\b)[^&]*)/g, '');
+
+		// Mengecek apakah URL telah diubah
+		if (currentURL !== updatedURL) {
+		    // Mengganti URL tanpa reload halaman
+		    window.history.replaceState({}, document.title, updatedURL);
+		}
+	}
+
+	function generateReport(){
+		let baseUrl = window.location.origin
+		let generateUrl = baseUrl + '/OMVIProject/report.php'
+
+		window.open(generateUrl)
+	}
+</script>
 
 <div class="row">
 	<div class="col-md-12">

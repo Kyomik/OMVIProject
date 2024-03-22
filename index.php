@@ -2,6 +2,7 @@
 	@ob_start();
 	session_start();
 
+
 	if(true){
 		require 'config.php';
 		include $view;

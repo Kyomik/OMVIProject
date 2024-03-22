@@ -97,7 +97,7 @@ $config = null;
                             <canvas id="monthlyProfitChart" width="700" height="230"></canvas>
                             <script>
                                 // Assume monthly profit data is retrieved from PHP
-                                const monthlyProfits = [2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500];
+                                const monthlyProfits = [<?php echo "90000" ?>, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500];
 
                                 // Months array for labeling x-axis
                                 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

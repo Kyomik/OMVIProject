@@ -1,0 +1,181 @@
+@font-face {
+  font-family: SourceSansPro;
+  src: url(SourceSansPro-Regular.ttf);
+
+}
+
+a {
+  color: #0087C3;
+  text-decoration: none;
+}
+
+body {
+/*  border: 1px solid black;*/
+  position: relative;
+  width: 62%;  
+  height: 29.7cm; 
+  margin: 0 auto; 
+  color: #555555;
+  background: #FFFFFF; 
+  font-family: Arial, sans-serif; 
+  font-size: 14px; 
+  font-family: SourceSansPro;
+}
+
+header {
+/*  border: 1px solid black;*/
+  margin-top: 110px;
+  display: flex;
+  height: 70px;
+}
+
+.invoice-container, .logo-container{
+  flex: 1;
+  display: flex;
+}
+
+.invoice-container{
+  justify-content: center;
+}
+
+.invoice-container > .invoice{
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.logo{
+  height: 80%;
+  align-self: flex-end;
+  width: 50%;
+  display: grid;
+  grid-template-columns: auto auto;
+  }
+
+.logo > .logo-grid:nth-child(2){
+  position: relative;
+  width: 100%; height: 50px;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+
+.logo > .logo-grid > img{
+  height: 53px; width: 95%;
+}
+
+p{
+  margin: 0px;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+}
+
+.left{
+  width: 65%;
+}
+
+.right{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex: 1;
+}
+
+.data-alamat{
+  margin-bottom: 20px;
+}
+
+.data-perusahaan{
+  margin-bottom: 20px;
+}
+
+.date p, .due-date p, .amount p{
+  display: inline-block;
+}
+
+.id-transaksi{
+  align-self: center;
+  margin-bottom: 30px;
+}
+
+.from-to{
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.from-to .from{
+  width: 69%;
+}
+
+.from-to .to{
+  flex: 1;
+}
+
+table{
+  position: relative;
+  text-align: center;
+  width: 93%;
+  margin-bottom: 30px;
+}
+
+thead{
+  font-weight: bold;
+}
+
+thead > tr td:nth-child(1){
+  width: 19%;
+}
+
+thead > tr td:nth-child(2){
+  width: 7%;
+}
+
+thead > tr td:nth-child(3){
+  width: 40%;
+}
+
+thead > tr td:nth-child(5), thead > tr td:nth-child(6){
+  width: 17%;
+}
+
+tfoot > tr td:nth-child(1){
+  border-left: none;
+  border-bottom: none;
+}
+
+.desc{
+  width: 70%;
+  position: relative;
+  left: 3px;
+}
+
+.desc p:nth-child(1){
+  margin-bottom: 20px;
+}
+
+.ttd{
+  text-align: center;
+  float: right;
+  position: relative;
+  right: 75px;
+  width: auto;
+  height: auto;
+}
+
+.ttd p:nth-child(1){
+  margin-bottom: 75px;
+}
+
+footer {
+  color: #777777;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #AAAAAA;
+  padding: 8px 0;
+  text-align: center;
+}
+

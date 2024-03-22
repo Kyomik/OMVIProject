@@ -125,8 +125,7 @@
 													</tr>
 												</thead>
                                                 <tbody class="card-body" id="MyTBody">
-                                                    <?php
-                                                    ?>
+                                                    
                                                 </tbody>
 											</table>
 										</div>
@@ -160,24 +159,24 @@
 
 <script>
 // AJAX call for autocomplete 
-$(document).ready(function(){
-	$("#cari").change(function(){
-		$.ajax({
-			type: "POST",
-			url: "fungsi/edit/edit.php?cari_barang=yes",
-			data:'keyword='+$(this).val(),
-			beforeSend: function(){
-				$("#hasil_cari").hide();
-				$("#tunggu").html('<p style="color:green"><blink>tunggu sebentar</blink></p>');
-			},
-			success: function(html){
-				$("#tunggu").html('');
-				$("#hasil_cari").show();
-				$("#hasil_cari").html(html);
-			}
-		});
-	});
-});
+// $(document).ready(function(){
+// 	$("#cari").change(function(){
+// 		$.ajax({
+// 			type: "POST",
+// 			url: "fungsi/edit/edit.php?cari_barang=yes",
+// 			data:'keyword='+$(this).val(),
+// 			beforeSend: function(){
+// 				$("#hasil_cari").hide();
+// 				$("#tunggu").html('<p style="color:green"><blink>tunggu sebentar</blink></p>');
+// 			},
+// 			success: function(html){
+// 				$("#tunggu").html('');
+// 				$("#hasil_cari").show();
+// 				$("#hasil_cari").html(html);
+// 			}
+// 		});
+// 	});
+// });
 
 // Button reset
 function resetdata(){
