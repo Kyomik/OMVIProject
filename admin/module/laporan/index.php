@@ -285,37 +285,13 @@
         						$index++;
 		        				};
 		        			?>
-    					</tbody>
-					</table>
-				</div>			
-						<tbody id="myTbody">
-    						<tr>
-        						<td id="nomor">1</td>
-        						<td><?php echo $transaksi['id_transaksi']; ?></td>
-        						<td><?php echo $transaksi['tgl_input']; ?></td>
-        						<td><?php echo $transaksi['tgl_priode']; ?></td>
-        						<td><?php echo $akun['nama_akun']; ?></td>
-        						<td><?php echo $item['nama']; ?></td>
-        						<td><?php echo $transaksi['total_harga']; ?></td>
-    							<td>
-            						<button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
-                						Details
-            						</button>
-            						<a href="#">
-                						<button class="btn btn-danger btn-xs">Report</button>
-            						</a>
-        						</td>
-    						</tr>
-						</tbody>
+		        		</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-<div id="myModal" class="modal fade" role="dialog">
+		<div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog" style="max-width: 1750px;">
-    		<div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content" style=" border-radius:0px;">
                     <div class="modal-header" style="background:#285c64;color:#fff;">
@@ -410,19 +386,15 @@
 										</div>
 	                        		</div>
 	                        	</div>
-	                        </div>
-                    	</form>
 	                        <div class="modal-footer">
 	                            <button id="editButton" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Edit</button>
 	                            <button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
 	                        </div>
+	                    </form>
                 	</div>
             	</div>
-			</div>
-    		</div>
 		</div>    		
     </div>
-</div>
 
 <script>
     var editButton = document.querySelector('#editButton');
