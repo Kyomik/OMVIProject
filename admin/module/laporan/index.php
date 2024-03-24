@@ -308,7 +308,7 @@
                 <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
 			</div>
 			<div class="modal-body">
-				<form class="row">
+				<form class="row" action="edit_transaksi.php" id="editForm">
 	            	<div class="col-sm-12">
 						<div class="card-body" style="float: right; margin-right: 50px;">
 							<div class="table-responsive">
@@ -416,7 +416,18 @@
 		    inputs.forEach(input => {
 		        input.removeAttribute('readonly');
 		    });
-		    editButton.innerHTML = 'Submit';
+		    const hakAkses = <?php echo isset($_SESSION['akun']['hak_access']) ? $_SESSION['akun']['hak_access'] : '0'; ?>;
+		    if (hakAkses === 1) {
+			    if(editButton.innerHTML !== 'Submit'){
+			    	editButton.innerHTML = 'Submit';
+			    }
+			    else{
+			    	document.getElementById('editForm').submit();	
+			    }
+		   	}
+		   	else{
+		   		alert('Anda tidak memiliki izin untuk melakukan tindakan ini.');
+		   	}
 		    console.log(editButton.innerHTML);
     });
 
