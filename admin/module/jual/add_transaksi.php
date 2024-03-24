@@ -3,26 +3,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require "./../../../config.php";
 
     // Validasi input
-    $required_fields = ['tgl_input', 'tgl_priode', 'id_akun', 'total_harga', 'nama', 'no_telp', 'negara', 'nama_barang'];
-    foreach ($required_fields as $field) {
-        if (empty($_POST[$field])) {
-            die("Error: $field is required.");
-        }
-    }
+    // $required_fields = ['tgl_input', 'tgl_priode', 'id_akun', 'total_harga', 'nama', 'no_telp', 'negara', 'nama_barang'];
+    // foreach ($required_fields as $field) {
+    //     if (empty($_POST[$field])) {
+    //         die("Error: $field is required.");
+    //     }
+    // }
 
     // Begin transaction
     $config->beginTransaction();
 
     try {
+        $sql_akun = "UPDATE akun SET negara = ? WHERE id_akun = ?";
+        $stmt_akun = $config->prepare($sql_akun);
+        $id_akun = $_POST["id_akun"];
+        $negara_akun = $_POST["negara_akun"];
+        $stmt_akun->bindParam(1, $negara_akun);
+        $stmt_akun->bindParam(2, $id_akun);
+        $stmt_akun->execute();
+ 
         // Insert customer data
         $sql_customer = "INSERT INTO customer (nama, no_telp, negara) VALUES (?, ?, ?)";
         $stmt_customer = $config->prepare($sql_customer);
         $nama = $_POST["nama"];
         $no_telp = $_POST["no_telp"];
-        $negara = $_POST["negara"];
+        $negara_customer = $_POST["negara_customer"];
         $stmt_customer->bindParam(1, $nama);
         $stmt_customer->bindParam(2, $no_telp);
-        $stmt_customer->bindParam(3, $negara);
+        $stmt_customer->bindParam(3, $negara_customer);
         $stmt_customer->execute();
         $last_customer_id = $config->lastInsertId();
 
@@ -31,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_transaction = $config->prepare($sql_transaction);
         $tgl_input = $_POST["tgl_input"];
         $tgl_priode = $_POST["tgl_priode"];
-        $id_akun = $_POST["id_akun"];
         $total_harga = $_POST["total_harga"];
         $stmt_transaction->bindParam(1, $tgl_input);
         $stmt_transaction->bindParam(2, $tgl_priode);
@@ -64,6 +71,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Commit transaction
         $config->commit();
+
+        
+        echo '<script>window.location="index.php?page=laporan&success=add-transaction"</script>';
     } catch (PDOException $e) {
         // Rollback transaction if any error occurs
         $config->rollback();
