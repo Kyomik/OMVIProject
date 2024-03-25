@@ -60,7 +60,7 @@
       <tr>
         <td>
         	<div class="logo">
-           		<img src="travelnew.png" style="width:100px; height:100px;">
+           		<img src="assets/img/user/travelnew.png" style="width:100px; height:100px;">
            	</div>
         	<div class="text">
         		<h5>SINGAPORE <br>TRANSPORTATION <br>SERVICE</h5>

@@ -308,7 +308,7 @@
                 <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
 			</div>
 			<div class="modal-body">
-				<form class="row" action="edit_transaksi.php" id="editForm">
+				<form class="row" action="transaksi.php" id="editForm">
 	            	<div class="col-sm-12">
 						<div class="card-body" style="float: right; margin-right: 50px;">
 							<div class="table-responsive">
