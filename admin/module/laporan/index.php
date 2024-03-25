@@ -381,10 +381,10 @@
 			</div>
             <div class="modal-footer">
 				<?php 
-					// if ($hak_access == 1){
+					if ($hak_access == 1){
 						echo "<button id='editButton' type='submit' class='btn btn-primary'>Edit</button>
 						<button id='deleteAll' type='button' class='btn btn-danger' data-dismiss='modal'>Delete</button>";
-					// }				
+					}				
 				?>
 			</div>
 		</div>                    
