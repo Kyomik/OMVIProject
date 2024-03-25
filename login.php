@@ -6,11 +6,11 @@
 		
 		$username = strip_tags($_POST['username']);
 		$password = strip_tags($_POST['password']);
-		$hashed_password = hash('sha256', $password); // Menggunakan SHA-256 untuk keamanan yang lebih baik
+		$hashed_password = hash('sha256', $password); 
 		
-		$sql = 'SELECT akun.nama, akun.no_telp, akun.hak_access
-				FROM akun INNER JOIN login ON akun.id_akun = login.id_akun
-				WHERE username = ? AND password = ?'; // Tanda tanya disertakan dengan benar
+		$sql = 'SELECT akun.nama, akun.no_telp, akun.hak_access, akun.gambar , akun.id_akun, login.username, login.password
+				FROM akun INNER JOIN login ON akun.id_akun = login.id_akun 
+				WHERE username = ? AND password = ?'; 
 		
 		$row = $config->prepare($sql);
 		$row->execute(array($username, $hashed_password));
@@ -35,7 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login - POS Codekop</title>
+    <title>Login</title>
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -44,8 +44,17 @@
     <!-- Custom styles for this template-->
     <link href="sb-admin/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
+<style>
+	.bg-gradient {
+		background: rgb(253,187,45);
+        background: linear-gradient(0deg, rgba(253,187,45,1) 0%, rgba(34,193,195,1) 100%);
+		}
+		.bg-gradient2 {
+			background: #1dca8a;
+		}
+</style>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient" >
     <div class="container">
 
         <!-- Outer Row -->
@@ -67,7 +76,7 @@
 									<input type="password" class="form-control form-control-user" name="password"
 										placeholder="Password">
 								</div>
-								<button class="btn btn-primary btn-block" name="proses" type="submit"><i
+								<button class="btn btn-primary bg-gradient2 btn-block" name="proses" type="submit"><i
 										class="fa fa-lock"></i>
 									SIGN IN</button>
 							</form>

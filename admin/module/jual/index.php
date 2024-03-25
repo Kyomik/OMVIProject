@@ -8,7 +8,7 @@
 	<form name="addForm" class="row form-input" method="POST" action="admin/module/jual/add_transaksi.php">
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
-				<div class="card-header bg-primary text-white">
+				<div class="card-header ijo2 text-white">
 					<h5>Data Admin</h5>
 				</div>
 				<div class="card-body">
@@ -43,7 +43,7 @@
 
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
-				<div class="card-header bg-primary text-white">
+				<div class="card-header ijo2 text-white">
 					<h5>Data Costumer</h5>
 				</div>
 				<div class="card-body">
@@ -77,7 +77,7 @@
 
 		<div class="col-sm-12">
 			<div class="card card-primary">
-				<div class="card-header bg-primary text-white">
+				<div class="card-header ijo2 text-white">
 					<h5> Transaction
 					<button class="btn btn-danger float-right" type="reset" value="Reset Data" onclick="resetdata()">
 						<b> Reset All </b></button>
@@ -99,7 +99,7 @@
 						</table>
 							<div class="col-sm-12">
 								<div class="card card-primary">
-									<div class="card-header bg-primary text-white">
+									<div class="card-header ijo2 text-white">
 										<h5> Data Items 
 											<button class="btn btn-danger float-right"  value="Add" onclick="AddTable()" type="button">
 											<b> Add </b></button>

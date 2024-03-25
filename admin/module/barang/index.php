@@ -1,12 +1,12 @@
 <h4>Data Akun</h4>
         <br />
 <?php 
-    $sql = "SELECT akun.id_akun, akun.nama, akun.no_telp, akun.hak_access, login.username, login.password
-            FROM akun
-            INNER JOIN login ON akun.id_akun = login.id_akun";
-	$row = $config -> prepare($sql);
-	$row -> execute();
-	$r = $row -> rowCount();
+     $sql = "SELECT akun.id_akun, akun.nama, akun.no_telp, akun.hak_access, login.username, login.password
+        FROM akun
+        INNER JOIN login ON akun.id_akun = login.id_akun";
+    $row = $config -> prepare($sql);
+    $row -> execute();
+    $r = $row -> rowCount();
 ?>
         <!-- Trigger the modal with a button -->
 <button type="button" class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#myModal">
@@ -16,16 +16,17 @@
 <!-- view barang -->
 <div class="card card-body">
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-sm" id="example1">
+        <table class="table table-bordered table-striped table-sm" id="example1" style="text-align: center;">
             <thead>
-                <tr style="background:#DFF0D8;color:#333;">
-                    <th>No.</th>
+                <tr style="background:#DFF0D8; color:#333;">
+                    <th style="max-width:30px !important">No.</th>
                     <th>Nama</th>
                     <th>No Telpon</th>
                     <th>Hak Akses</th>
-                    <th>Nama user</th>
-                    <th style="width:20px;">Password</th>
-                    <th style="width:45%;">Aksi</th>
+                    <th>User Name</th>
+                   
+                    <th>Password</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +50,8 @@
                         ?>
                     </td>
                     <td><?php echo $data['username']; ?></td>
-                    <td><?php echo $data['password']; ?></td>
+                    <!-- <td><img style="width: 65px; height:60px" src="assets/img/user/<?php echo $data['gambar']; ?>" alt="Gambar"></td>  -->
+                    <td style="max-width:350px !important; text-align:start"><?php echo $data['password']; ?></td>
                     <td>
                         <a href="index.php?page=barang/edit&akun=<?php echo $data['id_akun']; ?>"><button class="btn btn-warning btn-xs">Edit</button></a>
                         <a href="fungsi/hapus/hapus.php?akun=hapus&id=<?php echo $data['id_akun']; ?>" onclick="javascript:return confirm('Hapus Data akun ?');"><button class="btn btn-danger btn-xs">Hapus</button></a>

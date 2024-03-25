@@ -1,4 +1,6 @@
- <?php 
+<?php  
+	$hak_access = $_SESSION['akun']['hak_access'];
+
 	$bulan_tes =array(
 		'01'=>"Januari",
 		'02'=>"Februari",
@@ -13,9 +15,7 @@
 		'11'=>"November",
 		'12'=>"Desember"
 	);
-?>
 
-<?php 
 	if(isset($_GET['report'])){
 		echo "<script>cuteAlert({
 		  type: 'question',
@@ -24,6 +24,7 @@
 		  confirmText: 'Okay',
 		  cancelText: 'Cancel'
 		}).then((e)=>{
+
 		if ( e == ('confirm')){
 			generateReport()
 		} else {
@@ -32,21 +33,15 @@
 		})</script>";
 	}
 ?>
+
 <script type="text/javascript">
-		// Mendapatkan URL saat ini
 	function removeSuccessParameterFromURL(){
 		let currentURL = window.location.href;
-
-		// Menghapus semua parameter kecuali parameter 'page'
 		let updatedURL = currentURL.replace(/([&\?](?!page\b)[^&]*)/g, '');
-
-		// Mengecek apakah URL telah diubah
 		if (currentURL !== updatedURL) {
-		    // Mengganti URL tanpa reload halaman
 		    window.history.replaceState({}, document.title, updatedURL);
 		}
 	}
-
 	function generateReport(){
 		let baseUrl = window.location.origin
 		let generateUrl = ""	
@@ -67,9 +62,6 @@
 <div class="row">
 	<div class="col-md-12">
 		<h4>
-			<!--<a  style="padding-left:2pc;" href="fungsi/hapus/hapus.php?laporan=jual" onclick="javascript:return confirm('Data Laporan akan di Hapus ?');">
-						<button class="btn btn-danger">RESET</button>
-					</a>-->
 			<?php if(!empty($_GET['cari'])){ ?>
 			Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?>
 			<?php }elseif(!empty($_GET['hari'])){?>
@@ -245,7 +237,7 @@
 											kerangka_item.date = itemDetails[2];
 										    kerangka_item.price = itemDetails[3];
 										    kerangka_item.qty = itemDetails[4];
-												
+
 											transaksi.data_items.push(kerangka_item)
 											kerangka_item = {};
 										})
@@ -275,7 +267,7 @@
 	</div>
 </div>
 <div id="myModal" class="modal fade" role="dialog">
-	<div class="modal-dialog" style="min-width: 1450px;">
+	<div class="modal-dialog modal-dialog-sm" style="max-width: 2000px; width: 95%;" >
 		<!-- Modal content-->
 		<div class="modal-content" style=" border-radius:0px;">
         	<div class="modal-header" style="background:#285c64;color:#fff;">
@@ -315,7 +307,7 @@
 						</div>
 					</div>
 	                <div class="col-sm-6">
-						<div class="card-body">
+						<div class="card card-body">
 							<div class="table-responsive">
 								<table class="table table-striped bordered table-responsive" id="datatable" width="100%" cellspacing="0">
 									<tfoot>
@@ -343,29 +335,31 @@
 									<td><input type="date" class="form-control" readonly="readonly" name="tgl_priode" id="modal-tgl_priode"></td>
 								</tr>
 							</table>
-								<div class="col-sm-12">
-											<h5> Data Items 
-												<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
-												<b> Add </b></button>
-											</h5>
-									<div class="card-body">
-											<table class="table bordered" id="MTable">
-												<thead>
-													<tr>
-														<th>Date</th>
-														<th>Unit</th>
-														<th>Item & Description</th>
-														<th>Rate</th>
-														<th>Quantity</th>
-														<th>Amount</th>
-														<th></th>
-													</tr>
-												</thead>
+							<div class="col-sm-12">
+								<h5> Data Items 
+									<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
+									<b> Add </b></button>
+								</h5>
+								<div class="card card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered table-striped table-sm" id="MTable" style="text-align: center;" >
+											<thead>
+												<tr>
+													<th>Date</th>
+													<th>Unit</th>
+													<th>Item & Description</th>
+													<th>Rate</th>
+													<th>Quantity</th>
+													<th>Amount</th>
+													<th></th>
+												</tr>
+											</thead>
 											<tbody>
 											</tbody>
 										</table>
 									</div>
 								</div>
+							</div>
 						</div>
 						<div class="col-sm-12">
 							<div id="kasirnya" class="table-resposive">
@@ -385,21 +379,23 @@
 					</div>
 				</form>
 			</div>
-                <div class="modal-footer">
-					<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
-					<button id="deleteAll" type="button" class="btn btn-danger">Delete</button>
-				</div>
-			</div>                    
-		</div>
+            <div class="modal-footer">
+				<?php 
+					if ($hak_access == 1){
+						echo "<button id='editButton' type='submit' class='btn btn-primary'>Edit</button>
+						<button id='deleteAll' type='button' class='btn btn-danger' data-dismiss='modal'>Delete</button>";
+					}				
+				?>
+			</div>
+		</div>                    
 	</div>
 
+
 <script>
-<<<<<<< HEAD
-    const editButton = document.querySelector('#editButton');
+    const editButton = document.querySelector('.modal-footer');
     const addButton = document.querySelector('#addButton');
     const closeButton = document.querySelector('#closeButton');
 	const table_bordered = document.querySelector('.table-bordered');
-    const deleteAllButton = document.querySelector('#deleteAll');
 	const table =  table_bordered.children[1];
 	const pencarianTahun = document.getElementsByName("thn")[0];
 	const pencarianBulan = document.getElementsByName("bln")[0];
@@ -420,38 +416,22 @@
 		pencarianTahun.value = ""
 	})
 
-	deleteAllButton.addEventListener('click', function(){
-		const table = document.getElementById('MTable');
-    	const tbody = table.querySelector('tbody');
-
-    	tbody.innerHTML = '';
-	});	
-
-    editButton.addEventListener('click', function() {
+    editButton.addEventListener('click', function(event) {
         addButton.hidden = false; 
         const inputs = document.querySelectorAll('.modal-body input[readonly="readonly"]');
 		    inputs.forEach(input => {
 		        input.removeAttribute('readonly');
 		    });
-		    // const hakAkses = <?php echo isset($_SESSION['akun']['hak_access']) ? $_SESSION['akun']['hak_access'] : '0'; ?>;
-		    // if (hakAkses === 1) {
-			    if(editButton.innerHTML !== 'Submit'){
-			    	editButton.innerHTML = 'Submit';
-			    }
-			    else{
-			    	document.getElementById('editForm').submit();	
-			    }
-		   	// }
-		   	// else{
-		   	// 	// alert('Anda tidak memiliki izin untuk melakukan tindakan ini.');
-		   	// }
+		    event.target.innerHTML = 'Submit';
 		    console.log(editButton.innerHTML);
     });
+
 
     addButton.addEventListener('click', function() {
     	// console.log("ilham babi");
     	const table = document.getElementById('MTable');
 		const tbody = table.querySelector('tbody');
+
 
     	const row = document.createElement('tr');
 		    row.innerHTML = `
@@ -558,8 +538,11 @@
 		                    <td><input type="text" name="harga_lama[]" readonly="readonly" style="border:none;" placeholder="Rate" value="${item.price}"></td>
 		                    <td><input type="text" name="jumlah_lama[]" readonly="readonly" style="border:none;" placeholder="Quantity" value="${item.qty}"></td>
 		                    <td><input type="text" name="total" readonly="readonly" style="border:none;" placeholder="Amount" value="${item.amount}"></td>
-
-		                    <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
+		                    <?php 
+								if ($hak_access == 1){
+									echo '<td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>'; 
+								}
+							?>
 						`;
 				number++;
 				tbody.appendChild(row);
