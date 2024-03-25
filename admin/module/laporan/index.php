@@ -52,7 +52,7 @@
 
 // Mengambil nilai dari parameter 'id'
 		let id = urlParams.get('id');
-		
+
 		generateUrl = baseUrl + `/OMVIProject/report.php?id=${id}`
 
 		window.open(generateUrl)
@@ -228,7 +228,7 @@
 					               		allItems = allItemsString.split('|');
 					               		transaksi.id_transaksi = "<?php echo $isi['id_transaksi'];?>";
 										transaksi.customer = "<?php echo $isi['nama_customer'];?>"
-										transaksi.total = "<?php echo $isi['total']?>"
+										transaksi.total = "<?php echo $isi['total_harga']?>"
 					                		
 					               		allItems.forEach(function(item) {
 											let itemDetails = item.split(',');
@@ -381,10 +381,10 @@
 			</div>
             <div class="modal-footer">
 				<?php 
-					if ($hak_access == 1){
+					// if ($hak_access == 1){
 						echo "<button id='editButton' type='submit' class='btn btn-primary'>Edit</button>
 						<button id='deleteAll' type='button' class='btn btn-danger' data-dismiss='modal'>Delete</button>";
-					}				
+					// }				
 				?>
 			</div>
 		</div>                    
@@ -525,7 +525,7 @@
 			modalBody.children[2].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = detailTransaksi.customer;
 
 			// Total
-			// console.log(modalBody.children[3].children[1].children[0].children[0].children[0].children[0].children[1].children[0].value = detailTransaksi.total)
+			modalBody.children[3].children[1].children[0].children[0].children[0].children[0].children[1].children[0].value = detailTransaksi.total
 
 
 			detailTransaksi.data_items.forEach((item) => {
