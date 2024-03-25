@@ -412,7 +412,7 @@
 			</div>
                 <div class="modal-footer">
 					<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
-					<button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+					<button id="deleteAll" type="button" class="btn btn-danger">Delete</button>
 				</div>
 		</div>                    
 	</div>
@@ -423,23 +423,15 @@
     var editButton = document.querySelector('#editButton');
     var addButton = document.querySelector('#addButton');
     var closeButton = document.querySelector('#closeButton');
-    var deleteAllButton = document.querySelector('#deleteAll')
+    var deleteAllButton = document.querySelector('#deleteAll');
 	let table_bordered = document.querySelector('.table-bordered');
 
-	deleteAllButton.addEventListener('click', function() {
-    // Dapatkan elemen tabel
-	    let table = document.querySelector('#MTable tbody');
+	deleteAllButton.addEventListener('click', function(){
+		const table = document.getElementById('MTable');
+    	const tbody = table.querySelector('tbody');
 
-	    let rows = table.querySelectorAll('tr');
-
-	    rows.forEach(function(row) {
-	        let adminInput = row.querySelector("input[name='nama']");
-	        if (adminInput && !adminInput.hidden) {
-	            return;
-	        }
-	        row.remove();
-	    });
-	});
+    	tbody.innerHTML = '';
+	});	
 
     editButton.addEventListener('click', function() {
         addButton.hidden = false; 
@@ -469,16 +461,20 @@
 
     	const row = document.createElement('tr');
 		    row.innerHTML = `
-		        <td><input type="date" name="tgl"  style="border:none;" placeholder="Date" value=""></td>
+		        <td><input type="date" name="tgl"  style="border:none;" placeholder="Date"></td>
 		        <td><input type="text" name="unit"  style="border:none;" placeholder="${++tbody.children.length}" value=""></td>
 		        <td><input type="text" name="nama"  style="border:none;" placeholder="Item & Description" value=""></td>
-		        <td><input type="text" name="harga"  style="border:none;" placeholder="Rate" value=""></td>
-		        <td><input type="text" name="jumlah"  style="border:none;" placeholder="Quantity" value=""></td>
-		        <td><input type="text" name="total"  style="border:none;" placeholder="Amount" value=""></td>
+		        <td><input type="text" name="harga"  style="border:none;" placeholder="Rate"></td>
+		        <td><input type="text" name="jumlah"  style="border:none;" placeholder="Quantity"></td>
+		        <td><input type="text" name="total"  style="border:none;" placeholder="Amount"></td>
 		        <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
 		    `;
 		    tbody.appendChild(row);
-			calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
+				calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
+				calculateAmount.call(row.querySelector("input[placeholder='Quantity']"));
+				document.querySelectorAll("input[placeholder='Rate'], input[placeholder='Quantity']").forEach(input => {
+			        input.addEventListener('input', calculateAmount);
+			    });
     });
 
     function calculateAmount() {
@@ -533,7 +529,9 @@
 			});
 
 			modalBody.children[2].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = detailTransaksi.customer;
-			console.log(modalBody.children[3].children[1].children[0].children[0].children[0].children[0].children[1].children[0].value = detailTransaksi.total)
+
+			// Total
+			// console.log(modalBody.children[3].children[1].children[0].children[0].children[0].children[0].children[1].children[0].value = detailTransaksi.total)
 
 
 			detailTransaksi.data_items.forEach((item) => {
@@ -552,6 +550,7 @@
 				number++;
 				tbody.appendChild(row);
 				calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
+				calculateAmount.call(row.querySelector("input[placeholder='Quantity']"));
 			})
 			
 			tbody.addEventListener('click', function(event) {
