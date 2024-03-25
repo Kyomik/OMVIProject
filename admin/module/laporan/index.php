@@ -366,23 +366,40 @@
 										</table>
 									</div>
 								</div>
+						</div>
+						<div class="col-sm-12">
+							<div id="kasirnya" class="table-resposive">
+								<table class="table table-stripped bordered">
+									<tr>
+										<td>Total</td>
+											<td>
+												<!-- <input type="number" name="total" id="total" readonly="readonly" class="form-control"> -->
+												<?php 
+												echo "<input readonly='readonly' type='number' class='form-control' name='total_harga' id='total' value='" . $totalAmount . "'>"; 
+												?>
+											</td>
+									</tr>
+								</table>
+							</div>
 						</div> 		
 					</div>
 				</form>
 			</div>
                 <div class="modal-footer">
-					<button id="editButton" name="id_transaksi" type="submit" class="btn btn-primary">Edit</button>
-					<button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+					<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
+					<button id="deleteAll" type="button" class="btn btn-danger">Delete</button>
 				</div>
 			</div>                    
 		</div>
 	</div>
 
 <script>
+<<<<<<< HEAD
     const editButton = document.querySelector('#editButton');
     const addButton = document.querySelector('#addButton');
     const closeButton = document.querySelector('#closeButton');
 	const table_bordered = document.querySelector('.table-bordered');
+    const deleteAllButton = document.querySelector('#deleteAll');
 	const table =  table_bordered.children[1];
 	const pencarianTahun = document.getElementsByName("thn")[0];
 	const pencarianBulan = document.getElementsByName("bln")[0];
@@ -402,6 +419,13 @@
 		pencarianBulan.value = ""
 		pencarianTahun.value = ""
 	})
+
+	deleteAllButton.addEventListener('click', function(){
+		const table = document.getElementById('MTable');
+    	const tbody = table.querySelector('tbody');
+
+    	tbody.innerHTML = '';
+	});	
 
     editButton.addEventListener('click', function() {
         addButton.hidden = false; 
@@ -440,7 +464,11 @@
 		        <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
 		    `;
 		    tbody.appendChild(row);
-			calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
+				calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
+				calculateAmount.call(row.querySelector("input[placeholder='Quantity']"));
+				document.querySelectorAll("input[placeholder='Rate'], input[placeholder='Quantity']").forEach(input => {
+			        input.addEventListener('input', calculateAmount);
+			    });
     });
 
     function getTanggalSekarang(){
@@ -516,6 +544,10 @@
 
 			modalBody.children[2].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = detailTransaksi.customer;
 
+			// Total
+			// console.log(modalBody.children[3].children[1].children[0].children[0].children[0].children[0].children[1].children[0].value = detailTransaksi.total)
+
+
 			detailTransaksi.data_items.forEach((item) => {
 				const row = document.createElement('tr');
 		        row.innerHTML = `
@@ -526,11 +558,13 @@
 		                    <td><input type="text" name="harga_lama[]" readonly="readonly" style="border:none;" placeholder="Rate" value="${item.price}"></td>
 		                    <td><input type="text" name="jumlah_lama[]" readonly="readonly" style="border:none;" placeholder="Quantity" value="${item.qty}"></td>
 		                    <td><input type="text" name="total" readonly="readonly" style="border:none;" placeholder="Amount" value="${item.amount}"></td>
+
 		                    <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
 						`;
 				number++;
 				tbody.appendChild(row);
 				calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
+				calculateAmount.call(row.querySelector("input[placeholder='Quantity']"));
 			})
 			
 			tbody.addEventListener('click', function(event) {
