@@ -19,6 +19,7 @@ date_default_timezone_set("Asia/Jakarta");
 error_reporting(0);
 
 define('BASE_URL', '/OMVIProject/');
+define("DOMPDF_ENABLE_REMOTE", false);
 
 	// sesuaikan dengan server anda
 	$host 	= 'localhost'; // host server

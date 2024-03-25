@@ -171,53 +171,54 @@ class view
 
     public function jual()
     {
-        $sql ="SELECT nota.* , barang.id_barang, barang.nama_barang, barang.harga_beli, member.id_member,
-                member.nm_member from nota 
-                left join barang on barang.id_barang=nota.id_barang 
-                left join member on member.id_member=nota.id_member 
-                where nota.periode = ?
-                ORDER BY id_nota DESC";
+        $sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
+                                FROM transaksi t
+                                INNER JOIN item i ON t.id_transaksi = i.id_transaksi
+                                INNER JOIN akun a ON t.id_akun = a.id_akun
+                                INNER JOIN customer c ON t.id_customer = c.id_customer GROUP BY t.id_transaksi";
         $row = $this-> db -> prepare($sql);
-        $row -> execute(array(date('m-Y')));
+        $row -> execute();
         $hasil = $row -> fetchAll();
         return $hasil;
     }
 
-    public function periode_jual($periode)
+    public function periode_jual($bulan, $tahun, $hari)
     {
-        $sql ="SELECT nota.* , barang.id_barang, barang.nama_barang, barang.harga_beli, member.id_member,
-                member.nm_member from nota 
-                left join barang on barang.id_barang=nota.id_barang 
-                left join member on member.id_member=nota.id_member WHERE nota.periode = ? 
-                ORDER BY id_nota ASC";
-        $row = $this-> db -> prepare($sql);
-        $row -> execute(array($periode));
-        $hasil = $row -> fetchAll();
-        return $hasil;
-    }
+        $bulan = ltrim($bulan, '0');
+        try {
+            $sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
+                                FROM transaksi t
+                                INNER JOIN item i ON t.id_transaksi = i.id_transaksi
+                                INNER JOIN akun a ON t.id_akun = a.id_akun
+                                INNER JOIN customer c ON t.id_customer = c.id_customer";
 
-    public function hari_jual($hari)
-    {
-        $ex = explode('-', $hari);
-        $monthNum  = $ex[1];
-        $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
-        if ($ex[2] > 9) {
-            $tgl = $ex[2];
-        } else {
-            $tgl1 = explode('0', $ex[2]);
-            $tgl = $tgl1[1];
+            if ((!empty($bulan) || !empty($tahun)) && !empty($hari)) {
+                    // Jika pengguna memberikan input bulan atau tahun dan hari
+            } else {
+                if(!empty($bulan) && !empty($tahun)){
+                        $sql .= " WHERE MONTH(t.tgl_input) = $bulan AND YEAR(t.tgl_input) = $tahun";
+                    }elseif (!empty($bulan) || !empty($tahun)) {
+                        if (!empty($bulan)) {
+                            $sql .= " WHERE MONTH(t.tgl_input) = $bulan";
+                        }
+                        if (!empty($tahun)) {
+                            $sql .= " WHERE YEAR(t.tgl_input) = $tahun";
+                        }
+                    } elseif (!empty($hari)) {
+                        $sql .= " WHERE t.tgl_input = $hari";
+                    } else {
+                        // Tidak ada input bulan, tahun, atau hari
+                    }
+                }
+            $sql .= " GROUP BY t.id_transaksi";
+
+            $row = $this-> db -> prepare($sql);
+            $row -> execute();
+            $hasil = $row -> fetchAll();
+            return $hasil;
+        } catch(PDOException $e) {
+            echo "Query failed: " . $e->getMessage();
         }
-        $cek = $tgl.' '.$monthName.' '.$ex[0];
-        $param = "%{$cek}%";
-        $sql ="SELECT nota.* , barang.id_barang, barang.nama_barang,  barang.harga_beli, member.id_member,
-                member.nm_member from nota 
-                left join barang on barang.id_barang=nota.id_barang 
-                left join member on member.id_member=nota.id_member WHERE nota.tanggal_input LIKE ? 
-                ORDER BY id_nota ASC";
-        $row = $this-> db -> prepare($sql);
-        $row -> execute(array($param));
-        $hasil = $row -> fetchAll();
-        return $hasil;
     }
 
     public function penjualan()

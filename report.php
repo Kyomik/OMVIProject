@@ -1,93 +1,49 @@
-	<?php  
+<?php
 	require_once "vendor/autoload.php";
 
 	 use Dompdf\Dompdf;
-	 $html = '<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example 2</title>
-    <style type="text/css">
-      @font-face {
-	  font-family: SourceSansPro;
-	  src: url(SourceSansPro-Regular.ttf);
 
-	}
-	*{
-	  margin:0px;
-	  padding:0px;
-	}
+		if(isset($_GET['id'])){
+			$id_transaksi = $_GET['id'];
+			require_once 'config.php';
+			require_once 'template-report.php';
 
-	.logo{
-		float: left;
-		border:1px solid green;
-	}
+			try{
+				$sql = "SELECT t.id_transaksi, t.tgl_input, t.tgl_priode, t.total_harga, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, c.negara AS negara_customer, c.no_telp AS no_telp_customer, a.nama AS nama_akun, a.negara AS negara_akun, a.no_telp AS no_telp_akun
+        FROM transaksi t
+        INNER JOIN item i ON t.id_transaksi = i.id_transaksi
+        INNER JOIN akun a ON t.id_akun = a.id_akun
+        INNER JOIN customer c ON t.id_customer = c.id_customer 
+        WHERE t.id_transaksi = :id_transaksi";
+        
+				// Siapkan statement PDO
+				$stmt = $config->prepare($sql);
 
-	.text{
-		border:1px solid blue;
-		float: right;
-		position:relative;
-		right:300px;
-		top:25px;
-	}
+				// Bind parameter
+				$stmt->bindParam(':id_transaksi', $id_transaksi, PDO::PARAM_INT);
 
-	.text > h5{
-		font-weight: bold;
-		font-size: 1em;
-	}
-    </style>
-  </head>
-  <body>
-    <table style="width:100%; padding: 25px;">
-      <tr>
-        <td>
-        	<div class="logo">
-           		<img src="travelnew.png" style="width:100px; height:100px;">
-           	</div>
-        	<div class="text">
-        		<h5>SINGAPORE <br>TRANSPORTATION <br>SERVICE</h5>
-        	</div>
-        </td>
-        <td>
-            <p style="position: relative; bottom: 75px; right:100px; text-align: center; font-size:1em; font-weight: bold;">INVOICE</p>
-        </td>
-      </tr>
+				// Eksekusi statement
+				$stmt->execute();
+				$hasil = $stmt->fetchAll();
+				$html = getTemplate($hasil[0]['id_transaksi'], $hasil[0]['tgl_input'], $hasil[0]['tgl_priode'], $hasil[0]['total_harga'], $hasil[0]['nama_customer'], $hasil[0]['negara_customer'], $hasil[0]['no_telp_customer'], $hasil[0]['nama_akun'], $hasil[0]['negara_akun'], $hasil[0]['no_telp_akun'], $hasil[0]['all_items']);		
 
-      <tr>
-        <td style="border:1px solid darkreda;">
-        	<p style="font-size:0.8em; position:relative; float:left;">Marbella 2 Residences Batam, Blk F15 No 10. Belian 29431 <br>The Metropolis Tower 2. 11 North Buona Vista Drive Unit #08-09 <br>Singapore 138589</p>
-        	<p style="font-size:0.8em; position:relative; float:right;">OMFAI - 24 - 001</p>
-        </td>
-      </tr>
+				$dompdf = new Dompdf(array('enable_remote' => true));
+				$dompdf->loadHtml($html);
 
-      <tr>
-      </tr>
+			// // (Optional) Setup the paper size and orientation
+				$dompdf->setPaper('A4', 'potrait');
+			// // Setup img
+				$dompdf->render();
+			// // Output the generated PDF to Browser
+				$dompdf->stream();
+						} catch (PDOException $e) {
+			    // Tangani kesalahan
+						    echo "Error: " . $e->getMessage();
+						}
+					}
 
-      <tr>
-      </tr>
+	 
+// // instantiate and use the dompdf class
+	
 
-      <tr>
-      </tr>
-
-      <tr>
-      </tr>
-
-      <tr>
-      </tr>
-    </table>
-  </body>
-</html>';
-// instantiate and use the dompdf class
-	$dompdf = new Dompdf();
-	$dompdf->loadHtml($html);
-
-// (Optional) Setup the paper size and orientation
-	$dompdf->setPaper('A4', 'potrait');
-
-// Render the HTML as PDF
-	$dompdf->render();
-
-// Output the generated PDF to Browser
-	$dompdf->stream();
 ?>

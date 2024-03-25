@@ -1,4 +1,4 @@
-  <?php 
+ <?php 
 	$bulan_tes =array(
 		'01'=>"Januari",
 		'02'=>"Februari",
@@ -15,8 +15,8 @@
 	);
 ?>
 
-?php 
-	if(isset($_GET['success'])){
+<?php 
+	if(isset($_GET['report'])){
 		echo "<script>cuteAlert({
 		  type: 'question',
 		  title: 'Confirm Title',
@@ -49,25 +49,35 @@
 
 	function generateReport(){
 		let baseUrl = window.location.origin
-		let generateUrl = baseUrl + '/OMVIProject/report.php'
+		let generateUrl = ""	
+		let url = window.location.href;
+
+// Parsir URL untuk mendapatkan parameter
+		let urlParams = new URLSearchParams(url);
+
+// Mengambil nilai dari parameter 'id'
+		let id = urlParams.get('id');
+
+		generateUrl = baseUrl + `/OMVIProject/report.php?id=${id}`
 
 		window.open(generateUrl)
 	}
 </script>
+
 <div class="row">
 	<div class="col-md-12">
-		<!-- <h4> -->
+		<h4>
 			<!--<a  style="padding-left:2pc;" href="fungsi/hapus/hapus.php?laporan=jual" onclick="javascript:return confirm('Data Laporan akan di Hapus ?');">
 						<button class="btn btn-danger">RESET</button>
 					</a>-->
 			<?php if(!empty($_GET['cari'])){ ?>
-			<!-- Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?> -->
+			Data Laporan Penjualan <?= $bulan_tes[$_POST['bln']];?> <?= $_POST['thn'];?>
 			<?php }elseif(!empty($_GET['hari'])){?>
-			<!-- Data Laporan Penjualan <?= $_POST['hari'];?> -->
+			Data Laporan Penjualan <?= $_POST['hari'];?>
 			<?php }else{?>
-			<!-- Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?> -->
+			Data Laporan Penjualan <?= $bulan_tes[date('m')];?> <?= date('Y');?>
 			<?php }?>
-		<!-- </h4> -->
+		</h4>
 		<br />
 		<div class="card">
 			<div class="card-header">
@@ -90,7 +100,7 @@
 						<tr>
 							<td>
 								<select name="bln" class="form-control">
-									<option selected="selected">Bulan</option>
+									<option selected="selected" value="">Bulan</option>
 									<?php
 								$bulan=array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
 								$jlh_bln=count($bulan);
@@ -107,7 +117,7 @@
 								$now=date('Y');
 								echo "<select name='thn' class='form-control'>";
 								echo '
-								<option selected="selected">Tahun</option>';
+								<option selected="selected" value="">Tahun</option>';
 								for ($a=2017;$a<=$now;$a++)
 								{
 									echo "<option value='$a'>$a</option>";
@@ -130,7 +140,7 @@
 						</tr>
 					</table>
 				</form>
-				<form method="POST" action="index.php?page=laporan&hari=cek">
+				<form method="post" action="index.php?page=laporan&hari=cek">
 					<table class="table table-striped">
 						<tr>
 							<th>
@@ -153,7 +163,7 @@
 									<i class="fa fa-refresh"></i> Refresh</a>
 
 								<?php if(!empty($_GET['hari'])){?>
-									
+								
 								<?php }?>
 							</td>
 						</tr>
@@ -161,140 +171,111 @@
 				</form>
 			</div>
 		</div>
-		<br />
-		<br />			
+         <br />
+         <br />
+         <script type="text/javascript">
+         	let allItemsString = '';
+			let allItems = '';
+			let list_transaksi = [];
+			let transaksi = {
+				id_transaksi: '',
+				customer: '',
+				data_items: [],
+				total: '' 
+			};
+			let kerangka_item = {}	
+         </script>
          <!-- view barang -->
-
-			    <?php
-
-			    // require '../../config.php';
-
-			    ?>
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">
-					<div class="row">
-						<div class="col-sm-12 col-md-6">
-							<div class="dataTables_length" id="example1_length">
-								<label>Show 
-									<select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
-										<option value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option>
-									</select> 
-								</label>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-6">
-							<div id="example1_filter" class="dataTables_filter" style="float: right;">
-								<label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label>
-							</div>
-						</div>
-					</div>
-					<?php
-						try {
-							$tahun_sekarang = date('Y');
-						   	$sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
-								FROM transaksi t
-								INNER JOIN item i ON t.id_transaksi = i.id_transaksi
-					            INNER JOIN akun a ON t.id_akun = a.id_akun
-								INNER JOIN customer c ON t.id_customer = c.id_customer
-								GROUP BY t.id_transaksi
-								LIMIT 10";
-							$stmt = $config->prepare($sql);
-							$stmt->execute();
-						} catch(PDOException $e) {
-										    // Tangani kesalahan jika query gagal dijalankan
-						    echo "Query failed: " . $e->getMessage();
-						}
-					?>
-					<script type="text/javascript">
-						let allItemsString = '';
-						let allItems = '';
-						let list_transaksi = [];
-						let transaksi = {
-							id_transaksi: '',
-							customer: '',
-							data_items: [],
-							total: '' 
-						};
-						let kerangka_item = {}
-					</script>
-					<table class="table table-bordered w-100 table-sm">
-		    			<thead>
-		        			<tr style="background:#DFF0D8;color:#333;">
-		            			<th> No</th>
-		            			<th> ID TRANSAKSI</th>
-		            			<th> TGL PEMBUATAN</th>
-		           				<th> TGL TEMPO</th>
-		          				<th> ADMIN</th>
-		            			<th> JUMLAH ITEM</th>
-		           				<th> TOTAL HARGA</th>
-		       					<th> AKSI</th>
-		        			</tr>
-		    			</thead>
-		    			<tbody>
-		        			<?php
-		        				$index = 0; 
-		        				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-		        			?>
-		            		<tr>
-			                	<td><?php echo $index + 1; ?></td>
-			                	<td><?php echo "OMFAI" . "-" . substr($tahun_sekarang, -2) . "-" . $row['id_transaksi']; ?></td>
-			               		<td><?php echo $row['tgl_input']; ?></td>
-			             		<td><?php echo $row['tgl_priode']; ?></td>
-			                	<td><?php echo $row['nama_akun']; ?></td>
-			                	<td><?php echo $row['jumlah_item']; ?></td>
-			           			<td><?php echo $row['total_harga']; ?></td>
-			           			<td>
-			                	<script type="text/javascript">
-			                		allItemsString = "<?php echo $row['all_items'];?>"
-			               			allItems = allItemsString.split('|');
-			                		transaksi.id_transaksi = "<?php echo $row['id_transaksi'];?>";
-									transaksi.customer = "<?php echo $row['nama_customer'];?>"
-									transaksi.total = "<?php echo $row['total']?>"
-			                		
-			                		allItems.forEach(function(item) {
-										let itemDetails = item.split(',');
-									    kerangka_item.id  = itemDetails[0];
-									    kerangka_item.nama = itemDetails[1];
-										kerangka_item.date = itemDetails[2];
-									    kerangka_item.price = itemDetails[3];
-									    kerangka_item.qty = itemDetails[4];
-										
-										transaksi.data_items.push(kerangka_item)
-										kerangka_item = {};
-									})
+					<table class="table table-bordered w-100 table-sm" id="example1">
+						<thead>
+							<tr style="background:#DFF0D8;color:#333;">
+								<th> No</th>
+								<th> ID Transaksi</th>
+								<th> Tanggal Inputan</th>
+								<th> Tanggal Priode</th>
+								<th> Admin</th>
+								<th> Jumlah Item</th>
+								<th> Total Harga</th>
+								<th> Aksi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php 
+								$no=1; 
+								if(!empty($_GET['cari'])){
+									$no=1;
+									$hasil = $lihat -> periode_jual($_POST['bln'], $_POST['thn'], "");
+								}elseif(!empty($_GET['hari'])){
+									$hari = $_POST['hari'];
+									$no=1; 
+									$jumlah = 0;
+									$bayar = 0;
+									$hasil = $lihat -> periode_jual("", "" , $_POST['hari']);
+								}else{
+									$hasil = $lihat -> jual();
+								}
+							?>
+							<?php 
+								$tahun_sekarang = date('Y');
+								foreach($hasil as $isi){ 
+							?>
+							<tr>
+								<td><?php echo $no;?></td>
+								<td><?php echo "OMFAI" . "-" . substr($tahun_sekarang, -2) . "-" . $isi['id_transaksi']; ?></td>
+								<td><?php echo $isi['tgl_input']; ?></td>
+								<td><?php echo $isi['tgl_priode']; ?></td>
+								<td><?php echo $isi['nama_akun'] ?></td>
+								<td><?php echo $isi['jumlah_item'] ?></td>
+								<td><?php echo $isi['total_harga']; ?></td>
+								<td>
+									<script type="text/javascript">
+					                	allItemsString = "<?php echo $isi['all_items'];?>"
+					               		allItems = allItemsString.split('|');
+					               		transaksi.id_transaksi = "<?php echo $isi['id_transaksi'];?>";
+										transaksi.customer = "<?php echo $isi['nama_customer'];?>"
+										transaksi.total = "<?php echo $isi['total']?>"
+					                		
+					               		allItems.forEach(function(item) {
+											let itemDetails = item.split(',');
+										    kerangka_item.id  = itemDetails[0];
+										    kerangka_item.nama = itemDetails[1];
+											kerangka_item.date = itemDetails[2];
+										    kerangka_item.price = itemDetails[3];
+										    kerangka_item.qty = itemDetails[4];
 												
-									list_transaksi.push(transaksi)
-									transaksi = {
-										id_transaksi: "",
-										customer: "",
-										data_items: [],
-										total : ""
-									}
-			                	</script>
-			                    	<button id="<?php echo $row['id_transaksi']; ?>" class="btn btn-primary btn-md mr-2 detailButton" data-toggle="modal" data-target="#myModal">
+											transaksi.data_items.push(kerangka_item)
+											kerangka_item = {};
+										})
+														
+										list_transaksi.push(transaksi)
+										transaksi = {
+											id_transaksi: "",
+											customer: "",
+											data_items: [],
+											total : ""
+										}
+					               	</script>
+									<button id="<?php echo $isi['id_transaksi']; ?>" class="btn btn-primary btn-md mr-2 detailButton" data-toggle="modal" data-target="#myModal">
 			                        			Details
 			                    	</button>
-			                    	<a href="#">
+			                    	<a href="report.php?id=<?php echo $isi['id_transaksi']; ?>">
 			                        	<button class="btn btn-danger btn-xs">Report</button>
 			                    	</a>
-			                	</td>
-		            		</tr>
-		        			<?php 
-		        				$index++;
-				        		};
-				        	?>
-		    			</tbody>
+								</td>
+							</tr>
+							<?php $no++; }?>
+						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-<div id="myModal" class="modal fade" role="dialog">
+     </div>
+ </div>
+
+ <div id="myModal" class="modal fade" role="dialog">
 	<div class="modal-dialog" style="max-width: 1750px;">
 		<!-- Modal content-->
 		<div class="modal-content" style=" border-radius:0px;">
@@ -395,13 +376,32 @@
 			</div>
 		</div>                    
 	</div>
-</div>            
+</div>       
 
 <script>
-    var editButton = document.querySelector('#editButton');
-    var addButton = document.querySelector('#addButton');
-    var closeButton = document.querySelector('#closeButton');
-	let table_bordered = document.querySelector('.table-bordered');
+    const editButton = document.querySelector('#editButton');
+    const addButton = document.querySelector('#addButton');
+    const closeButton = document.querySelector('#closeButton');
+	const table_bordered = document.querySelector('.table-bordered');
+	const table =  table_bordered.children[1];
+	const pencarianTahun = document.getElementsByName("thn")[0];
+	const pencarianBulan = document.getElementsByName("bln")[0];
+	const pencarianHari = document.getElementsByName("hari")[0]
+
+				
+	
+	pencarianBulan.addEventListener('change', () => {
+		pencarianHari.value = getTanggalSekarang();
+	})
+
+	pencarianTahun.addEventListener('change', () => {
+		pencarianHari.value = getTanggalSekarang();
+	})
+
+	pencarianHari.addEventListener('change', () => {
+		pencarianBulan.value = ""
+		pencarianTahun.value = ""
+	})
 
     editButton.addEventListener('click', function() {
         addButton.hidden = false; 
@@ -410,7 +410,6 @@
 		        input.removeAttribute('readonly');
 		    });
 		    editButton.innerHTML = 'Submit';
-		    console.log(editButton.innerHTML);
     });
 
     addButton.addEventListener('click', function() {
@@ -432,6 +431,25 @@
 			calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
     });
 
+    function getTanggalSekarang(){
+    	let currentDate = new Date(); // Mendapatkan tanggal dan waktu saat ini dari mesin klien
+
+		let day = currentDate.getDate();
+		let month = currentDate.getMonth() + 1; // Bulan dimulai dari 0
+		let year = currentDate.getFullYear();
+
+			// Mengatasi masalah dengan format tanggal jika day atau month < 10
+		if (day < 10) {
+		    day = '0' + day;
+		}
+		if (month < 10) {
+		    month = '0' + month;
+		}
+
+		let formattedDate = year + '-' + month + '-' + day;
+
+		return formattedDate
+    }
     function calculateAmount() {
 	    const row = this.parentNode.parentNode; // Mendapatkan elemen baris (tr)
 	    let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value);
@@ -486,7 +504,6 @@
 			modalBody.children[2].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = detailTransaksi.customer;
 
 			detailTransaksi.data_items.forEach((item) => {
-				console.log(item.date)
 				const row = document.createElement('tr');
 		        row.innerHTML = `
 		         <td><input type="date" name="tgl" readonly="readonly" style="border:none;" placeholder="Date" value="${item.date}"></td>
