@@ -52,7 +52,7 @@
 
 // Mengambil nilai dari parameter 'id'
 		let id = urlParams.get('id');
-
+		
 		generateUrl = baseUrl + `/OMVIProject/report.php?id=${id}`
 
 		window.open(generateUrl)

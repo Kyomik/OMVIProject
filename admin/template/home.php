@@ -44,25 +44,7 @@
             echo 'Error: ' . $e->getMessage();
         }
 
-        function getMonthlyTransactionTotals($year, $config) {
-            try {
-                $monthlyTotals = array();
-                for ($i = 1; $i <= 12; $i++) {
-                    $query = "SELECT SUM(total_harga) AS total FROM TRANSAKSI WHERE YEAR(tgl_priode) = ? AND MONTH(tgl_priode) = ?";
-                    $statement = $config->prepare($query);
-                    $statement->execute([$year, $i]);
-                    $result = $statement->fetch(PDO::FETCH_ASSOC);
-                    $monthlyTotals[] = $result['total'] ? intval($result['total']) : 0;
-
-                    
-                }
-                return $monthlyTotals;
-            } catch (PDOException $e) {
-                echo 'Error: ' . $e->getMessage();
-                return array(); 
-            }
         
-    }
     ?>
 
     <div class="row">
@@ -167,16 +149,17 @@
                         <!-- ini untuk tahun -->
                         <div class="col-md-2 mb-2" style="margin-left: auto; margin-top: -115px;">
                             <td>
-                            <select class="form-control" id="selectedYear" name="selectedYear" onchange="updateChart()">
                                 <?php
-                                $startYear = 2023; 
-                                $endYear = $startYear + 5; 
-                                for ($year = $startYear; $year <= $endYear; $year++) {
-                                    echo '<option value="' . $year . '">' . $year . '</option>';
-                                }
+                                    $now=date('Y');
+                                    echo "<select name='selectedYear' id='selectedYear' class='form-control'>";
+                                    echo '<option selected="selected" value="">Tahun</option>';
+                                    for ($a=2017;$a<=$now;$a++)
+                                    {
+                                        echo "<option value='$a'>$a</option>";
+                                    }
+                                    echo "</select>";
+
                                 ?>
-                                
-                            </select>
                             </td>
                         </div>
                         <div style="margin-top: 50px;">
@@ -189,15 +172,15 @@
     </div>
 
 
-    <script>
-        new Chart("monthlyProfitChart", {
+    <script type="text/javascript">
+        const myChart = new Chart("monthlyProfitChart", {
             type: "bar",
             data: {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 datasets: [{
                     label: 'Monthly Profit',
                     backgroundColor: '#ADFF2F', 
-                    data: <?php echo json_encode(getMonthlyTransactionTotals('2023', $config)); ?>
+                    data: <?php echo json_encode($lihat->getMonthlyTransactionTotals('2017')); ?>
                 }]
             },
             
@@ -222,17 +205,22 @@
         });
 
         // Function to update chart based on selected year
-        function updateChart() {
-            const selectedYear = document.getElementById("selectedYear").value;
-            const monthlyProfits = <?php echo json_encode(getMonthlyTransactionTotals('2023', $config)); ?>;
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        document.querySelector("#selectedYear").addEventListener('change', function(event){
+            let selectedYear = event.target.value;
+            let baseUrl = window.location.origin;
+            let generateUrl = `${baseUrl}/OMVIProject/grafik.php?year=${selectedYear}`;
 
-            const chart = Chart.getChart("monthlyProfitChart");
-            chart.data.labels = months;
-            chart.data.datasets[0].data = monthlyProfits;
-            chart.update();
-        }
-    
-   
+            fetch(generateUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+
+                    // Memperbarui data objek Chart dengan data baru
+                    myChart.data.datasets[0].data = data; // Sesuaikan dengan struktur data yang Anda terima
+                    myChart.update();
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
 </script>
 
