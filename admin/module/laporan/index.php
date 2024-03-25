@@ -272,18 +272,17 @@
 				</div>
 			</div>
 		</div>
-     </div>
- </div>
-
- <div id="myModal" class="modal fade" role="dialog">
-	<div class="modal-dialog" style="max-width: 1750px;">
+	</div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="min-width: 1450px;">
 		<!-- Modal content-->
 		<div class="modal-content" style=" border-radius:0px;">
         	<div class="modal-header" style="background:#285c64;color:#fff;">
                 <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
 			</div>
 			<div class="modal-body">
-				<form class="row">
+				<form class="row" action="edit_transaksi.php" id="editForm">
 	            	<div class="col-sm-12">
 						<div class="card-body" style="float: right; margin-right: 50px;">
 							<div class="table-responsive">
@@ -343,40 +342,40 @@
 									<td><input type="date" class="form-control" readonly="readonly" name="tgl_input" id="modal-tgl_priode"></td>
 								</tr>
 							</table>
-							<div class="col-sm-12">
-								<h5> Data Items 
-									<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
-									<b> Add </b></button>
-								</h5>
-								<div class="card-body">
-									<table class="table bordered" id="MTable">
-										<thead>
-											<tr>
-												<th>Date</th>
-												<th>Unit</th>
-												<th>Item & Description</th>
-												<th>Rate</th>
-												<th>Quantity</th>
-												<th>Amount</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody>
-										</tbody>
-									</table>
+								<div class="col-sm-12">
+											<h5> Data Items 
+												<button id="addButton" class="btn btn-danger float-right" hidden="hidden" type="button">
+												<b> Add </b></button>
+											</h5>
+									<div class="card-body">
+											<table class="table bordered" id="MTable">
+												<thead>
+													<tr>
+														<th>Date</th>
+														<th>Unit</th>
+														<th>Item & Description</th>
+														<th>Rate</th>
+														<th>Quantity</th>
+														<th>Amount</th>
+														<th></th>
+													</tr>
+												</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
 								</div>
-							</div>
 						</div> 		
 					</div>
 				</form>
 			</div>
-            <div class="modal-footer">
-				<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
-				<button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-			</div>
-		</div>                    
+                <div class="modal-footer">
+					<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
+					<button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+				</div>
+			</div>                    
+		</div>
 	</div>
-</div>       
 
 <script>
     const editButton = document.querySelector('#editButton');

@@ -7,7 +7,6 @@
 			$id_transaksi = $_GET['id'];
 			require_once 'config.php';
 			require_once 'template-report.php';
-
 			try{
 				$sql = "SELECT t.id_transaksi, t.tgl_input, t.tgl_priode, t.total_harga, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, c.negara AS negara_customer, c.no_telp AS no_telp_customer, a.nama AS nama_akun, a.negara AS negara_akun, a.no_telp AS no_telp_akun
         FROM transaksi t
@@ -41,9 +40,5 @@
 						    echo "Error: " . $e->getMessage();
 						}
 					}
-
-	 
-// // instantiate and use the dompdf class
-	
 
 ?>

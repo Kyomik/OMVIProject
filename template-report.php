@@ -159,7 +159,7 @@ $selisih_hari = floor($selisih_detik / (60 * 60 * 24));
   	<table style="width:100%; padding:40px;">
   		<tr>
   			<td>
-  				<p style="font-size:0.8em; position:relative; float:left;">Payment transfer bank account Mandiri 1090020808275 Omfai Jaya Mulya Wisata Using IDR<br>currency. Payment is due within ' . $selisih_hari . 'days. If you Hve any question concerning this invoice, contact<br>OMFAITRAVEL +62 821-7277-4251 
+  				<p style="font-size:0.8em; position:relative; float:left;">Payment transfer bank account Mandiri 1090020808275 Omfai Jaya Mulya Wisata Using IDR<br>currency. Payment is due within ' . $selisih_hari . ' days. If you Hve any question concerning this invoice, contact<br>OMFAITRAVEL +62 821-7277-4251 
   					<br><br>
   					Thank you for your bussiness!
   				</p><br><br><br><br>
