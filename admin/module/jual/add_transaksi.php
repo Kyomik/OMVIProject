@@ -16,13 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $config->beginTransaction();
 
     try {
-        // $sql_akun = "UPDATE akun SET negara = ? WHERE id_akun = ?";
-        // $stmt_akun = $config->prepare($sql_akun);
-        // $id_akun = $_POST["id_akun"];
-        // $negara_akun = $_POST["negara_akun"];
-        // $stmt_akun->bindParam(1, $negara_akun);
-        // $stmt_akun->bindParam(2, $id_akun);
-        // $stmt_akun->execute();
+        $sql_akun = "UPDATE akun SET negara = ? WHERE id_akun = ?";
+        $stmt_akun = $config->prepare($sql_akun);
+        $id_akun = $_POST["id_akun"];
+        $negara_akun = $_POST["negara_akun"];
+        $stmt_akun->bindParam(1, $negara_akun);
+        $stmt_akun->bindParam(2, $id_akun);
+        $stmt_akun->execute();
  
         // Insert customer data
         $sql_customer = "INSERT INTO customer (nama, no_telp, negara) VALUES (?, ?, ?)";
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql_item = "INSERT INTO item (tgl, id_transaksi, nama, harga, jumlah) VALUES (?, ?, ?, ?, ?)";
         $stmt_item = $config->prepare($sql_item);
 
-        $items_data = array();
+        // $items_data = array();
 
         // Iterate through each item data
         foreach ($_POST["tgl"] as $index => $tgl) {
@@ -64,9 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nama = $_POST["nama_barang"][$index];
             $harga = $_POST["harga"][$index];
             $jumlah = $_POST["jumlah"][$index];
-            $item = [$tgl, $nama, $harga, $jumlah];
+            // $item = [$tgl, $nama, $harga, $jumlah];
            
-            array_push($items_data, $item);
+            // array_push($items_data, $item);
             // Execute prepared statement
             $stmt_item->bindParam(1, $tgl);
             $stmt_item->bindParam(2, $id_transaksi);

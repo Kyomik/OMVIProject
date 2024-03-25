@@ -282,7 +282,7 @@
                 <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
 			</div>
 			<div class="modal-body">
-				<form class="row" action="transaksi.php" id="editForm">
+				<form class="row" method="POST" action="admin/module/laporan/edit_transaksi.php" id="editForm">
 	            	<div class="col-sm-12">
 						<div class="card-body" style="float: right; margin-right: 50px;">
 							<div class="table-responsive">
@@ -290,7 +290,8 @@
 									<tfoot>
 										<tr>
 											<label>Id Transaksi</label>
-												<td><input type="text" name="nama" readonly="readonly" id="modal-id_transaksi" style="width:100%; background-color: transparent; color:black; opacity: 1; border-radius: 0.35rem; border: none; padding: 0.375rem 0.75rem;">
+												<td><input type="text" readonly="readonly" id="modal-id_transaksi" style="width:100%; background-color: transparent; color:black; opacity: 1; border-radius: 0.35rem; border: none; padding: 0.375rem 0.75rem;">
+													<input type="hidden" name="id_transaksi" >
 												</td>
 										</tr>
 									</tfoot>
@@ -305,7 +306,7 @@
 									<tfoot>
 										<tr>
 											<label>Admin</label>
-												<td><input type="text" name="nama" readonly="readonly" id="modal-nama_akun" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+												<td><input type="text" name="nama_admin" readonly="readonly" id="modal-nama_akun" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
 												</td>
 										</tr>
 									</tfoot>
@@ -320,7 +321,7 @@
 									<tfoot>
 										<tr>
 											<label>Customer</label>
-											<td><input type="text" name="nama" readonly="readonly" class="modal-nama_customer" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+											<td><input type="text" name="nama_customer" readonly="readonly" class="modal-nama_customer" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
 											</td>
 										</tr>
 									</tfoot>
@@ -339,7 +340,7 @@
 							<table class="table bordered">
 								<tr>
 									<td style="width:20%;"><b>Due Date</b></td>
-									<td><input type="date" class="form-control" readonly="readonly" name="tgl_input" id="modal-tgl_priode"></td>
+									<td><input type="date" class="form-control" readonly="readonly" name="tgl_priode" id="modal-tgl_priode"></td>
 								</tr>
 							</table>
 								<div class="col-sm-12">
@@ -370,7 +371,7 @@
 				</form>
 			</div>
                 <div class="modal-footer">
-					<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
+					<button id="editButton" name="id_transaksi" type="submit" class="btn btn-primary">Edit</button>
 					<button id="deleteAll" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
 				</div>
 			</div>                    
@@ -408,7 +409,19 @@
 		    inputs.forEach(input => {
 		        input.removeAttribute('readonly');
 		    });
-		    editButton.innerHTML = 'Submit';
+		    // const hakAkses = <?php echo isset($_SESSION['akun']['hak_access']) ? $_SESSION['akun']['hak_access'] : '0'; ?>;
+		    // if (hakAkses === 1) {
+			    if(editButton.innerHTML !== 'Submit'){
+			    	editButton.innerHTML = 'Submit';
+			    }
+			    else{
+			    	document.getElementById('editForm').submit();	
+			    }
+		   	// }
+		   	// else{
+		   	// 	// alert('Anda tidak memiliki izin untuk melakukan tindakan ini.');
+		   	// }
+		    console.log(editButton.innerHTML);
     });
 
     addButton.addEventListener('click', function() {
@@ -418,11 +431,11 @@
 
     	const row = document.createElement('tr');
 		    row.innerHTML = `
-		        <td><input type="date" name="tgl"  style="border:none;" placeholder="Date" value=""></td>
+		        <td><input type="date" name="tgl[]" style="border:none;" placeholder="Date" value=""></td>
 		        <td><input type="text" name="unit"  style="border:none;" placeholder="${++tbody.children.length}" value=""></td>
-		        <td><input type="text" name="nama"  style="border:none;" placeholder="Item & Description" value=""></td>
-		        <td><input type="text" name="harga"  style="border:none;" placeholder="Rate" value=""></td>
-		        <td><input type="text" name="jumlah"  style="border:none;" placeholder="Quantity" value=""></td>
+		        <td><input type="text" name="nama_barang[]"  style="border:none;" placeholder="Item & Description" value=""></td>
+		        <td><input type="text" name="harga[]"  style="border:none;" placeholder="Rate" value=""></td>
+		        <td><input type="text" name="jumlah[]" style="border:none;" placeholder="Quantity" value=""></td>
 		        <td><input type="text" name="total"  style="border:none;" placeholder="Amount" value=""></td>
 		        <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
 		    `;
@@ -483,6 +496,7 @@
 			// id transaksi
 			modalBody.children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = transaksi.children[1].childNodes[0].textContent;
 			// admin
+			modalBody.children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[1].value = event.target.id
 			modalBody.children[1].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = transaksi.children[4].childNodes[0].textContent;
 			// untuk penempatan customer
 			// console.log(modalBody.children[2].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = transaksi.children[4].childNodes[0].textContent);
@@ -505,11 +519,12 @@
 			detailTransaksi.data_items.forEach((item) => {
 				const row = document.createElement('tr');
 		        row.innerHTML = `
-		         <td><input type="date" name="tgl" readonly="readonly" style="border:none;" placeholder="Date" value="${item.date}"></td>
+		        			<input hidden=hidden name="id_item[]" style="border:none;" value="${item.id}">
+		         			<td><input type="date" name="tgl_lama[]" readonly="readonly" style="border:none;" placeholder="Date" value="${item.date}"></td>
 		                    <td><input type="text" name="unit" readonly="readonly" style="border:none;" placeholder="Unit" value="${number}"></td>
-		                    <td><input type="text" name="nama" readonly="readonly" style="border:none;" placeholder="Item & Description" value="${item.nama}"></td>
-		                    <td><input type="text" name="harga" readonly="readonly" style="border:none;" placeholder="Rate" value="${item.price}"></td>
-		                    <td><input type="text" name="jumlah" readonly="readonly" style="border:none;" placeholder="Quantity" value="${item.qty}"></td>
+		                    <td><input type="text" name="nama_barang_lama[]" readonly="readonly" style="border:none;" placeholder="Item & Description" value="${item.nama}"></td>
+		                    <td><input type="text" name="harga_lama[]" readonly="readonly" style="border:none;" placeholder="Rate" value="${item.price}"></td>
+		                    <td><input type="text" name="jumlah_lama[]" readonly="readonly" style="border:none;" placeholder="Quantity" value="${item.qty}"></td>
 		                    <td><input type="text" name="total" readonly="readonly" style="border:none;" placeholder="Amount" value="${item.amount}"></td>
 		                    <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
 						`;

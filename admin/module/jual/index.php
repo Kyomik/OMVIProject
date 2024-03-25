@@ -121,9 +121,6 @@
 												<tbody class="card-body" id="MyTBody">
 
 												</tbody>
-                                                <tbody class="card-body" id="MyTBody">
-                                                    
-                                                </tbody>
 											</table>
 										</div>
 									</div>
