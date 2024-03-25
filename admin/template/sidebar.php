@@ -5,7 +5,7 @@
     // $hasil_profil = $lihat -> member_edit($id);
 ?>
 <!-- Sidebar -->
-<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #FFBC40; background-image: linear-gradient(180deg, #FFA500 10%, #FFD280 100%); background-size: cover;">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #FFBC40; background-image: linear-gradient(180deg, #FF8911 10%, #FFBC40 100%); background-size: cover;">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
