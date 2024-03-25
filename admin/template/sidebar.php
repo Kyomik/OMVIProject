@@ -5,12 +5,12 @@
     // $hasil_profil = $lihat -> member_edit($id);
 ?>
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #FFBC40; background-image: linear-gradient(180deg, #FFA500 10%, #FFD280 100%); background-size: cover;">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i ><img style="width:100%;" src="assets/img/user/travelnew.png" alt=""></i>
+            <i ><img style="width:100%; transform: rotate(10deg);" src="assets/img/user/travelnew-white.png" alt=""></i>
         </div>
         <div class="sidebar-brand-text mx-2" style="font-size: 10.7px;">OMFAI TRANSPORTATION SERVICES<sup></sup></div>
     </a>

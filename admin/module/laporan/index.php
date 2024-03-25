@@ -346,7 +346,7 @@
 									<tfoot>
 										<tr>
 											<label>Customer</label>
-											<td><input type="text" name="nama" readonly="readonly" class="modal-nama_customer" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
+											<td><input type="text" name="nama_customer" readonly="readonly" class="modal-nama_customer" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;">
 											</td>
 										</tr>
 									</tfoot>
@@ -391,6 +391,21 @@
 										</table>
 									</div>
 								</div>
+						</div>
+						<div class="col-sm-12">
+							<div id="kasirnya" class="table-resposive">
+								<table class="table table-stripped bordered">
+									<tr>
+										<td>Total</td>
+											<td>
+												<!-- <input type="number" name="total" id="total" readonly="readonly" class="form-control"> -->
+												<?php 
+												echo "<input readonly='readonly' type='number' class='form-control' name='total_harga' id='total' value='" . $totalAmount . "'>"; 
+												?>
+											</td>
+									</tr>
+								</table>
+							</div>
 						</div> 		
 					</div>
 				</form>
@@ -408,7 +423,23 @@
     var editButton = document.querySelector('#editButton');
     var addButton = document.querySelector('#addButton');
     var closeButton = document.querySelector('#closeButton');
+    var deleteAllButton = document.querySelector('#deleteAll')
 	let table_bordered = document.querySelector('.table-bordered');
+
+	deleteAllButton.addEventListener('click', function() {
+    // Dapatkan elemen tabel
+	    let table = document.querySelector('#MTable tbody');
+
+	    let rows = table.querySelectorAll('tr');
+
+	    rows.forEach(function(row) {
+	        let adminInput = row.querySelector("input[name='nama']");
+	        if (adminInput && !adminInput.hidden) {
+	            return;
+	        }
+	        row.remove();
+	    });
+	});
 
     editButton.addEventListener('click', function() {
         addButton.hidden = false; 
@@ -502,6 +533,8 @@
 			});
 
 			modalBody.children[2].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = detailTransaksi.customer;
+			console.log(modalBody.children[3].children[1].children[0].children[0].children[0].children[0].children[1].children[0].value = detailTransaksi.total)
+
 
 			detailTransaksi.data_items.forEach((item) => {
 				console.log(item.date)
@@ -513,6 +546,7 @@
 		                    <td><input type="text" name="harga" readonly="readonly" style="border:none;" placeholder="Rate" value="${item.price}"></td>
 		                    <td><input type="text" name="jumlah" readonly="readonly" style="border:none;" placeholder="Quantity" value="${item.qty}"></td>
 		                    <td><input type="text" name="total" readonly="readonly" style="border:none;" placeholder="Amount" value="${item.amount}"></td>
+
 		                    <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
 						`;
 				number++;
