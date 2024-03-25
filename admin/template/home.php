@@ -30,7 +30,6 @@
             echo 'Error: ' . $e->getMessage();
         }
 
-
         // Query untuk mengambil jumlah transaksi
         try {
             $query_transaksi = "SELECT COUNT(total_harga) AS jumlah_transaksi, SUM(total_harga) AS total_harga FROM TRANSAKSI";
@@ -54,6 +53,7 @@
                     $statement->execute([$year, $i]);
                     $result = $statement->fetch(PDO::FETCH_ASSOC);
                     $monthlyTotals[] = $result['total'] ? intval($result['total']) : 0;
+
                     
                 }
                 return $monthlyTotals;
@@ -64,8 +64,6 @@
         
     }
     ?>
-
-    
 
     <div class="row">
         <?php 
@@ -117,7 +115,6 @@
                         </div>
                     </div>';
             }
-        
         if ($hak_access == 0){
             echo '<div class="col-md-6 mb-4">
                     <div class="card">
@@ -174,11 +171,9 @@
                                 <?php
                                 $startYear = 2023; 
                                 $endYear = $startYear + 5; 
-                                for ($tahun = $startYear; $tahun <= $endYear; $tahun++) {
-                                    echo '<option value="' . $tahun . '">' . $tahun . '</option>';
-                                
+                                for ($year = $startYear; $year <= $endYear; $year++) {
+                                    echo '<option value="' . $year . '">' . $year . '</option>';
                                 }
-
                                 ?>
                                 
                             </select>

@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => '5b827962d20bf0dd0ed2e70725761172a3fc6242',
+        'name' => 'asus/omvi-project',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '0d1778f8aafcf090cbd3989093e9192f5bc1f363',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '5b827962d20bf0dd0ed2e70725761172a3fc6242',
+        'asus/omvi-project' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '0d1778f8aafcf090cbd3989093e9192f5bc1f363',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -47,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'phenx/php-svg-lib' => array(
-            'pretty_version' => '0.5.2',
-            'version' => '0.5.2.0',
-            'reference' => '732faa9fb4309221e2bd9b2fda5de44f947133aa',
+            'pretty_version' => '0.5.3',
+            'version' => '0.5.3.0',
+            'reference' => '0e46722c154726a5f9ac218197ccc28adba16fcf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-svg-lib',
             'aliases' => array(),

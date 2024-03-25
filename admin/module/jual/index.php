@@ -1,6 +1,8 @@
 <?php 
-	// $id = $_SESSION['login']['id_akun'];
-	// $hasil = $lihat -> member_edit($id);
+	session_start();
+
+	$nama = $_SESSION['akun']['nama'];
+	$no_telp = $_SESSION['akun']['no_telp'];
 ?>
 
 	<form name="addForm" class="row form-input" method="POST" action="admin/module/jual/add_transaksi.php">
@@ -10,12 +12,10 @@
 					<h5>Data Admin</h5>
 				</div>
 				<div class="card-body">
-
 					<div class="table-responsive">
 						<div id="hasil_cari"></div>
 						<div id="tunggu"></div>
 					</div>
-				
 					<div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -37,11 +37,9 @@
 											<td><input required type="text" name="negara_akun" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
-								
                                 </table>
                             </div>
                     </div>
-
 				</div>
 			</div>
 		</div>
@@ -124,9 +122,11 @@
 														<th>Amount</th>
 													</tr>
 												</thead>
+												<tbody class="card-body" id="MyTBody">
+
+												</tbody>
                                                 <tbody class="card-body" id="MyTBody">
-                                                    <?php
-                                                    ?>
+                                                    
                                                 </tbody>
 											</table>
 										</div>
@@ -160,24 +160,24 @@
 
 <script>
 // AJAX call for autocomplete 
-$(document).ready(function(){
-	$("#cari").change(function(){
-		$.ajax({
-			type: "POST",
-			url: "fungsi/edit/edit.php?cari_barang=yes",
-			data:'keyword='+$(this).val(),
-			beforeSend: function(){
-				$("#hasil_cari").hide();
-				$("#tunggu").html('<p style="color:green"><blink>tunggu sebentar</blink></p>');
-			},
-			success: function(html){
-				$("#tunggu").html('');
-				$("#hasil_cari").show();
-				$("#hasil_cari").html(html);
-			}
-		});
-	});
-});
+// $(document).ready(function(){
+// 	$("#cari").change(function(){
+// 		$.ajax({
+// 			type: "POST",
+// 			url: "fungsi/edit/edit.php?cari_barang=yes",
+// 			data:'keyword='+$(this).val(),
+// 			beforeSend: function(){
+// 				$("#hasil_cari").hide();
+// 				$("#tunggu").html('<p style="color:green"><blink>tunggu sebentar</blink></p>');
+// 			},
+// 			success: function(html){
+// 				$("#tunggu").html('');
+// 				$("#hasil_cari").show();
+// 				$("#hasil_cari").html(html);
+// 			}
+// 		});
+// 	});
+// });
 
 // Button reset
 function resetdata(){

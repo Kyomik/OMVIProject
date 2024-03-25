@@ -18,7 +18,7 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-sm" id="example1" style="text-align: center;">
             <thead>
-                <tr style="background:#DFF0D8;color:#333;">
+                <tr style="background:#DFF0D8; color:#333;">
                     <th style="max-width:30px !important">No.</th>
                     <th>Nama</th>
                     <th>No Telpon</th>

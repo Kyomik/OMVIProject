@@ -18,6 +18,8 @@
 date_default_timezone_set("Asia/Jakarta");
 error_reporting(0);
 
+define('BASE_URL', '/OMVIProject/');
+
 	// sesuaikan dengan server anda
 	$host 	= 'localhost'; // host server
 	$user 	= 'root';  // username server

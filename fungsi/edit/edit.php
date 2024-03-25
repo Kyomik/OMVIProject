@@ -80,19 +80,5 @@ session_start();
         }
     }
     
-    
-    
-    
-    // if (isset($_GET['password'])) {
-    //     $id = htmlentities($_POST['id_akun']);
-    //     $username = htmlentities($_POST['username']);
-    //     $password = htmlentities($_POST['password']);
-    //     $password = hash('sha256', $password);
-
-    //     $sql = 'UPDATE login SET username=?,password=sha256(?) WHERE id_akun=?';
-    //     $row = $config -> prepare($sql);
-    //     $row -> execute($data);
-    //     echo '<script>window.location="../../index.php?page=user&success=edit-data"</script>';
-    // }
     ?>
 
