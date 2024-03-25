@@ -13,7 +13,6 @@
             else
                 $id_items = "";
 
-            echo $id_items;
             // // Persiapkan pernyataan DELETE dengan klausa WHERE NOT IN
             $sqlDelete = "DELETE FROM item 
                          WHERE id_transaksi = :id_transaksi AND id_item NOT IN ($id_items)";

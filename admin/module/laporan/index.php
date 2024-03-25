@@ -422,8 +422,20 @@
 		    inputs.forEach(input => {
 		        input.removeAttribute('readonly');
 		    });
-		    event.target.innerHTML = 'Submit';
-		    console.log(editButton.innerHTML);
+		    // const hakAkses = <?php echo isset($_SESSION['akun']['hak_access']) ? $_SESSION['akun']['hak_access'] : '0'; ?>;
+		    // if (hakAkses === 1) {
+			    if (event.target.id === 'editButton') {
+			        // Mengubah teks tombol menjadi 'Submit' jika belum 'Submit', dan jika sudah, melakukan submit form
+			        if (event.target.textContent !== 'Submit') {
+			            event.target.textContent = 'Submit';
+			        } else {
+			            document.getElementById('editForm').submit(); // Memanggil fungsi submit pada form dengan ID 'editForm'
+			        }
+			    }
+		   	// }
+		   	// else{
+		   	// 	// alert('Anda tidak memiliki izin untuk melakukan tindakan ini.');
+		   	// }
     });
 
 
