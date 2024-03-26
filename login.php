@@ -35,7 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login - POS Codekop</title>
+    <title>Login - OMFAI SINGAPORE TRANSPORTATION SERVICES</title>
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -56,7 +56,7 @@
                         <!-- Nested Row within Card Body -->
 						<div class="p-5">
 							<div class="text-center">
-								<h4 class="h4 text-gray-900 mb-4"><b>OMVI SINGAPURE</b></h4>
+								<h4 class="h4 text-gray-900 mb-4"><b>OMFAI SINGAPORE TRANSPORTATION SERVICES</b></h4>
 							</div>
 							<form class="form-login" method="POST">
 								<div class="form-group">

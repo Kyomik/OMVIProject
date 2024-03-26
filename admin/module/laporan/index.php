@@ -477,6 +477,17 @@
 			    });
     });
 
+    function calculateTotal() {
+    total = 0; // Setel total ke 0 sebelum memulai perhitungan ulang
+    const amountInputs = document.querySelectorAll("input[placeholder='Amount']");
+    amountInputs.forEach(input => {
+        if (!isNaN(parseFloat(input.value))) {
+            total += parseFloat(input.value);
+        }
+    });
+    document.getElementById('total').value = total;
+}
+
     function calculateAmount() {
 	    const row = this.parentNode.parentNode; // Mendapatkan elemen baris (tr)
 	    let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value);
@@ -495,7 +506,7 @@
 	    } else {
 	        amountInput.value = ''; 
 	    }
-	    // calculateTotal();
+	    calculateTotal();
 	}
 
 	table_bordered.addEventListener('click', function(event){
