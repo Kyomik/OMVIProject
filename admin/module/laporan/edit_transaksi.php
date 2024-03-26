@@ -1,6 +1,6 @@
 <?php
-if (isset($_SESSION['akun'])) {
-    if($_SESSION['akun']['hak_access'] == 1){
+// if (isset($_SESSION['akun'])) {
+    // if($_SESSION['akun']['hak_access'] == 1){
         require "./../../../config.php";
         $config->beginTransaction();
 
@@ -35,6 +35,7 @@ if (isset($_SESSION['akun'])) {
             // // Bind parameter untuk klausa WHERE pada pernyataan DELETE
             $stmtDelete->bindParam(':id_transaksi', $id_transaksi);
             $stmtUpdate->bindParam(':id_transaksi', $id_transaksi);
+            $stmtUpdate->bindParam(':total_harga', $total_harga);
             // // Eksekusi pernyataan DELETE
             $stmtDelete->execute();
             $stmtUpdate->execute();
@@ -79,12 +80,12 @@ if (isset($_SESSION['akun'])) {
         $stmtAdd = null;
         $stmtEdit = null;
     }
-    }
+    // }
     
 
-} else {
+// } else {
 //     echo "Anda tidak memiliki izin untuk melakukan tindakan ini.";
-}
+// }
 
 
 ?>

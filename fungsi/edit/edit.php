@@ -1,6 +1,7 @@
 <?php
 session_start();
-// if (!empty($_SESSION['admin'])) {
+if (isset($_SESSION['akun'])) {
+    if($_SESSION['akun']['hak_access'] == 1){
     require '../../config.php';
 
     if (isset($_GET['akun']) ) {
@@ -79,6 +80,8 @@ session_start();
             }
         }
     }
+}
+}
     
     ?>
 

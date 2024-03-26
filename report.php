@@ -3,7 +3,7 @@
 
 	 use Dompdf\Dompdf;
 	 use Dompdf\Options;
-
+if (isset($_SESSION['akun'])) {
 		if(isset($_GET['id'])){
 			$id_transaksi = $_GET['id'];
 			require_once 'config.php';
@@ -47,4 +47,5 @@
 		// ini_set('display_errors', '1');
 		// $imageData = file_get_contents("http://localhost" . BASE_URL . "travelnew.png");
 		// var_dump($http_response_header);
+	}
 ?>

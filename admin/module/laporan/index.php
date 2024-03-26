@@ -250,8 +250,7 @@
 											total : ""
 										}
 					               	</script>
-									<button id="<?php echo $isi['id_transaksi']; ?>" class="btn btn-primary btn-md mr-2 detailButton" data-toggle="modal" data-target="#myModal">
-			                        			Details
+									<button id="<?php echo $isi['id_transaksi']; ?>" class="btn btn-primary btn-md mr-2 detailButton" data-toggle="modal" data-target="#myModal">Details
 			                    	</button>
 			                    	<a href="report.php?id=<?php echo $isi['id_transaksi']; ?>">
 			                        	<button class="btn btn-danger btn-xs">Report</button>
@@ -274,7 +273,7 @@
                 <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
 			</div>
 			<div class="modal-body">
-				<form class="row" id="editForm">
+				<form class="row" id="editForm" method="POST" action="/OMVIPROject/admin/module/laporan/edit_transaksi.php">
 	            	<div class="col-sm-12">
 						<div class="card-body" style="float: right; margin-right: 50px;">
 							<div class="table-responsive">
@@ -369,7 +368,7 @@
 											<td>
 												<!-- <input type="number" name="total" id="total" readonly="readonly" class="form-control"> -->
 												<?php 
-												echo "<input readonly='readonly' type='number' class='form-control' name='total_harga' id='total' value='" . $totalAmount . "'>"; 
+												echo "<input readonly='readonly' type='number' class='form-control' name='total_harga' id='total_harga' value='" . $totalAmount . "'>"; 
 												?>
 											</td>
 									</tr>
@@ -428,8 +427,6 @@
 			        if (event.target.textContent !== 'Submit') {
 			            event.target.textContent = 'Submit';
 			        } else {
-			        	table.action = "/OMVIPROject/admin/module/laporan/edit_transaksi.php"
-			        	table.method = "POST"
 			            table.submit(); // Memanggil fungsi submit pada form dengan ID 'editForm'
 			        }
 			    }else if(event.target.id === 'deleteButton'){
