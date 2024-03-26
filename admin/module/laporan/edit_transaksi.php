@@ -1,6 +1,6 @@
 <?php
-// if (isset($_SESSION['akun']['hak_access'])) {
-    // if($_SESSION['akun']['hak_access'] == 1){
+if (isset($_SESSION['akun'])) {
+    if($_SESSION['akun']['hak_access'] == 1){
         require "./../../../config.php";
         $config->beginTransaction();
 
@@ -79,12 +79,12 @@
         $stmtAdd = null;
         $stmtEdit = null;
     }
-    // }
+    }
     
 
-// } else {
+} else {
 //     echo "Anda tidak memiliki izin untuk melakukan tindakan ini.";
-// }
+}
 
 
 ?>

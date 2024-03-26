@@ -274,7 +274,7 @@
                 <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
 			</div>
 			<div class="modal-body">
-				<form class="row" method="POST" id="editForm">
+				<form class="row" id="editForm">
 	            	<div class="col-sm-12">
 						<div class="card-body" style="float: right; margin-right: 50px;">
 							<div class="table-responsive">
@@ -429,11 +429,13 @@
 			            event.target.textContent = 'Submit';
 			        } else {
 			        	table.action = "/OMVIPROject/admin/module/laporan/edit_transaksi.php"
+			        	table.method = "POST"
 			            table.submit(); // Memanggil fungsi submit pada form dengan ID 'editForm'
 			        }
 			    }else if(event.target.id === 'deleteButton'){
-			    	table.action = "/OMVIPROject/admin/module/laporan/delete_transaksi.php"
-			    	table.submit();
+			    	let id_transaksi = event.target.parentNode.parentNode.children[1].children[0].children[0].children[0].children[0].children[1].children[0].children[0].children[0].children[1].value
+
+			    	window.location.href = "/OMVIPROject/admin/module/laporan/delete_transaksi.php?id_transaksi=" + id_transaksi;
 			    }
     });
 
