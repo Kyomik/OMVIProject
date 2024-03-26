@@ -140,7 +140,9 @@
   					Thank you for your bussiness!
   				</p><br><br><br><br>
   				<p style="font-size:0.8em; position:relative; float:right; right:20px;">
-  				Hormat Kami<br><br><br><br><br>Dian dwi Martha
+  				Hormat Kami<br>
+  				<img src="cap.png" border:1px solid black; width:100px; height:100px;>
+  				<br>Dian dwi Martha
   				</p>
   			</td>
   		</tr>
