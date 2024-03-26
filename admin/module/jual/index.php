@@ -22,11 +22,11 @@
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-											<td><input required type="text" readonly="readonly" placeholder="Ardbee" value="ardbe" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="text" readonly="readonly" value="<?php echo $nama; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
-											<td><input required type="tel" readonly="readonly" placeholder="+62" value="9898989" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="tel" readonly="readonly" value="<?php echo $no_telp; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Country</th>

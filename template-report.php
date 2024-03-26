@@ -73,7 +73,7 @@ $selisih_hari = floor($selisih_detik / (60 * 60 * 24));
       <tr>
         <td>
         	<div class="logo">
-           		<img src="' . BASE_URL .'travelnew.png" style="width:100px; height:100px;">
+           		<img src="http://localhost/OMVIProject/travelnew.png" style="width:100px; height:100px;">
            	</div>
         	<div class="text">
         		<h5>SINGAPORE <br>TRANSPORTATION <br>SERVICE</h5>
@@ -171,7 +171,7 @@ $selisih_hari = floor($selisih_detik / (60 * 60 * 24));
   	</table>
   </body>
 </html>';
-
+	
 	return $html;
 	}
 

@@ -1,9 +1,10 @@
 <?php
+    session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require "./../../../config.php";
 
     $id_akun = $_SESSION['akun']['id_akun'];
-    $id_akun = "1";
     // Validasi input
     // $required_fields = ['tgl_input', 'tgl_priode', 'id_akun', 'total_harga', 'nama', 'no_telp', 'negara', 'nama_barang'];
     // foreach ($required_fields as $field) {
@@ -18,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $sql_akun = "UPDATE akun SET negara = ? WHERE id_akun = ?";
         $stmt_akun = $config->prepare($sql_akun);
-        $id_akun = $_POST["id_akun"];
         $negara_akun = $_POST["negara_akun"];
         $stmt_akun->bindParam(1, $negara_akun);
         $stmt_akun->bindParam(2, $id_akun);

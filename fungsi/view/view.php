@@ -184,7 +184,7 @@ class view
 
     public function periode_jual($bulan, $tahun, $hari)
     {
-        $bulan = ltrim($bulan, '0');
+        // $bulan = ltrim($bulan, '0');
         try {
             $sql = "SELECT t.*, COUNT(i.id_item) AS jumlah_item, GROUP_CONCAT(CONCAT(i.id_item, ',', i.nama, ',', i.tgl, ',', i.harga, ',', i.jumlah) SEPARATOR '|') AS all_items, c.nama AS nama_customer, a.nama AS nama_akun
                                 FROM transaksi t
@@ -265,7 +265,7 @@ class view
         try {
             $monthlyTotals = array();
                 for ($i = 1; $i <= 12; $i++) {
-                    $query = "SELECT SUM(total_harga) AS total FROM TRANSAKSI WHERE YEAR(tgl_priode) = ? AND MONTH(tgl_priode) = ?";
+                    $query = "SELECT SUM(total_harga) AS total FROM TRANSAKSI WHERE YEAR(tgl_input) = ? AND MONTH(tgl_input) = ?";
                     $statement = $this->db->prepare($query);
                     $statement->execute([$year, $i]);
                     $result = $statement->fetch(PDO::FETCH_ASSOC);

@@ -1,11 +1,12 @@
 <?php
 	@ob_start();
 	session_start();
-	if(isset($_POST['proses'])){
+	if(isset($_POST['username']) && isset($_POST['password'])){
 		require 'config.php';
 		
 		$username = strip_tags($_POST['username']);
 		$password = strip_tags($_POST['password']);
+		
 		$hashed_password = hash('sha256', $password); 
 		
 		$sql = 'SELECT akun.nama, akun.no_telp, akun.hak_access, akun.gambar , akun.id_akun, login.username, login.password
@@ -15,7 +16,7 @@
 		$row = $config->prepare($sql);
 		$row->execute(array($username, $hashed_password));
 		$jum = $row->rowCount();
-		
+
 		if($jum > 0){
 			$hasil = $row->fetch();
 			$_SESSION['akun'] = $hasil;

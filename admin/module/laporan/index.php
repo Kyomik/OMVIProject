@@ -403,7 +403,7 @@
 
 				
 	
-	pencarianBulan.addEventListener('change', () => {
+	pencarianBulan.addEventListener('change', (event) => {
 		pencarianHari.value = getTanggalSekarang();
 	})
 

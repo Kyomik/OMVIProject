@@ -2,6 +2,7 @@
 	require_once "vendor/autoload.php";
 
 	 use Dompdf\Dompdf;
+	 use Dompdf\Options;
 
 		if(isset($_GET['id'])){
 			$id_transaksi = $_GET['id'];
@@ -26,12 +27,16 @@
 				$hasil = $stmt->fetchAll();
 				$html = getTemplate($hasil[0]['id_transaksi'], $hasil[0]['tgl_input'], $hasil[0]['tgl_priode'], $hasil[0]['total_harga'], $hasil[0]['nama_customer'], $hasil[0]['negara_customer'], $hasil[0]['no_telp_customer'], $hasil[0]['nama_akun'], $hasil[0]['negara_akun'], $hasil[0]['no_telp_akun'], $hasil[0]['all_items']);		
 
-				$dompdf = new Dompdf(array('enable_remote' => true));
+				// $dompdf = new Dompdf();
+				$options = new Options();
+				$options->set('isRemoteEnabled', true);
+				$dompdf = new Dompdf($options);
 				$dompdf->loadHtml($html);
 
 			// // (Optional) Setup the paper size and orientation
 				$dompdf->setPaper('A4', 'potrait');
 			// // Setup img
+
 				$dompdf->render();
 			// // Output the generated PDF to Browser
 				$dompdf->stream();
@@ -39,6 +44,9 @@
 			    // Tangani kesalahan
 						    echo "Error: " . $e->getMessage();
 						}
-					}
-
+		}
+		// error_reporting(E_ALL);
+		// ini_set('display_errors', '1');
+		// $imageData = file_get_contents("http://localhost" . BASE_URL . "travelnew.png");
+		// var_dump($http_response_header);
 ?>
