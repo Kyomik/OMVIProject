@@ -115,10 +115,10 @@
 												<thead>
 													<tr>
 														<th>Date</th>
-														<th>Unit</th>
+														<th style="width: 50px;">Unit</th>
 														<th>Item & Description</th>
 														<th>Rate</th>
-														<th>Quantity</th>
+														<th style="width: 90px;">Quantity</th>
 														<th>Amount</th>
                                                         <th></th>
 													</tr>
@@ -275,6 +275,7 @@ function AddTable() {
             const input = document.createElement("input");
             input.type = "number";
             input.placeholder = 'Unit';
+            input.style.width = "50px";
             input.value = nomorBerurut++;
             input.readOnly = true; // Membuat input hanya bisa dibaca
             cell.appendChild(input);
@@ -306,6 +307,7 @@ function AddTable() {
             input.type = "number";
             input.name = "jumlah[]";
             input.required = true;
+            input.style.width = "90px";
             input.placeholder = 'Quantity';
             cell.appendChild(input);
             row.appendChild(cell);

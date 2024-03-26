@@ -222,7 +222,7 @@
 										};
 										let kerangka_item = {}
 									</script>
-							<table class="table table-bordered w-100 table-sm">
+							<table class="table table-bordered w-100 table-sm" id="kimak">
 		    					<thead>
 		        					<tr style="background:#DFF0D8;color:#333;">
 		            					<th> No</th>
@@ -235,7 +235,7 @@
 		            					<th> AKSI</th>
 		        					</tr>
 		    					</thead>
-		    					<tbody>
+		    					<tbody class="puq" id="bab">
 		        					<?php
 		        						$index = 0; 
 		        						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
@@ -412,7 +412,7 @@
 			</div>
                 <div class="modal-footer">
 					<button id="editButton" type="submit" class="btn btn-primary">Edit</button>
-					<button id="deleteAll" type="button" class="btn btn-danger">Delete</button>
+					<button id="deleteButton"  class="btn btn-danger">Delete</button>
 				</div>
 		</div>                    
 	</div>
@@ -423,15 +423,17 @@
     var editButton = document.querySelector('#editButton');
     var addButton = document.querySelector('#addButton');
     var closeButton = document.querySelector('#closeButton');
-    var deleteAllButton = document.querySelector('#deleteAll');
 	let table_bordered = document.querySelector('.table-bordered');
 
-	deleteAllButton.addEventListener('click', function(){
-		const table = document.getElementById('MTable');
-    	const tbody = table.querySelector('tbody');
+	deleteButton.addEventListener('click', function(){
+    addButton.hidden = true;
+    const rows = document.querySelectorAll('.puq tr');
+	    rows.forEach(row => {
+	    	console.log(row);
+	    });
+	});
 
-    	tbody.innerHTML = '';
-	});	
+
 
     editButton.addEventListener('click', function() {
         addButton.hidden = false; 
