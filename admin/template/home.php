@@ -1,4 +1,4 @@
-  
+
     <!-- Tambahkan Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <!-- Tambahkan html2canvas -->
@@ -125,7 +125,6 @@
                     </div>
                 </div>';
 
-
         }
         ?>
     </div>
@@ -149,15 +148,15 @@
                         <!-- ini untuk tahun -->
                         <div class="col-md-2 mb-2" style="margin-left: auto; margin-top: -115px;">
                             <td>
+
                                 <?php
                                     $now=date('Y');
                                     echo "<select name='selectedYear' id='selectedYear' class='form-control'>";
                                     echo '<option selected="selected" value="">Tahun</option>';
-                                    for ($a=2017;$a<=$now;$a++)
+                                    for ($a=$now;$a<=2030;$a++)
                                     {
                                         echo "<option value='$a'>$a</option>";
                                     }
-                                    echo "<option value=2025>2025</option>";
                                     echo "</select>";
 
                                 ?>
@@ -181,7 +180,9 @@
                 datasets: [{
                     label: 'Monthly Profit',
                     backgroundColor: '#ADFF2F', 
-                    data: <?php echo json_encode($lihat->getMonthlyTransactionTotals('2017')); ?>
+
+                    data: <?php echo json_encode($lihat->getMonthlyTransactionTotals('')); ?>
+
                 }]
             },
             
@@ -205,7 +206,6 @@
             }
         });
 
-        // Function to update chart based on selected year
         document.querySelector("#selectedYear").addEventListener('change', function(event){
             let selectedYear = event.target.value;
             let baseUrl = window.location.origin;

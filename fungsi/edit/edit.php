@@ -56,7 +56,7 @@ session_start();
                 $stmt = $config->prepare($sql);
                 $stmt->execute(array($name, $id_akun));
                 
-                $_SESSION['akun']['gambar'] = $file_name;
+                $_SESSION['akun']['gambar'] = $name;
                 echo '<script>window.location="../../index.php?page=user&success=edit-data"</script>';
                 exit;
             } else {
