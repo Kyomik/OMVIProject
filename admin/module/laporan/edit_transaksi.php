@@ -6,6 +6,7 @@
 
         try{
             $id_transaksi = $_POST['id_transaksi'];
+            $total_harga = $_POST['total_harga'];
             $id_items = "";
             
             if(isset($_POST['id_item']))
@@ -14,6 +15,10 @@
                 $id_items = "";
 
             // // Persiapkan pernyataan DELETE dengan klausa WHERE NOT IN
+
+            $sqlUpdate = "UPDATE transaksi 
+                        SET total_harga = :total_harga
+                        WHERE id_transaksi = :id_transaksi";
             $sqlDelete = "DELETE FROM item 
                          WHERE id_transaksi = :id_transaksi AND id_item NOT IN ($id_items)";
             $sqlEdit = "UPDATE item 
@@ -25,12 +30,14 @@
             $stmtDelete = $config->prepare($sqlDelete);
             $stmtEdit = $config->prepare($sqlEdit);
             $stmtAdd = $config->prepare($sqlAdd);
+            $stmtUpdate = $config->prepare($sqlUpdate);
 
             // // Bind parameter untuk klausa WHERE pada pernyataan DELETE
             $stmtDelete->bindParam(':id_transaksi', $id_transaksi);
-
+            $stmtUpdate->bindParam(':id_transaksi', $id_transaksi);
             // // Eksekusi pernyataan DELETE
             $stmtDelete->execute();
+            $stmtUpdate->execute();
 
             foreach ($_POST["tgl_lama"] as $index => $tgl) {
                 $id_item = $_POST["id_item"][$index];

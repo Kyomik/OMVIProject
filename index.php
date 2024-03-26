@@ -3,7 +3,7 @@
 	session_start();
 
 
-	if(true){
+	// if($_SESSION['akun']){
 		require 'config.php';
 		include $view;
 		$lihat = new view($config);
@@ -19,9 +19,9 @@
 				}
 			include 'admin/template/footer.php';
 		// end admin
-	}else{
-		echo '<script>window.location="login.php";</script>';
-		exit;
-	}
+	// }else{
+		// echo '<script>window.location="login.php";</script>';
+		// exit;
+	// }
 ?>
 

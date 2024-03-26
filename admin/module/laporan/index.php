@@ -274,7 +274,7 @@
                 <button id="closeButton" type="button" class="close" data-dismiss="modal" style="color: #fff; opacity: 50px;">&times;</button>
 			</div>
 			<div class="modal-body">
-				<form class="row" method="POST" action="admin/module/laporan/edit_transaksi.php" id="editForm">
+				<form class="row" method="POST" id="editForm">
 	            	<div class="col-sm-12">
 						<div class="card-body" style="float: right; margin-right: 50px;">
 							<div class="table-responsive">
@@ -381,10 +381,10 @@
 			</div>
             <div class="modal-footer">
 				<?php 
-					if ($hak_access == 1){
+					// if ($hak_access == 1){
 						echo "<button id='editButton' type='submit' class='btn btn-primary'>Edit</button>
-						<button id='deleteAll' type='button' class='btn btn-danger' data-dismiss='modal'>Delete</button>";
-					}				
+						<button id='deleteButton' type='button' class='btn btn-danger' data-dismiss='modal'>Delete</button>";
+					// }				
 				?>
 			</div>
 		</div>                    
@@ -401,8 +401,6 @@
 	const pencarianBulan = document.getElementsByName("bln")[0];
 	const pencarianHari = document.getElementsByName("hari")[0]
 
-				
-	
 	pencarianBulan.addEventListener('change', (event) => {
 		pencarianHari.value = getTanggalSekarang();
 	})
@@ -417,27 +415,27 @@
 	})
 
     editButton.addEventListener('click', function(event) {
+    	const table = document.getElementById('editForm');
+    	const inputs = document.querySelectorAll('.modal-body input[readonly="readonly"]');
+        
         addButton.hidden = false; 
-        const inputs = document.querySelectorAll('.modal-body input[readonly="readonly"]');
+
 		    inputs.forEach(input => {
 		        input.removeAttribute('readonly');
 		    });
-		    // const hakAkses = <?php echo isset($_SESSION['akun']['hak_access']) ? $_SESSION['akun']['hak_access'] : '0'; ?>;
-		    // if (hakAkses === 1) {
 			    if (event.target.id === 'editButton') {
 			        // Mengubah teks tombol menjadi 'Submit' jika belum 'Submit', dan jika sudah, melakukan submit form
 			        if (event.target.textContent !== 'Submit') {
 			            event.target.textContent = 'Submit';
 			        } else {
-			            document.getElementById('editForm').submit(); // Memanggil fungsi submit pada form dengan ID 'editForm'
+			        	table.action = "/OMVIPROject/admin/module/laporan/edit_transaksi.php"
+			            table.submit(); // Memanggil fungsi submit pada form dengan ID 'editForm'
 			        }
+			    }else if(event.target.id === 'deleteButton'){
+			    	table.action = "/OMVIPROject/admin/module/laporan/delete_transaksi.php"
+			    	table.submit();
 			    }
-		   	// }
-		   	// else{
-		   	// 	// alert('Anda tidak memiliki izin untuk melakukan tindakan ini.');
-		   	// }
     });
-
 
     addButton.addEventListener('click', function() {
     	// console.log("ilham babi");
