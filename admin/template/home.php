@@ -143,7 +143,6 @@
                     </div>
                 </div>';
 
-
         }
         ?>
     </div>
@@ -167,7 +166,7 @@
                         <!-- ini untuk tahun -->
                         <div class="col-md-2 mb-2" style="margin-left: auto; margin-top: -115px;">
                             <td>
-                            <select class="form-control" id="selectedYear" name="selectedYear" onchange="updateChart()">
+                            <select class="form-control" id="selectedYear" name="selectedYeart" onchange="updateChart()">
                                 <?php
                                 $startYear = 2023; 
                                 $endYear = $startYear + 5; 
@@ -197,7 +196,7 @@
                 datasets: [{
                     label: 'Monthly Profit',
                     backgroundColor: '#ADFF2F', 
-                    data: <?php echo json_encode(getMonthlyTransactionTotals('2023', $config)); ?>
+                    data: <?php echo json_encode(getMonthlyTransactionTotals($startYear, $config)); ?>
                 }]
             },
             
@@ -223,8 +222,8 @@
 
         // Function to update chart based on selected year
         function updateChart() {
-            const selectedYear = document.getElementById("selectedYear").value;
-            const monthlyProfits = <?php echo json_encode(getMonthlyTransactionTotals('2023', $config)); ?>;
+            const selectedYear = document.getElementById("selectedYeart").value;
+            const monthlyProfits = <?php echo json_encode(getMonthlyTransactionTotals("selectedYeart", $config)); ?>;
             const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
             const chart = Chart.getChart("monthlyProfitChart");

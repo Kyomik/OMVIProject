@@ -4,27 +4,21 @@
     $hak_access = $_SESSION['akun']['hak_access'];
     $nama = $_SESSION['akun']['nama'];
     $gambar = $_SESSION['akun']['gambar'];
-   
-
-    if ($hak_access == 1) {
-        $gambar_path = "assets/img/user/";
-    
-    } else {
-        $gambar_path = "assets/img/admin/";
-        
-    }
+    $gambar_path = "assets/img/user/";
    
     // $hasil_profil = $lihat -> member_edit($id);
 ?>
 
 <!-- Sidebar -->
 <!-- Sidebar -->
-<ul class="navbar-nav ijo sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav ijo sidebar sidebar-dark accordion"  id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i ><img style="width:100%;" src="assets/img/user/travelnew.png" alt=""></i>
+        <div class="sidebar-brand-icon rotate-n-15" >
+            <i style="display: inline-block;">
+                <img style="width:100%; transform: rotate(15deg); background-color: white; border-radius: 20%;" src="assets/img/user/travelnew.png" alt="">
+            </i>
         </div>
         <div class="sidebar-brand-text mx-2" style="font-size: 10.7px;">OMFAI TRANSPORTATION SERVICES<sup></sup></div>
     </a>
