@@ -116,6 +116,7 @@
 														<th>Rate</th>
 														<th>Quantity</th>
 														<th>Amount</th>
+                                                        <th></th>
 													</tr>
 												</thead>
 												<tbody class="card-body" id="MyTBody">
@@ -231,13 +232,20 @@ function showConfirmationPopup() {
     });
 }
 
-
 let nomorBerurut = 1;
 
 function tambahNomor() {
     let nomor = nomorBerurut;
     nomorBerurut++;
     return nomor;
+}
+
+function hapusTabel() {
+  let counter = 1; 
+  const rows = [...document.getElementById("MyTBody").children]; 
+  rows.forEach((row) => {
+    row.children[1].children[0].value = counter++; 
+  });
 }
 
 // Add Button
@@ -259,11 +267,11 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "number";
-            input.placeholder = 'Unit' + nomorBerurut;
+            input.placeholder = 'Unit';
             input.value = nomorBerurut++;
             input.readOnly = true; // Membuat input hanya bisa dibaca
             cell.appendChild(input);
-            row.appendChild(input);
+            row.appendChild(cell);
         }
         for (let j = 0; j < 1; j++) {
             const cell = document.createElement("td");
@@ -304,7 +312,32 @@ function AddTable() {
             input.placeholder = 'Amount';
             input.readOnly = true;
         }
+        for (let j = 0; j < 1; j++) {
+            const cell = document.createElement("td");
+            const input = document.createElement("button");
+            input.type = "button";
+            input.textContent = "❌";
+            input.style.border = "0px";
+            input.style.background = "transparent";
+            input.name = "deleteButton";
+            cell.appendChild(input);
+            row.appendChild(cell);
+        }
         tblBody.appendChild(row);
+        tblBody.addEventListener('click', function(event) {
+                if (event.target.getAttribute('name') === 'deleteButton') {
+                    event.stopPropagation(); // Mencegah penyebaran event klik ke atas elemen induk
+                    const row = event.target.closest('tr');
+                    row.remove();
+                    hapusTabel();
+                    let counter = 1
+                    let list_items = [...this.childNodes]
+
+                    list_items.map((item) =>{
+                        item.children[1].children[0].value = counter++
+                    })
+                }
+            });
     }
 
     document.querySelectorAll("input[placeholder='Rate'], input[placeholder='Quantity']").forEach(input => {

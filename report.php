@@ -33,9 +33,7 @@
 				$dompdf = new Dompdf($options);
 				$dompdf->loadHtml($html);
 
-			// // (Optional) Setup the paper size and orientation
-				$dompdf->setPaper('A4', 'potrait');
-			// // Setup img
+
 
 				$dompdf->render();
 			// // Output the generated PDF to Browser
