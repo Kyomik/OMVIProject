@@ -189,7 +189,7 @@
 								<th style="width:150px;"> Tanggal Inputan</th>
 								<th style="width:150px;"> Tanggal Priode</th>
 								<th style="width:150px;"> Admin</th>
-								<th style="width:150px;"> Jumlah Item</th>
+								<th style="width:75px;"> Jumlah Item</th>
 								<th style="width:150px;"> Total Harga</th>
 								<th style="width:150px;"> Aksi</th>
 							</tr>
@@ -348,7 +348,7 @@
 													<th>Unit</th>
 													<th>Item & Description</th>
 													<th>Rate</th>
-													<th>Quantity</th>
+													<th>Qty</th>
 													<th>Amount</th>
 													<th></th>
 												</tr>
@@ -553,12 +553,12 @@
 				const row = document.createElement('tr');
 		        row.innerHTML = `
 		        			<input hidden=hidden name="id_item[]" style="border:none;" value="${item.id}">
-		         			<td><input type="date" name="tgl_lama[]" readonly="readonly" style="border:none;" placeholder="Date" value="${item.date}"></td>
-		                    <td><input type="text" name="unit" readonly="readonly" style="border:none;" placeholder="Unit" value="${number}"></td>
-		                    <td><input type="text" name="nama_barang_lama[]" readonly="readonly" style="border:none;" placeholder="Item & Description" value="${item.nama}"></td>
+		         			<td><input type="date" name="tgl_lama[]" readonly="readonly" style="border:none; text-align:center;" placeholder="Date" value="${item.date}"></td>
+		                    <td><input type="text" name="unit" readonly="readonly" style="border:none; width:75px; text-align:center;" placeholder="Unit" value="${number}"></td>
+		                    <td><input type="text" name="nama_barang_lama[]" readonly="readonly" style="border:none; text-align:center;" placeholder="Item & Description" value="${item.nama}"></td>
 		                    <td><input type="text" name="harga_lama[]" readonly="readonly" style="border:none;" placeholder="Rate" value="${item.price}"></td>
-		                    <td><input type="text" name="jumlah_lama[]" readonly="readonly" style="border:none;" placeholder="Quantity" value="${item.qty}"></td>
-		                    <td><input type="text" name="total" readonly="readonly" style="border:none;" placeholder="Amount" value="${item.amount}"></td>
+		                    <td><input type="text" name="jumlah_lama[]" readonly="readonly" style="border:none; width:75px; text-align:center;" placeholder="Quantity" value="${item.qty}"></td>
+		                    <td><input type="text" name="total" readonly="readonly" style="border:none; text-align:center;" placeholder="Amount" value="${item.amount}"></td>
 		                    <?php 
 								if ($hak_access == 1){
 									echo '<td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>'; 
