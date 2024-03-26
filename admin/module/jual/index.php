@@ -8,7 +8,7 @@
 	<form name="addForm" class="row form-input" method="POST" action="admin/module/jual/add_transaksi.php">
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
-				<div class="card-header bg-primary text-white">
+				<div class="card-header ijo2 text-white">
 					<h5>Data Admin</h5>
 				</div>
 				<div class="card-body">
@@ -21,16 +21,12 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <tfoot>
                                         <tr>
-                                            <th hidden="hidden">id_akun</th>
-                                            <td hidden="hidden"><input required type="number" name="id_akun" readonly="readonly" value="9" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
-                                        </tr>
-                                        <tr>
                                             <th>Name</th>
-											<td><input required type="text" readonly="readonly" placeholder="Ardbee" value="ardbe" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="text" readonly="readonly" value="<?php echo $nama; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
-											<td><input required type="tel" readonly="readonly" placeholder="+62" value="9898989" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="tel" readonly="readonly" value="<?php echo $no_telp; ?>" style="width:100%; background-color: #eaecf4; opacity: 1; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Country</th>
@@ -47,7 +43,7 @@
 
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
-				<div class="card-header bg-primary text-white">
+				<div class="card-header ijo2 text-white">
 					<h5>Data Costumer</h5>
 				</div>
 				<div class="card-body">
@@ -60,11 +56,11 @@
                                     <tfoot>
                                         <tr>
                                             <th >Name</th>
-											<td><input type="text" placeholder="Ardbee" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" required placeholder="Ardbee" name="nama" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
-											<td><input type="tel" placeholder="+62" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="tel" required placeholder="+62" name= "no_telp" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Country</th>
@@ -81,7 +77,7 @@
 
 		<div class="col-sm-12">
 			<div class="card card-primary">
-				<div class="card-header bg-primary text-white">
+				<div class="card-header ijo2 text-white">
 					<h5> Transaction
 					<button class="btn btn-danger float-right" type="reset" value="Reset Data" onclick="resetdata()">
 						<b> Reset All </b></button>
@@ -103,7 +99,7 @@
 						</table>
 							<div class="col-sm-12">
 								<div class="card card-primary">
-									<div class="card-header bg-primary text-white">
+									<div class="card-header ijo2 text-white">
 										<h5> Data Items 
 											<button class="btn btn-danger float-right"  value="Add" onclick="AddTable()" type="button">
 											<b> Add </b></button>
@@ -120,15 +116,12 @@
 														<th>Rate</th>
 														<th style="width: 90px;">Quantity</th>
 														<th>Amount</th>
-                                                        <th></th>
+                                                        <th style="width: 50px;"></th>
 													</tr>
 												</thead>
 												<tbody class="card-body" id="MyTBody">
 
 												</tbody>
-                                                <tbody class="card-body" id="MyTBody">
-                                                    
-                                                </tbody>
 											</table>
 										</div>
 									</div>
@@ -274,7 +267,7 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "number";
-            input.placeholder = 'Unit';
+            input.placeholder = "${++tblBody.children.length}";
             input.style.width = "50px";
             input.value = nomorBerurut++;
             input.readOnly = true; // Membuat input hanya bisa dibaca

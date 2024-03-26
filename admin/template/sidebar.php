@@ -1,16 +1,24 @@
 <!--sidebar start-->
+
 <?php 
     $hak_access = $_SESSION['akun']['hak_access'];
-    $nama = $_SESSION['akun']['nama']
+    $nama = $_SESSION['akun']['nama'];
+    $gambar = $_SESSION['akun']['gambar'];
+    $gambar_path = "assets/img/user/";
+   
     // $hasil_profil = $lihat -> member_edit($id);
 ?>
-<!-- Sidebar -->
-<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #FFBC40; background-image: linear-gradient(180deg, #FF8911 10%, #FFBC40 100%); background-size: cover;">
 
+<!-- Sidebar -->
+
+
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #FFBC40; background-image: linear-gradient(180deg, #FF8911 10%, #FFBC40 100%); background-size: cover;">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+
         <div class="sidebar-brand-icon rotate-n-15">
             <i ><img style="width:100%; transform: rotate(10deg);" src="assets/img/user/travelnew-white.png" alt=""></i>
+
         </div>
         <div class="sidebar-brand-text mx-2" style="font-size: 10.7px;">OMFAI TRANSPORTATION SERVICES<sup></sup></div>
     </a>
@@ -82,25 +90,25 @@
     <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light bg-white ijo2 topbar mb-4 static-top shadow">
 
             <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                 <i class="fa fa-bars"></i>
             </button>
-            <h5 class="d-lg-block d-none mt-2"><b>Selamat Datang <?php echo " $nama" ; ?></b></h5>
+            <h5 class="d-lg-block d-none mt-2"><b style="color: #FF8C00; font-size: 150%; ">Selamat Datang <?php echo " $nama" ; ?></b></h5>
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
-                <!-- Topbar Search -->
-                <!-- Nav Item - User Information -->
+    <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img class="img-profile rounded-circle"
-                            src="assets/img/user/<?php echo $hasil_profil['gambar'];?>">
-                        <span
-                            class="mr-2 d-none d-lg-inline text-gray-600 small ml-2"><?php echo $hasil_profil['nm_member'];?></span>
+                        <?php if (!empty($gambar)): ?>
+                            <img class="img-profile rounded-circle" src="<?php echo $gambar_path . $gambar; ?>">
+                        <?php else: ?>
+                            <i class="fas fa-user-circle fa-sm fa-fw mr-2 text-gray-400"></i>
+                        <?php endif; ?>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small ml-2"></span>
                         <i class="fas fa-angle-down"></i>
                     </a>
                     <!-- Dropdown - User Information -->
@@ -122,3 +130,15 @@
         <!-- End of Topbar -->
         <!-- Begin Page Content -->
         <div class="container-fluid">
+
+<style>
+    .ijo{
+        background: rgb(253,187,45);
+        background: linear-gradient(0deg, rgba(253,187,45,1) 0%, rgba(34,193,195,1) 100%);
+    }
+
+    .ijo2{
+        background: #1dca8a;
+      
+    }
+</style>

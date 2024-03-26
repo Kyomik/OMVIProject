@@ -10,6 +10,7 @@ session_start();
         $nama = htmlentities($_POST['nama']);
         $no_telp = htmlentities($_POST['no_telp']);
         $hak_access = htmlentities($_POST['hakAkses']);
+        // $gambar = htmlentities($_POST['gambar']);
         $username = htmlentities($_POST['username']);
         $password = htmlentities($_POST['password']);
         $password = hash('sha256', $password); 
