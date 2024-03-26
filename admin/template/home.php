@@ -195,16 +195,39 @@
                         ticks: {
                             beginAtZero: true,
                             min: 0,
-                            max: 120000000, 
-                            stepSize: 10000000, 
+                            max: 1000000000, 
+                            stepSize: 100000000, 
                             callback: function(value, index, values) {
-                                return (value / 1000000 ).toFixed(0) + ' juta'; 
+                                let hasil;
+                                if (value >= 1000000000) {
+                                    hasil = (value / 1000000000).toFixed(0) + ' M';
+                                } else if (value >= 1000000) {
+                                    hasil = (value / 1000000).toFixed(0) + ' juta';
+                                } else {
+                                    hasil = value;
+                                }
+                                return hasil;
                             }
                         }
                     }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            if (value >= 1000000000) {
+                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' M';
+                            } else if (value >= 1000000) {
+                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' juta';
+                            } else if (value >= 1) {
+                                return tooltipItem.yLabel.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ribu';
+                            }
+                        }
+                    }
                 }
             }
         });
+
 
         document.querySelector("#selectedYear").addEventListener('change', function(event){
             let selectedYear = event.target.value;

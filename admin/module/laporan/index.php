@@ -20,7 +20,7 @@
 		echo "<script>cuteAlert({
 		  type: 'question',
 		  title: 'Confirm Title',
-		  message: 'Confirm Message',
+		  message: 'Apakah anda ingin melanjutkan report?',
 		  confirmText: 'Okay',
 		  cancelText: 'Cancel'
 		}).then((e)=>{
