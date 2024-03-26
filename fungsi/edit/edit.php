@@ -1,7 +1,6 @@
 <?php
 session_start();
 if (isset($_SESSION['akun'])) {
-    if($_SESSION['akun']['hak_access'] == 1){
     require '../../config.php';
 
     if (isset($_GET['akun']) ) {
@@ -42,7 +41,9 @@ if (isset($_SESSION['akun'])) {
         }
     } // ini untuk edit foto    
     else {
-        if (isset($_GET['profile'])){
+        
+    }
+    if (isset($_GET['profile'])){
             $id_akun = $_POST['id_akun'];
             $dir = '../../assets/img/user/';
             $file_name = $_FILES['gambar']['name'];
@@ -79,8 +80,6 @@ if (isset($_SESSION['akun'])) {
                 }
             }
         }
-    }
-}
 }
     
     ?>

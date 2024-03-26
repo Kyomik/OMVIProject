@@ -24,7 +24,6 @@
                     <th>No Telpon</th>
                     <th>Hak Akses</th>
                     <th>User Name</th>
-                   
                     <th>Password</th>
                     <th>Aksi</th>
                 </tr>

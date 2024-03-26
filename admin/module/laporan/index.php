@@ -181,17 +181,17 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-bordered w-100 table-sm" id="example1">
+					<table class="table table-bordered w-100 table-sm" id="example1" style="text-align:center;">
 						<thead>
 							<tr style="background:#DFF0D8;color:#333;">
-								<th> No</th>
-								<th> ID Transaksi</th>
-								<th> Tanggal Inputan</th>
-								<th> Tanggal Priode</th>
-								<th> Admin</th>
-								<th> Jumlah Item</th>
-								<th> Total Harga</th>
-								<th> Aksi</th>
+								<th style="width:25px;"> No</th>
+								<th style="width:150px;"> ID Transaksi</th>
+								<th style="width:150px;"> Tanggal Inputan</th>
+								<th style="width:150px;"> Tanggal Priode</th>
+								<th style="width:150px;"> Admin</th>
+								<th style="width:150px;"> Jumlah Item</th>
+								<th style="width:150px;"> Total Harga</th>
+								<th style="width:150px;"> Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -353,7 +353,7 @@
 													<th></th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody >
 											</tbody>
 										</table>
 									</div>
@@ -380,15 +380,15 @@
 			</div>
             <div class="modal-footer">
 				<?php 
-					// if ($hak_access == 1){
+					if ($hak_access == 1){
 						echo "<button id='editButton' type='submit' class='btn btn-primary'>Edit</button>
 						<button id='deleteButton' type='button' class='btn btn-danger' data-dismiss='modal'>Delete</button>";
-					// }				
+
+					}				
 				?>
 			</div>
 		</div>                    
 	</div>
-
 
 <script>
     const editButton = document.querySelector('.modal-footer');

@@ -116,7 +116,7 @@
 														<th>Rate</th>
 														<th style="width: 90px;">Quantity</th>
 														<th>Amount</th>
-                                                        <th></th>
+                                                        <th style="width: 50px;"></th>
 													</tr>
 												</thead>
 												<tbody class="card-body" id="MyTBody">
@@ -267,7 +267,7 @@ function AddTable() {
             const cell = document.createElement("td");
             const input = document.createElement("input");
             input.type = "number";
-            input.placeholder = 'Unit';
+            input.placeholder = "${++tblBody.children.length}";
             input.style.width = "50px";
             input.value = nomorBerurut++;
             input.readOnly = true; // Membuat input hanya bisa dibaca
