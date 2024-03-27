@@ -4,7 +4,18 @@
 	$nama = $_SESSION['akun']['nama'];
 	$no_telp = $_SESSION['akun']['no_telp'];
 ?>
-
+<style type="text/css">
+    td{
+        align-content: center;
+        padding: 8px 5px 8px 5px !important;
+    }
+    p{
+        margin: 0px;
+    }
+    input{
+        padding-left: 8px !important;
+    }
+</style>
 	<form name="addForm" class="row form-input" method="POST" action="admin/module/jual/add_transaksi.php">
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
@@ -107,7 +118,7 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-											<table class="table table-bordered" id="MyTable">
+											<table class="table table-bordered" id="MyTable" style="font-size: 14px !important; text-align: center;">
 												<thead>
 													<tr>
 														<th>Date</th>
@@ -116,7 +127,7 @@
 														<th>Rate</th>
 														<th style="width: 90px;">Quantity</th>
 														<th>Amount</th>
-                                                        <th style="width: 50px;"></th>
+                                                        <th></th>
 													</tr>
 												</thead>
 												<tbody class="card-body" id="MyTBody">
@@ -265,11 +276,10 @@ function AddTable() {
         }
         for (let j = 0; j < 1; j++) {
             const cell = document.createElement("td");
-            const input = document.createElement("input");
-            input.type = "number";
-            input.placeholder = "${++tblBody.children.length}";
-            input.style.width = "50px";
-            input.value = nomorBerurut++;
+            const input = document.createElement("b");
+            // input.style.width = "50px";/
+            input.style.textAlign = "center"
+            input.innerHTML = ++tblBody.children.length
             input.readOnly = true; // Membuat input hanya bisa dibaca
             cell.appendChild(input);
             row.appendChild(cell);
@@ -319,25 +329,26 @@ function AddTable() {
             input.textContent = "❌";
             input.style.border = "0px";
             input.style.background = "transparent";
-            input.name = "deleteButton";
+            input.classList = "deleteButton";
             cell.appendChild(input);
             row.appendChild(cell);
         }
+
         tblBody.appendChild(row);
         tblBody.addEventListener('click', function(event) {
-                if (event.target.getAttribute('name') === 'deleteButton') {
+            if (event.target.classList.contains('deleteButton')) {
                     event.stopPropagation(); // Mencegah penyebaran event klik ke atas elemen induk
                     const row = event.target.closest('tr');
                     row.remove();
-                    hapusTabel();
+
                     let counter = 1
-                    let list_items = [...this.childNodes]
+                    let list_items = [...this.children]
 
                     list_items.map((item) =>{
-                        item.children[1].children[0].value = counter++
+                        item.children[1].children[0].innerHTML = counter++
                     })
                 }
-            });
+            })
     }
 
     document.querySelectorAll("input[placeholder='Rate'], input[placeholder='Quantity']").forEach(input => {
@@ -369,6 +380,7 @@ function calculateAmount(event) {
         row.querySelector('input[placeholder="Quantity"]').value = 0
         quantity = 0;
     }
+
     if(isNaN(rate)){
         inputField.value = 0
         rate = 0;
@@ -389,7 +401,10 @@ function getNumericValue(value) {
 function calculateTotal() {
     let total = 0;
     document.querySelectorAll("input[placeholder='Amount']").forEach(input => {
-        total += getNumericValue(input.value);
+        if(input.value != ""){
+            total += getNumericValue(input.value);
+        }
+        
     });
 
     // Format nilai total dengan koma sebagai pemisah ribuan

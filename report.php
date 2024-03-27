@@ -27,7 +27,8 @@ if (isset($_SESSION['akun'])) {
 				// Eksekusi statement
 				$stmt->execute();
 				$hasil = $stmt->fetchAll();
-				$html = getTemplate($hasil[0]['id_transaksi'], $hasil[0]['tgl_input'], $hasil[0]['tgl_priode'], $hasil[0]['total_harga'], $hasil[0]['nama_customer'], $hasil[0]['negara_customer'], $hasil[0]['no_telp_customer'], $hasil[0]['nama_akun'], $hasil[0]['negara_akun'], $hasil[0]['no_telp_akun'], $hasil[0]['all_items']);		
+				$formated = number_format($hasil[0]['total_harga']);
+				$html = getTemplate($hasil[0]['id_transaksi'], $hasil[0]['tgl_input'], $hasil[0]['tgl_priode'], $formated, $hasil[0]['nama_customer'], $hasil[0]['negara_customer'], $hasil[0]['no_telp_customer'], $hasil[0]['nama_akun'], $hasil[0]['negara_akun'], $hasil[0]['no_telp_akun'], $hasil[0]['all_items']);		
 
 				// $dompdf = new Dompdf();
 				$options = new Options();

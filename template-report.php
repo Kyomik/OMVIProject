@@ -141,8 +141,8 @@ $selisih_hari = floor($selisih_detik / (60 * 60 * 24));
 	  			<td class='ktk2'>" . $number . "</td>
 	  			<td class='ktk2'>" . $detail_item[0] . "</td>
 	  			<td class='ktk2'>" . $detail_item[3] . "</td>
-	  			<td class='ktk2'>" . $detail_item[2] . "</td>
-	  			<td class='ktk2'>" . $total . "</td>
+	  			<td class='ktk2'>" . number_format($detail_item[2]) . "</td>
+	  			<td class='ktk2'>" . number_format($total) . "</td>
   			</tr>";
   		$number++;
   	}	

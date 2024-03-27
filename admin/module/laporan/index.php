@@ -33,7 +33,18 @@
 		})</script>";
 	}
 ?>
-
+<style type="text/css">
+    td{
+        align-content: center;
+        padding: 8px 5px 8px 5px !important;
+    }
+    b{
+        margin: 0px;
+    }
+    input{
+        padding-left: 8px !important;
+    }
+</style>
 <script type="text/javascript">
 	function removeSuccessParameterFromURL(){
 		let currentURL = window.location.href;
@@ -221,7 +232,7 @@
 								<td><?php echo $isi['tgl_priode']; ?></td>
 								<td><?php echo $isi['nama_akun'] ?></td>
 								<td><?php echo $isi['jumlah_item'] ?></td>
-								<td><?php echo $isi['total_harga']; ?></td>
+								<td><?php echo number_format($isi['total_harga']); ?></td>
 								<td>
 									<script type="text/javascript">
 					                	allItemsString = "<?php echo $isi['all_items'];?>"
@@ -237,6 +248,9 @@
 											kerangka_item.date = itemDetails[2];
 										    kerangka_item.price = itemDetails[3];
 										    kerangka_item.qty = itemDetails[4];
+
+										    let price = kerangka_item.price.replace(/\./g, '');
+										    kerangka_item.amount = parseFloat(price) * itemDetails[4]
 
 											transaksi.data_items.push(kerangka_item)
 											kerangka_item = {};
@@ -345,10 +359,10 @@
 											<thead>
 												<tr>
 													<th>Date</th>
-													<th>Unit</th>
+													<th style="width: 50px !important;">Unit</th>
 													<th>Item & Description</th>
 													<th>Rate</th>
-													<th>Qty</th>
+													<th style="width:90px">Qty</th>
 													<th>Amount</th>
 													<th></th>
 												</tr>
@@ -367,9 +381,7 @@
 										<td>Total</td>
 											<td>
 												<!-- <input type="number" name="total" id="total" readonly="readonly" class="form-control"> -->
-												<?php 
-												echo "<input readonly='readonly' type='number' class='form-control' name='total_harga' id='total_harga' value='" . $totalAmount . "'>"; 
-												?>
+												<input readonly='readonly' type='text' class='form-control' name='total_harga' id='total_harga'>
 											</td>
 									</tr>
 								</table>
@@ -399,6 +411,8 @@
 	const pencarianTahun = document.getElementsByName("thn")[0];
 	const pencarianBulan = document.getElementsByName("bln")[0];
 	const pencarianHari = document.getElementsByName("hari")[0]
+
+	
 
 	pencarianBulan.addEventListener('change', (event) => {
 		pencarianHari.value = getTanggalSekarang();
@@ -434,6 +448,10 @@
 
 			    	window.location.href = "/OMVIPROject/admin/module/laporan/delete_transaksi.php?id_transaksi=" + id_transaksi;
 			    }
+
+		document.querySelectorAll("input[placeholder='Rate'], input[placeholder='Quantity']").forEach(input => {
+			input.addEventListener('input', calculateAmount);
+		});
     });
 
     addButton.addEventListener('click', function() {
@@ -445,20 +463,20 @@
     	const row = document.createElement('tr');
 		    row.innerHTML = `
 		        <td><input type="date" name="tgl[]" style="border:none;" placeholder="Date" value=""></td>
-		        <td><input type="text" name="unit"  style="border:none;" placeholder="${++tbody.children.length}" value=""></td>
+		        <td style="width:50px"><b name="unit"  style="border:none;">${++tbody.children.length}<b></td>
 		        <td><input type="text" name="nama_barang[]"  style="border:none;" placeholder="Item & Description" value=""></td>
-		        <td><input type="text" name="harga[]"  style="border:none;" placeholder="Rate" value=""></td>
-		        <td><input type="text" name="jumlah[]" style="border:none;" placeholder="Quantity" value=""></td>
+		        <td style="width:90px"><input type="text" name="harga[]"  style="border:none;" placeholder="Rate" value=""></td>
+		        <td><input type="text" name="jumlah[]" style="border:none; width:90px !important;" placeholder="Quantity" value="" ></td>
 		        <td><input type="text" name="total"  style="border:none;" placeholder="Amount" value=""></td>
 		        <td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>
 		    `;
 		    tbody.appendChild(row);
-				calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
-				calculateAmount.call(row.querySelector("input[placeholder='Quantity']"));
-				document.querySelectorAll("input[placeholder='Rate'], input[placeholder='Quantity']").forEach(input => {
-			        input.addEventListener('input', calculateAmount);
-			    });
+			
+		document.querySelectorAll("input[placeholder='Rate'], input[placeholder='Quantity']").forEach(input => {
+			input.addEventListener('input', calculateAmount);
+		});	
     });
+    
 
     function getTanggalSekarang(){
     	let currentDate = new Date(); // Mendapatkan tanggal dan waktu saat ini dari mesin klien
@@ -480,37 +498,66 @@
 		return formattedDate
     }
 
-    function calculateTotal() {
-    total = 0; // Setel total ke 0 sebelum memulai perhitungan ulang
-    const amountInputs = document.querySelectorAll("input[placeholder='Amount']");
-    amountInputs.forEach(input => {
-        if (!isNaN(parseFloat(input.value))) {
-            total += parseFloat(input.value);
-        }
-    });
-    document.getElementById('total').value = total;
+    function formatNumber(number) {
+    return number.toLocaleString('en');
 }
 
-    function calculateAmount() {
-	    const row = this.parentNode.parentNode; // Mendapatkan elemen baris (tr)
-	    let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value);
-	    let quantity = parseFloat(row.querySelector("input[placeholder='Quantity']").value);
-	    let amountInput = row.querySelector("input[placeholder='Amount']");
-
-	    if(isNaN(quantity)){
-	        quantity = 0;
-	    }
-	    if(isNaN(rate)){
-	        rate = 0;
-	    }
-	    let amount = rate * quantity;
-	    if (!isNaN(amount)) {
-	        amountInput.value = Math.round(amount); 
-	    } else {
-	        amountInput.value = ''; 
-	    }
-	    calculateTotal();
+function formatNumber(number) {
+	    return parseFloat(number).toLocaleString('en');
 	}
+
+function calculateAmount(event) {
+    let inputField = event.target;
+    let value = inputField.value.replace(/\./g, ''); // Hapus koma dari nilai input
+    value = value.replace(/\D/g, ''); // Hilangkan karakter non-digit dari nilai input
+    let numberValue = parseFloat(value);
+
+    // Format nilai dengan koma sebagai pemisah ribuan
+    inputField.value = formatNumber(numberValue);
+
+    // Lakukan perhitungan
+    const row = inputField.closest('tr'); // Mendapatkan elemen baris terdekat
+    let rate = getNumericValue(row.querySelector("input[placeholder='Rate']").value);
+    let quantity = getNumericValue(row.querySelector("input[placeholder='Quantity']").value);
+    let amountInput = row.querySelector("input[placeholder='Amount']");
+
+    // Handle NaN values
+    if(isNaN(quantity)){
+        row.querySelector('input[placeholder="Quantity"]').value = 0
+        quantity = 0;
+    }
+
+    if(isNaN(rate)){
+        inputField.value = 0
+        rate = 0;
+    }
+
+    let amount = rate * quantity;
+
+    // Format nilai dengan koma sebagai pemisah ribuan
+    amountInput.value = formatNumber(amount);
+
+    calculateTotal();
+}
+
+function getNumericValue(value) {
+    return parseFloat(value.replace(/,/g, ''));
+}
+
+function calculateTotal() {
+    let total = 0;
+    document.querySelectorAll("input[placeholder='Amount']").forEach(input => {
+        if(input.value != ""){
+            total += getNumericValue(input.value);
+        }
+        
+    });
+
+    // Format nilai total dengan koma sebagai pemisah ribuan
+    document.getElementById('total_harga').value = formatNumber(total);
+}
+
+
 
 	table_bordered.addEventListener('click', function(event){
 		if (event.target.classList.contains('detailButton')) {
@@ -546,7 +593,7 @@
 			modalBody.children[2].children[0].children[0].children[1].children[0].children[0].children[0].children[0].value = detailTransaksi.customer;
 
 			// Total
-			modalBody.children[3].children[1].children[0].children[0].children[0].children[0].children[1].children[0].value = detailTransaksi.total
+			modalBody.children[3].children[1].children[0].children[0].children[0].children[0].children[1].children[0].value = formatNumber(detailTransaksi.total)
 
 
 			detailTransaksi.data_items.forEach((item) => {
@@ -554,11 +601,11 @@
 		        row.innerHTML = `
 		        			<input hidden=hidden name="id_item[]" style="border:none;" value="${item.id}">
 		         			<td><input type="date" name="tgl_lama[]" readonly="readonly" style="border:none; text-align:center;" placeholder="Date" value="${item.date}"></td>
-		                    <td><input type="text" name="unit" readonly="readonly" style="border:none; width:75px; text-align:center;" placeholder="Unit" value="${number}"></td>
-		                    <td><input type="text" name="nama_barang_lama[]" readonly="readonly" style="border:none; text-align:center;" placeholder="Item & Description" value="${item.nama}"></td>
-		                    <td><input type="text" name="harga_lama[]" readonly="readonly" style="border:none;" placeholder="Rate" value="${item.price}"></td>
-		                    <td><input type="text" name="jumlah_lama[]" readonly="readonly" style="border:none; width:75px; text-align:center;" placeholder="Quantity" value="${item.qty}"></td>
-		                    <td><input type="text" name="total" readonly="readonly" style="border:none; text-align:center;" placeholder="Amount" value="${item.amount}"></td>
+		                    <td><b  name="unit" style="border:none; width:90px;">${number}<b></td>
+		                    <td><input type="text" name="nama_barang_lama[]" readonly="readonly" style="border:none;" placeholder="Item & Description" value="${item.nama}"></td>
+		                    <td><input type="text" name="harga_lama[]" readonly="readonly" style="border:none;" placeholder="Rate" value="${formatNumber(item.price)}"></td>
+		                    <td><input type="text" name="jumlah_lama[]" readonly="readonly" style="border:none; width:75px;" placeholder="Quantity" value="${item.qty}"></td>
+		                    <td><input type="text" name="total" readonly="readonly" style="border:none;" placeholder="Amount" value="${formatNumber(item.amount)}"></td>
 		                    <?php 
 								if ($hak_access == 1){
 									echo '<td><button type="button" class="deleteButton" style="border:none; background-color:transparent; ">❌</button></td>'; 
@@ -567,8 +614,7 @@
 						`;
 				number++;
 				tbody.appendChild(row);
-				calculateAmount.call(row.querySelector("input[placeholder='Rate']"));
-				calculateAmount.call(row.querySelector("input[placeholder='Quantity']"));
+				
 			})
 			
 			tbody.addEventListener('click', function(event) {
@@ -581,7 +627,7 @@
 	        		let list_items = [...this.childNodes]
 
 	        		list_items.map((item) =>{
-	        			item.children[1].children[0].value = counter++
+	        			item.children[1].children[0].innerHTML = counter++
 	        		})
 				}
 			});

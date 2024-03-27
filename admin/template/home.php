@@ -195,7 +195,7 @@
                         ticks: {
                             beginAtZero: true,
                             min: 1000000,
-                            max: 120000000, 
+                            max: 1000000000, 
                             stepSize: 10000000, 
                             callback: function(value, index, values) {
                                 let hasil;

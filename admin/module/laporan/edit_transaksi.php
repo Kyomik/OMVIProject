@@ -37,7 +37,8 @@ if (isset($_SESSION['akun'])) {
             // // Bind parameter untuk klausa WHERE pada pernyataan DELETE
             $stmtDelete->bindParam(':id_transaksi', $id_transaksi);
             $stmtUpdate->bindParam(':id_transaksi', $id_transaksi);
-            $stmtUpdate->bindParam(':total_harga', $total_harga);
+            $formated = str_replace(',', '', $total_harga);
+            $stmtUpdate->bindParam(':total_harga', $formated);
             // // Eksekusi pernyataan DELETE
             $stmtDelete->execute();
             $stmtUpdate->execute();
@@ -50,7 +51,8 @@ if (isset($_SESSION['akun'])) {
 
                 $stmtEdit->bindParam(':nama_barang', $nama_barang);
                 $stmtEdit->bindParam(':jumlah', $jumlah);
-                $stmtEdit->bindParam(':harga', $harga);
+                $formated = str_replace(',', '', $harga);
+                $stmtEdit->bindParam(':harga', $formated);
                 $stmtEdit->bindParam(':id_item', $id_item);
                 $stmtEdit->bindParam(':tgl', $tgl);
                 $stmtEdit->execute();
@@ -64,7 +66,8 @@ if (isset($_SESSION['akun'])) {
                 $stmtAdd->bindParam(1, $tgl);
                 $stmtAdd->bindParam(2, $id_transaksi);
                 $stmtAdd->bindParam(3, $nama_barang);
-                $stmtAdd->bindParam(4, $harga);
+                $formated = str_replace(',', '', $harga);
+                $stmtAdd->bindParam(4, $formated);
                 $stmtAdd->bindParam(5, $jumlah);
                 $stmtAdd->execute();
             }
