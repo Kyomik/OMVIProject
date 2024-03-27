@@ -30,7 +30,7 @@
                                         </tr>
 										<tr>
                                             <th>Country</th>
-											<td><input required type="text" name="negara_akun" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="text" name="negara_akun" placeholder="Negara" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -56,7 +56,7 @@
                                     <tfoot>
                                         <tr>
                                             <th >Name</th>
-											<td><input type="text" required placeholder="Ardbee" name="nama" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" required placeholder="Nama" name="nama" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
@@ -64,7 +64,7 @@
                                         </tr>
 										<tr>
                                             <th>Country</th>
-											<td><input required type="text" name="negara_customer" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="text" name="negara_customer" placeholder="Negara" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -297,7 +297,6 @@ function AddTable() {
         for (let j = 0; j < 1; j++) {
             const cell = document.createElement("td");
             const input = document.createElement("input");
-            input.type = "number";
             input.name = "jumlah[]";
             input.required = true;
             input.style.width = "90px";
@@ -308,7 +307,6 @@ function AddTable() {
         for (let j = 0; j < 1; j++) {
             const cell = document.createElement("td");
             const input = document.createElement("input");
-            input.type = "number";
             cell.appendChild(input);
             row.appendChild(cell);
             input.placeholder = 'Amount';
@@ -347,35 +345,58 @@ function AddTable() {
     });
 }
 
-function calculateTotal() {
-    total = 0; // Setel total ke 0 sebelum memulai perhitungan ulang
-    const amountInputs = document.querySelectorAll("input[placeholder='Amount']");
-    amountInputs.forEach(input => {
-        if (!isNaN(parseFloat(input.value))) {
-            total += parseFloat(input.value);
-        }
-    });
-    document.getElementById('total').value = total;
-}
+function calculateAmount(event) {
+    let inputField = event.target;
+    let value = inputField.value.replace(/\./g, ''); // Hapus koma dari nilai input
 
-function calculateAmount() {
-    const row = this.parentNode.parentNode; // Mendapatkan elemen baris (tr)
-    let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value);
-    let quantity = parseFloat(row.querySelector("input[placeholder='Quantity']").value);
+    // Hilangkan karakter non-digit dari nilai input
+    value = value.replace(/\D/g, '');
+
+    // Konversi nilai menjadi angka
+    let numberValue = parseFloat(value);
+
+    // Format nilai dengan koma sebagai pemisah ribuan
+    let formattedValue = numberValue.toLocaleString('en');
+
+    // Update nilai input
+    inputField.value = formattedValue;
+
+    // Lakukan perhitungan
+    const row = inputField.closest('tr'); // Mendapatkan elemen baris terdekat
+    let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value.replace(/,/g, ''));
+    let quantity = parseFloat(row.querySelector("input[placeholder='Quantity']").value.replace(/,/g, ''));
     let amountInput = row.querySelector("input[placeholder='Amount']");
+    
     if(isNaN(quantity)){
         quantity = 0;
     }
     if(isNaN(rate)){
         rate = 0;
     }
+
     let amount = rate * quantity;
-    if (!isNaN(amount)) {
-        amountInput.value = Math.round(amount); 
-    } else {
-        amountInput.value = ''; 
-    }
-    calculateTotal();
+
+    amount = amount.toString().replace(/\./g, '')
+    numberValue = parseFloat(amount);
+
+    // Format nilai dengan koma sebagai pemisah ribuan
+    formattedValue = numberValue.toLocaleString('en');
+    
+    amountInput.value = formattedValue
+    calculateTotal(amountInput.value);
 }
+
+let total = 0;
+
+function calculateTotal(amount) {
+    let amountValue = amount.toString().replace(/,/g, '')
+    console.log(amountValue)
+    amountValue = parseFloat(amountValue)
+
+    total += amountValue
+    console.log(total)
+    document.getElementById('total').value = total
+}
+
 </script>
 
