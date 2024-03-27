@@ -136,7 +136,7 @@
 								<td>
 									<!-- <input type="number" name="total" id="total" readonly="readonly" class="form-control"> -->
 							<?php 
-							echo "<input readonly='readonly' type='number' class='form-control' name='total_harga' id='total' value='" . $totalAmount . "'>"; 
+							echo "<input readonly='readonly' class='form-control' name='total_harga' id='total' value='" . $totalAmount . "'>"; 
 							?>
 							</td>
 								
@@ -345,57 +345,55 @@ function AddTable() {
     });
 }
 
+function formatNumber(number) {
+    return number.toLocaleString('en');
+}
+
 function calculateAmount(event) {
     let inputField = event.target;
     let value = inputField.value.replace(/\./g, ''); // Hapus koma dari nilai input
-
-    // Hilangkan karakter non-digit dari nilai input
-    value = value.replace(/\D/g, '');
-
-    // Konversi nilai menjadi angka
+    value = value.replace(/\D/g, ''); // Hilangkan karakter non-digit dari nilai input
     let numberValue = parseFloat(value);
 
     // Format nilai dengan koma sebagai pemisah ribuan
-    let formattedValue = numberValue.toLocaleString('en');
-
-    // Update nilai input
-    inputField.value = formattedValue;
+    inputField.value = formatNumber(numberValue);
 
     // Lakukan perhitungan
     const row = inputField.closest('tr'); // Mendapatkan elemen baris terdekat
-    let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value.replace(/,/g, ''));
-    let quantity = parseFloat(row.querySelector("input[placeholder='Quantity']").value.replace(/,/g, ''));
+    let rate = getNumericValue(row.querySelector("input[placeholder='Rate']").value);
+    let quantity = getNumericValue(row.querySelector("input[placeholder='Quantity']").value);
     let amountInput = row.querySelector("input[placeholder='Amount']");
-    
+
+    // Handle NaN values
     if(isNaN(quantity)){
+        row.querySelector('input[placeholder="Quantity"]').value = 0
         quantity = 0;
     }
     if(isNaN(rate)){
+        inputField.value = 0
         rate = 0;
     }
 
     let amount = rate * quantity;
 
-    amount = amount.toString().replace(/\./g, '')
-    numberValue = parseFloat(amount);
-
     // Format nilai dengan koma sebagai pemisah ribuan
-    formattedValue = numberValue.toLocaleString('en');
-    
-    amountInput.value = formattedValue
-    calculateTotal(amountInput.value);
+    amountInput.value = formatNumber(amount);
+
+    calculateTotal();
 }
 
-let total = 0;
+function getNumericValue(value) {
+    return parseFloat(value.replace(/,/g, ''));
+}
 
-function calculateTotal(amount) {
-    let amountValue = amount.toString().replace(/,/g, '')
-    console.log(amountValue)
-    amountValue = parseFloat(amountValue)
+function calculateTotal() {
+    let total = 0;
+    document.querySelectorAll("input[placeholder='Amount']").forEach(input => {
+        total += getNumericValue(input.value);
+    });
 
-    total += amountValue
-    console.log(total)
-    document.getElementById('total').value = total
+    // Format nilai total dengan koma sebagai pemisah ribuan
+    document.getElementById('total').value = formatNumber(total);
 }
 
 </script>

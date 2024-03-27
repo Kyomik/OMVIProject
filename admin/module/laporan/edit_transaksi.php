@@ -1,6 +1,8 @@
 <?php
-// if (isset($_SESSION['akun'])) {
-    // if($_SESSION['akun']['hak_access'] == 1){
+
+session_start();
+if (isset($_SESSION['akun'])) {
+    if($_SESSION['akun']['hak_access'] == 1){
         require "./../../../config.php";
         $config->beginTransaction();
 
@@ -71,21 +73,19 @@
 
             echo '<script>window.location="' . BASE_URL . 'index.php?page=laporan&report=success&id=' . $id_transaksi . '"</script>';
         } catch (PDOException $e) {
-        // Rollback transaction if any error occurs
-        $config->rollback();
-        die("Error: " . $e->getMessage());
-    } finally {
-        // Close statements
-        $stmtDelete = null;
-        $stmtAdd = null;
-        $stmtEdit = null;
+            // Rollback transaction if any error occurs
+                $config->rollback();
+                die("Error: " . $e->getMessage());
+        } finally {
+                // Close statements
+                $stmtDelete = null;
+                $stmtAdd = null;
+                $stmtEdit = null;
+        }
     }
-    // }
-    
-
-// } else {
-//     echo "Anda tidak memiliki izin untuk melakukan tindakan ini.";
-// }
+} else {
+    echo "Anda tidak memiliki izin untuk melakukan tindakan ini.";
+}
 
 
 ?>

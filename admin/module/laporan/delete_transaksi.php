@@ -1,4 +1,6 @@
 <?php 
+session_start();
+
 if (isset($_SESSION['akun'])) {
     if($_SESSION['akun']['hak_access'] == 1){
     	if(isset($_GET['id_transaksi'])){
