@@ -1,10 +1,9 @@
 <?php
 
 session_start();
-// if (!empty($_SESSION['admin'])) {
-    require '../../config.php';
-
-    if (!empty($_GET['akun'])) {
+if (isset($_SESSION['akun'])) {
+    if($_SESSION['akun']['hak_access'] == 1){
+        require '../../config.php';
 
       
         $nama = htmlentities($_POST['nama']);
@@ -80,4 +79,4 @@ session_start();
 					window.location="../../index.php?page=jual#keranjang"</script>';
         }
     }
-// }
+}

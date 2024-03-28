@@ -2,7 +2,8 @@
 
 session_start();
 
-// if (!empty($_SESSION['admin'])) {
+if (isset($_SESSION['akun'])) {
+    if($_SESSION['akun']['hak_access'] == 1){
     require '../../config.php';
     // if (!empty(htmlentities($_GET['kategori']))) {
     //     $id= htmlentities($_GET['id']);
@@ -86,3 +87,5 @@ session_start();
         echo '<script>window.location="../../index.php?page=laporan&remove=hapus"</script>';
     }
 
+}
+}

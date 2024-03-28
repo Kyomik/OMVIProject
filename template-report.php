@@ -141,8 +141,8 @@ $selisih_hari = floor($selisih_detik / (60 * 60 * 24));
 	  			<td class='ktk2'>" . $number . "</td>
 	  			<td class='ktk2'>" . $detail_item[0] . "</td>
 	  			<td class='ktk2'>" . $detail_item[3] . "</td>
-	  			<td class='ktk2'>" . $detail_item[2] . "</td>
-	  			<td class='ktk2'>" . $total . "</td>
+	  			<td class='ktk2'>" . number_format($detail_item[2]) . "</td>
+	  			<td class='ktk2'>" . number_format($total) . "</td>
   			</tr>";
   		$number++;
   	}	
@@ -164,7 +164,9 @@ $selisih_hari = floor($selisih_detik / (60 * 60 * 24));
   					Thank you for your bussiness!
   				</p><br><br><br><br>
   				<p style="font-size:0.8em; position:relative; float:right; right:20px;">
-  				Hormat Kami<br><br><br><br><br>' . $nama_akun .
+  				Hormat Kami<br>
+  				<img src="http://localhost/OMVIProject/cap.png" style="width:80px; height:80px;">
+  				<br>' . $nama_akun .
   				'</p>
   			</td>
   		</tr>

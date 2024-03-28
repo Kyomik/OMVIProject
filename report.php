@@ -1,9 +1,11 @@
 <?php
+	session_start();
+
 	require_once "vendor/autoload.php";
 
 	 use Dompdf\Dompdf;
 	 use Dompdf\Options;
-
+if (isset($_SESSION['akun'])) {
 		if(isset($_GET['id'])){
 			$id_transaksi = $_GET['id'];
 			require_once 'config.php';
@@ -25,7 +27,8 @@
 				// Eksekusi statement
 				$stmt->execute();
 				$hasil = $stmt->fetchAll();
-				$html = getTemplate($hasil[0]['id_transaksi'], $hasil[0]['tgl_input'], $hasil[0]['tgl_priode'], $hasil[0]['total_harga'], $hasil[0]['nama_customer'], $hasil[0]['negara_customer'], $hasil[0]['no_telp_customer'], $hasil[0]['nama_akun'], $hasil[0]['negara_akun'], $hasil[0]['no_telp_akun'], $hasil[0]['all_items']);		
+				$formated = number_format($hasil[0]['total_harga']);
+				$html = getTemplate($hasil[0]['id_transaksi'], $hasil[0]['tgl_input'], $hasil[0]['tgl_priode'], $formated, $hasil[0]['nama_customer'], $hasil[0]['negara_customer'], $hasil[0]['no_telp_customer'], $hasil[0]['nama_akun'], $hasil[0]['negara_akun'], $hasil[0]['no_telp_akun'], $hasil[0]['all_items']);		
 
 				// $dompdf = new Dompdf();
 				$options = new Options();
@@ -47,4 +50,5 @@
 		// ini_set('display_errors', '1');
 		// $imageData = file_get_contents("http://localhost" . BASE_URL . "travelnew.png");
 		// var_dump($http_response_header);
+	}
 ?>

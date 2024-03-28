@@ -4,7 +4,18 @@
 	$nama = $_SESSION['akun']['nama'];
 	$no_telp = $_SESSION['akun']['no_telp'];
 ?>
-
+<style type="text/css">
+    td{
+        align-content: center;
+        padding: 8px 5px 8px 5px !important;
+    }
+    p{
+        margin: 0px;
+    }
+    input{
+        padding-left: 8px !important;
+    }
+</style>
 	<form name="addForm" class="row form-input" method="POST" action="admin/module/jual/add_transaksi.php">
 		<div class="col-sm-6">
 			<div class="card card-primary mb-3">
@@ -30,7 +41,7 @@
                                         </tr>
 										<tr>
                                             <th>Country</th>
-											<td><input required type="text" name="negara_akun" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="text" name="negara_akun" placeholder="Negara" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -56,7 +67,7 @@
                                     <tfoot>
                                         <tr>
                                             <th >Name</th>
-											<td><input type="text" required placeholder="Ardbee" name="nama" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input type="text" required placeholder="Nama" name="nama" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
 										<tr>
                                             <th>Phone Number</th>
@@ -64,7 +75,7 @@
                                         </tr>
 										<tr>
                                             <th>Country</th>
-											<td><input required type="text" name="negara_customer" placeholder="Indonesia" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
+											<td><input required type="text" name="negara_customer" placeholder="Negara" style="width:100%; border-radius: 0.35rem; border: 1px solid #d1d3e2; padding: 0.375rem 0.75rem;"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -107,7 +118,7 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-											<table class="table table-bordered" id="MyTable">
+											<table class="table table-bordered" id="MyTable" style="font-size: 14px !important; text-align: center;">
 												<thead>
 													<tr>
 														<th>Date</th>
@@ -116,7 +127,7 @@
 														<th>Rate</th>
 														<th style="width: 90px;">Quantity</th>
 														<th>Amount</th>
-                                                        <th style="width: 50px;"></th>
+                                                        <th></th>
 													</tr>
 												</thead>
 												<tbody class="card-body" id="MyTBody">
@@ -136,7 +147,7 @@
 								<td>
 									<!-- <input type="number" name="total" id="total" readonly="readonly" class="form-control"> -->
 							<?php 
-							echo "<input readonly='readonly' type='number' class='form-control' name='total_harga' id='total' value='" . $totalAmount . "'>"; 
+							echo "<input readonly='readonly' class='form-control' name='total_harga' id='total' value='" . $totalAmount . "'>"; 
 							?>
 							</td>
 								
@@ -265,11 +276,10 @@ function AddTable() {
         }
         for (let j = 0; j < 1; j++) {
             const cell = document.createElement("td");
-            const input = document.createElement("input");
-            input.type = "number";
-            input.placeholder = "${++tblBody.children.length}";
-            input.style.width = "50px";
-            input.value = nomorBerurut++;
+            const input = document.createElement("b");
+            // input.style.width = "50px";/
+            input.style.textAlign = "center"
+            input.innerHTML = ++tblBody.children.length
             input.readOnly = true; // Membuat input hanya bisa dibaca
             cell.appendChild(input);
             row.appendChild(cell);
@@ -297,7 +307,6 @@ function AddTable() {
         for (let j = 0; j < 1; j++) {
             const cell = document.createElement("td");
             const input = document.createElement("input");
-            input.type = "number";
             input.name = "jumlah[]";
             input.required = true;
             input.style.width = "90px";
@@ -308,7 +317,6 @@ function AddTable() {
         for (let j = 0; j < 1; j++) {
             const cell = document.createElement("td");
             const input = document.createElement("input");
-            input.type = "number";
             cell.appendChild(input);
             row.appendChild(cell);
             input.placeholder = 'Amount';
@@ -321,25 +329,26 @@ function AddTable() {
             input.textContent = "❌";
             input.style.border = "0px";
             input.style.background = "transparent";
-            input.name = "deleteButton";
+            input.classList = "deleteButton";
             cell.appendChild(input);
             row.appendChild(cell);
         }
+
         tblBody.appendChild(row);
         tblBody.addEventListener('click', function(event) {
-                if (event.target.getAttribute('name') === 'deleteButton') {
+            if (event.target.classList.contains('deleteButton')) {
                     event.stopPropagation(); // Mencegah penyebaran event klik ke atas elemen induk
                     const row = event.target.closest('tr');
                     row.remove();
-                    hapusTabel();
+
                     let counter = 1
-                    let list_items = [...this.childNodes]
+                    let list_items = [...this.children]
 
                     list_items.map((item) =>{
-                        item.children[1].children[0].value = counter++
+                        item.children[1].children[0].innerHTML = counter++
                     })
                 }
-            });
+            })
     }
 
     document.querySelectorAll("input[placeholder='Rate'], input[placeholder='Quantity']").forEach(input => {
@@ -347,35 +356,60 @@ function AddTable() {
     });
 }
 
-function calculateTotal() {
-    total = 0; // Setel total ke 0 sebelum memulai perhitungan ulang
-    const amountInputs = document.querySelectorAll("input[placeholder='Amount']");
-    amountInputs.forEach(input => {
-        if (!isNaN(parseFloat(input.value))) {
-            total += parseFloat(input.value);
-        }
-    });
-    document.getElementById('total').value = total;
+function formatNumber(number) {
+    return number.toLocaleString('en');
 }
 
-function calculateAmount() {
-    const row = this.parentNode.parentNode; // Mendapatkan elemen baris (tr)
-    let rate = parseFloat(row.querySelector("input[placeholder='Rate']").value);
-    let quantity = parseFloat(row.querySelector("input[placeholder='Quantity']").value);
+function calculateAmount(event) {
+    let inputField = event.target;
+    let value = inputField.value.replace(/\./g, ''); // Hapus koma dari nilai input
+    value = value.replace(/\D/g, ''); // Hilangkan karakter non-digit dari nilai input
+    let numberValue = parseFloat(value);
+
+    // Format nilai dengan koma sebagai pemisah ribuan
+    inputField.value = formatNumber(numberValue);
+
+    // Lakukan perhitungan
+    const row = inputField.closest('tr'); // Mendapatkan elemen baris terdekat
+    let rate = getNumericValue(row.querySelector("input[placeholder='Rate']").value);
+    let quantity = getNumericValue(row.querySelector("input[placeholder='Quantity']").value);
     let amountInput = row.querySelector("input[placeholder='Amount']");
+
+    // Handle NaN values
     if(isNaN(quantity)){
+        row.querySelector('input[placeholder="Quantity"]').value = 0
         quantity = 0;
     }
+
     if(isNaN(rate)){
+        inputField.value = 0
         rate = 0;
     }
+
     let amount = rate * quantity;
-    if (!isNaN(amount)) {
-        amountInput.value = Math.round(amount); 
-    } else {
-        amountInput.value = ''; 
-    }
+
+    // Format nilai dengan koma sebagai pemisah ribuan
+    amountInput.value = formatNumber(amount);
+
     calculateTotal();
 }
+
+function getNumericValue(value) {
+    return parseFloat(value.replace(/,/g, ''));
+}
+
+function calculateTotal() {
+    let total = 0;
+    document.querySelectorAll("input[placeholder='Amount']").forEach(input => {
+        if(input.value != ""){
+            total += getNumericValue(input.value);
+        }
+        
+    });
+
+    // Format nilai total dengan koma sebagai pemisah ribuan
+    document.getElementById('total').value = formatNumber(total);
+}
+
 </script>
 
