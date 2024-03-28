@@ -1,0 +1,17 @@
+{
+    "name": "asus/omvi-project",
+    "autoload": {
+        "psr-4": {
+            "Asus\\OmviProject\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kyomik",
+            "email": "almrilhamm@gmail.com"
+        }
+    ],
+    "require": {
+        "dompdf/dompdf": "^2.0"
+    }
+}
